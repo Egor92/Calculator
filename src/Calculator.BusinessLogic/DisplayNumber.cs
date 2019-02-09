@@ -57,5 +57,35 @@ namespace Calculator.BusinessLogic
 			HasComma = DisplayNumberDefaults.HasComma;
 			FractionalPart = DisplayNumberDefaults.FractionalPart;
 		}
-    }
+	}
+
+	internal static class DisplayNumberExtensions
+	{
+		public static void ClearLastSymbol(this DisplayNumber displayNumber)
+		{
+			if (displayNumber.HasComma)
+			{
+				if (!string.IsNullOrEmpty(displayNumber.FractionalPart))
+				{
+					displayNumber.FractionalPart = displayNumber.FractionalPart.Substring(0, displayNumber.FractionalPart.Length - 1);
+				}
+				else
+				{
+					displayNumber.HasComma = false;
+				}
+			}
+			else
+			{
+				var integerPartLength = displayNumber.IntegerPart.Length;
+				if (integerPartLength > 1)
+				{
+					displayNumber.IntegerPart = displayNumber.IntegerPart.Substring(0, integerPartLength - 1);
+				}
+				else
+				{
+					displayNumber.Reset();
+				}
+			}
+		}
+	}
 }
