@@ -31,5 +31,32 @@ namespace Calculator.BusinessLogic.UnitTests
 			//Assert
 			return stringRepresentation;
 		}
+
+		[Test]
+		[TestCase(false, "123", false, null, ExpectedResult = 123)]
+		[TestCase(false, "123", true, null, ExpectedResult = 123)]
+		[TestCase(false, "123", false, "456", ExpectedResult = 123)]
+		[TestCase(false, "123", true, "456", ExpectedResult = 123.456)]
+		[TestCase(true, "123", false, null, ExpectedResult = -123)]
+		[TestCase(true, "123", true, null, ExpectedResult = -123)]
+		[TestCase(true, "123", false, "456", ExpectedResult = -123)]
+		[TestCase(true, "123", true, "456", ExpectedResult = -123.456)]
+		public double TestToDouble(bool isNegative, string integerPart, bool hasComma, string fractionalPart)
+		{
+			//Arrange
+			var displayNumber = new DisplayNumber
+			{
+				IsNegative = isNegative,
+				IntegerPart = integerPart,
+				HasComma = hasComma,
+				FractionalPart = fractionalPart,
+			};
+
+			//Act
+			var value = displayNumber.ToDouble();
+
+			//Assert
+			return value;
+		}
 	}
 }

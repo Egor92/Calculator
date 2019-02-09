@@ -8,17 +8,30 @@ namespace Calculator.BusinessLogic.UnitTests
 		private Calculator _calculator;
 
 		[Test]
+		public void DisplayValue_InitialDefaultValueIsZero()
+		{
+			//Arrange
+			_calculator = new Calculator();
+
+			//Assert
+			Assert.That(_calculator.DisplayValue, Is.EqualTo("0"));
+		}
+
+		[Test]
 		[TestCase(0, "0", false, ExpectedResult = "0")]
 		[TestCase(0, "1", false, ExpectedResult = "10")]
 		[TestCase(0, "-1", false, ExpectedResult = "-10")]
 		[TestCase(0, "0,1", false, ExpectedResult = "0,10")]
 		[TestCase(0, "0,", false, ExpectedResult = "0,0")]
 		[TestCase(999, "999", true, ExpectedResult = "0")]
-		public string ApplyZero_WhenHasDisplayValue_ThenResultIsBecomeExpected(double previousValue, string displayValue, bool wasEqualsSet)
+		public string TestApplyZero(double previousValue, string displayValue, bool wasEqualsSet)
 		{
 			//Arrange
 			var displayNumber = DisplayNumberFactory.Create(displayValue);
-			var calculatorState = new CalculatorState(previousValue, displayNumber, wasEqualsSet);
+			var calculatorState = new CalculatorState.Builder().PreviousValue(previousValue)
+			                                                   .DisplayNumber(displayNumber)
+			                                                   .WasEqualsSet(wasEqualsSet)
+			                                                   .Build();
 			_calculator = new Calculator(calculatorState);
 
 			//Act
@@ -35,11 +48,14 @@ namespace Calculator.BusinessLogic.UnitTests
 		[TestCase(0, "0,1", false, ExpectedResult = "0,11")]
 		[TestCase(0, "0,", false, ExpectedResult = "0,1")]
 		[TestCase(999, "999", true, ExpectedResult = "1")]
-		public string ApplyOne_WhenHasDisplayValue_ThenResultIsBecomeExpected(double previousValue, string displayValue, bool wasEqualsSet)
+		public string TestApplyOne(double previousValue, string displayValue, bool wasEqualsSet)
 		{
-            //Arrange
+			//Arrange
 			var displayNumber = DisplayNumberFactory.Create(displayValue);
-			var calculatorState = new CalculatorState(previousValue, displayNumber, wasEqualsSet);
+			var calculatorState = new CalculatorState.Builder().PreviousValue(previousValue)
+			                                                   .DisplayNumber(displayNumber)
+			                                                   .WasEqualsSet(wasEqualsSet)
+			                                                   .Build();
 			_calculator = new Calculator(calculatorState);
 
 			//Act
@@ -56,11 +72,14 @@ namespace Calculator.BusinessLogic.UnitTests
 		[TestCase(0, "0,1", false, ExpectedResult = "0,12")]
 		[TestCase(0, "0,", false, ExpectedResult = "0,2")]
 		[TestCase(999, "999", true, ExpectedResult = "2")]
-		public string ApplyTwo_WhenHasDisplayValue_ThenResultIsBecomeExpected(double previousValue, string displayValue, bool wasEqualsSet)
+		public string TestApplyTwo(double previousValue, string displayValue, bool wasEqualsSet)
 		{
-            //Arrange
+			//Arrange
 			var displayNumber = DisplayNumberFactory.Create(displayValue);
-			var calculatorState = new CalculatorState(previousValue, displayNumber, wasEqualsSet);
+			var calculatorState = new CalculatorState.Builder().PreviousValue(previousValue)
+			                                                   .DisplayNumber(displayNumber)
+			                                                   .WasEqualsSet(wasEqualsSet)
+			                                                   .Build();
 			_calculator = new Calculator(calculatorState);
 
 			//Act
@@ -77,11 +96,14 @@ namespace Calculator.BusinessLogic.UnitTests
 		[TestCase(0, "0,1", false, ExpectedResult = "0,13")]
 		[TestCase(0, "0,", false, ExpectedResult = "0,3")]
 		[TestCase(999, "999", true, ExpectedResult = "3")]
-		public string ApplyThree_WhenHasDisplayValue_ThenResultIsBecomeExpected(double previousValue, string displayValue, bool wasEqualsSet)
+		public string TestApplyThree(double previousValue, string displayValue, bool wasEqualsSet)
 		{
-            //Arrange
+			//Arrange
 			var displayNumber = DisplayNumberFactory.Create(displayValue);
-			var calculatorState = new CalculatorState(previousValue, displayNumber, wasEqualsSet);
+			var calculatorState = new CalculatorState.Builder().PreviousValue(previousValue)
+			                                                   .DisplayNumber(displayNumber)
+			                                                   .WasEqualsSet(wasEqualsSet)
+			                                                   .Build();
 			_calculator = new Calculator(calculatorState);
 
 			//Act
@@ -98,11 +120,14 @@ namespace Calculator.BusinessLogic.UnitTests
 		[TestCase(0, "0,1", false, ExpectedResult = "0,14")]
 		[TestCase(0, "0,", false, ExpectedResult = "0,4")]
 		[TestCase(999, "999", true, ExpectedResult = "4")]
-		public string ApplyFour_WhenHasDisplayValue_ThenResultIsBecomeExpected(double previousValue, string displayValue, bool wasEqualsSet)
+		public string TestApplyFour(double previousValue, string displayValue, bool wasEqualsSet)
 		{
-            //Arrange
+			//Arrange
 			var displayNumber = DisplayNumberFactory.Create(displayValue);
-			var calculatorState = new CalculatorState(previousValue, displayNumber, wasEqualsSet);
+			var calculatorState = new CalculatorState.Builder().PreviousValue(previousValue)
+			                                                   .DisplayNumber(displayNumber)
+			                                                   .WasEqualsSet(wasEqualsSet)
+			                                                   .Build();
 			_calculator = new Calculator(calculatorState);
 
 			//Act
@@ -119,11 +144,14 @@ namespace Calculator.BusinessLogic.UnitTests
 		[TestCase(0, "0,1", false, ExpectedResult = "0,15")]
 		[TestCase(0, "0,", false, ExpectedResult = "0,5")]
 		[TestCase(999, "999", true, ExpectedResult = "5")]
-		public string ApplyFive_WhenHasDisplayValue_ThenResultIsBecomeExpected(double previousValue, string displayValue, bool wasEqualsSet)
+		public string TestApplyFive(double previousValue, string displayValue, bool wasEqualsSet)
 		{
-            //Arrange
+			//Arrange
 			var displayNumber = DisplayNumberFactory.Create(displayValue);
-			var calculatorState = new CalculatorState(previousValue, displayNumber, wasEqualsSet);
+			var calculatorState = new CalculatorState.Builder().PreviousValue(previousValue)
+			                                                   .DisplayNumber(displayNumber)
+			                                                   .WasEqualsSet(wasEqualsSet)
+			                                                   .Build();
 			_calculator = new Calculator(calculatorState);
 
 			//Act
@@ -140,11 +168,14 @@ namespace Calculator.BusinessLogic.UnitTests
 		[TestCase(0, "0,1", false, ExpectedResult = "0,16")]
 		[TestCase(0, "0,", false, ExpectedResult = "0,6")]
 		[TestCase(999, "999", true, ExpectedResult = "6")]
-		public string ApplySix_WhenHasDisplayValue_ThenResultIsBecomeExpected(double previousValue, string displayValue, bool wasEqualsSet)
+		public string TestApplySix(double previousValue, string displayValue, bool wasEqualsSet)
 		{
-            //Arrange
+			//Arrange
 			var displayNumber = DisplayNumberFactory.Create(displayValue);
-			var calculatorState = new CalculatorState(previousValue, displayNumber, wasEqualsSet);
+			var calculatorState = new CalculatorState.Builder().PreviousValue(previousValue)
+			                                                   .DisplayNumber(displayNumber)
+			                                                   .WasEqualsSet(wasEqualsSet)
+			                                                   .Build();
 			_calculator = new Calculator(calculatorState);
 
 			//Act
@@ -161,11 +192,14 @@ namespace Calculator.BusinessLogic.UnitTests
 		[TestCase(0, "0,1", false, ExpectedResult = "0,17")]
 		[TestCase(0, "0,", false, ExpectedResult = "0,7")]
 		[TestCase(999, "999", true, ExpectedResult = "7")]
-		public string ApplySeven_WhenHasDisplayValue_ThenResultIsBecomeExpected(double previousValue, string displayValue, bool wasEqualsSet)
+		public string TestApplySeven(double previousValue, string displayValue, bool wasEqualsSet)
 		{
-            //Arrange
+			//Arrange
 			var displayNumber = DisplayNumberFactory.Create(displayValue);
-			var calculatorState = new CalculatorState(previousValue, displayNumber, wasEqualsSet);
+			var calculatorState = new CalculatorState.Builder().PreviousValue(previousValue)
+			                                                   .DisplayNumber(displayNumber)
+			                                                   .WasEqualsSet(wasEqualsSet)
+			                                                   .Build();
 			_calculator = new Calculator(calculatorState);
 
 			//Act
@@ -182,11 +216,14 @@ namespace Calculator.BusinessLogic.UnitTests
 		[TestCase(0, "0,1", false, ExpectedResult = "0,18")]
 		[TestCase(0, "0,", false, ExpectedResult = "0,8")]
 		[TestCase(999, "999", true, ExpectedResult = "8")]
-		public string ApplyEight_WhenHasDisplayValue_ThenResultIsBecomeExpected(double previousValue, string displayValue, bool wasEqualsSet)
+		public string TestApplyEight(double previousValue, string displayValue, bool wasEqualsSet)
 		{
-            //Arrange
+			//Arrange
 			var displayNumber = DisplayNumberFactory.Create(displayValue);
-			var calculatorState = new CalculatorState(previousValue, displayNumber, wasEqualsSet);
+			var calculatorState = new CalculatorState.Builder().PreviousValue(previousValue)
+			                                                   .DisplayNumber(displayNumber)
+			                                                   .WasEqualsSet(wasEqualsSet)
+			                                                   .Build();
 			_calculator = new Calculator(calculatorState);
 
 			//Act
@@ -203,15 +240,42 @@ namespace Calculator.BusinessLogic.UnitTests
 		[TestCase(0, "0,1", false, ExpectedResult = "0,19")]
 		[TestCase(0, "0,", false, ExpectedResult = "0,9")]
 		[TestCase(999, "999", true, ExpectedResult = "9")]
-		public string ApplyNine_WhenHasDisplayValue_ThenResultIsBecomeExpected(double previousValue, string displayValue, bool wasEqualsSet)
+		public string TestApplyNine(double previousValue, string displayValue, bool wasEqualsSet)
 		{
-            //Arrange
+			//Arrange
 			var displayNumber = DisplayNumberFactory.Create(displayValue);
-			var calculatorState = new CalculatorState(previousValue, displayNumber, wasEqualsSet);
+			var calculatorState = new CalculatorState.Builder().PreviousValue(previousValue)
+			                                                   .DisplayNumber(displayNumber)
+			                                                   .WasEqualsSet(wasEqualsSet)
+			                                                   .Build();
 			_calculator = new Calculator(calculatorState);
 
 			//Act
 			_calculator.ApplyNine();
+
+			//Assert
+			return _calculator.DisplayValue;
+		}
+
+		[Test]
+		[TestCase(0, "0", false, ExpectedResult = "0,")]
+		[TestCase(0, "1", false, ExpectedResult = "1,")]
+		[TestCase(0, "0,", false, ExpectedResult = "0,")]
+		[TestCase(0, "-1,", false, ExpectedResult = "-1,")]
+		[TestCase(0, "1,234", false, ExpectedResult = "1,234")]
+		[TestCase(0, "123", true, ExpectedResult = "0,")]
+		public string TestApplyComma(double previousValue, string displayValue, bool wasEqualsSet)
+		{
+            //Arrange
+			var displayNumber = DisplayNumberFactory.Create(displayValue);
+			var calculatorState = new CalculatorState.Builder().PreviousValue(previousValue)
+			                                                   .DisplayNumber(displayNumber)
+			                                                   .WasEqualsSet(wasEqualsSet)
+			                                                   .Build();
+			_calculator = new Calculator(calculatorState);
+
+            //Act
+            _calculator.ApplyComma();
 
 			//Assert
 			return _calculator.DisplayValue;
@@ -225,18 +289,109 @@ namespace Calculator.BusinessLogic.UnitTests
 		[TestCase(0, "0,", false, ExpectedResult = "-0,")]
 		[TestCase(0, "0,0", false, ExpectedResult = "-0,0")]
 		[TestCase(999, "999", true, ExpectedResult = "-999")]
-		public string ApplyNegation_WhenHasDisplayValue_ThenResultIsBecomeExpected(double previousValue, string displayValue, bool wasEqualsSet)
+		public string TestApplyNegation(double previousValue, string displayValue, bool wasEqualsSet)
 		{
-            //Arrange
+			//Arrange
 			var displayNumber = DisplayNumberFactory.Create(displayValue);
-			var calculatorState = new CalculatorState(previousValue, displayNumber, wasEqualsSet);
+			var calculatorState = new CalculatorState.Builder().PreviousValue(previousValue)
+			                                                   .DisplayNumber(displayNumber)
+			                                                   .WasEqualsSet(wasEqualsSet)
+			                                                   .Build();
 			_calculator = new Calculator(calculatorState);
 
-            //Act
-            _calculator.ApplyNegation();
+			//Act
+			_calculator.ApplyNegation();
 
-            //Assert
+			//Assert
 			return _calculator.DisplayValue;
 		}
-    }
+
+		[Test]
+		[TestCase(50, "-10")]
+		[TestCase(50, "0")]
+		[TestCase(50, "10")]
+		[TestCase(50, "1,123")]
+		public void ApplyAddition_DisplayValueDoesNotChange(double previousValue, string displayValue)
+		{
+			//Arrange
+			var displayNumber = DisplayNumberFactory.Create(displayValue);
+			var calculatorState = new CalculatorState.Builder().PreviousValue(previousValue)
+			                                                   .DisplayNumber(displayNumber)
+			                                                   .Build();
+			_calculator = new Calculator(calculatorState);
+			var initialDisplayValue = _calculator.DisplayValue;
+
+			//Act
+			_calculator.ApplyAddition();
+
+			//Assert
+			Assert.That(_calculator.DisplayValue, Is.EqualTo(initialDisplayValue));
+		}
+
+		[Test]
+		[TestCase(50, "-10")]
+		[TestCase(50, "0")]
+		[TestCase(50, "10")]
+		[TestCase(50, "1,123")]
+		public void ApplySubtraction_DisplayValueDoesNotChange(double previousValue, string displayValue)
+		{
+			//Arrange
+			var displayNumber = DisplayNumberFactory.Create(displayValue);
+			var calculatorState = new CalculatorState.Builder().PreviousValue(previousValue)
+			                                                   .DisplayNumber(displayNumber)
+			                                                   .Build();
+			_calculator = new Calculator(calculatorState);
+			var initialDisplayValue = _calculator.DisplayValue;
+
+			//Act
+			_calculator.ApplySubtraction();
+
+			//Assert
+			Assert.That(_calculator.DisplayValue, Is.EqualTo(initialDisplayValue));
+		}
+
+		[Test]
+		[TestCase(50, "-10")]
+		[TestCase(50, "0")]
+		[TestCase(50, "10")]
+		[TestCase(50, "1,123")]
+		public void ApplyMultiplication_DisplayValueDoesNotChange(double previousValue, string displayValue)
+		{
+			//Arrange
+			var displayNumber = DisplayNumberFactory.Create(displayValue);
+			var calculatorState = new CalculatorState.Builder().PreviousValue(previousValue)
+			                                                   .DisplayNumber(displayNumber)
+			                                                   .Build();
+			_calculator = new Calculator(calculatorState);
+			var initialDisplayValue = _calculator.DisplayValue;
+
+			//Act
+			_calculator.ApplyMultiplication();
+
+			//Assert
+			Assert.That(_calculator.DisplayValue, Is.EqualTo(initialDisplayValue));
+		}
+
+		[Test]
+		[TestCase(50, "-10")]
+		[TestCase(50, "0")]
+		[TestCase(50, "10")]
+		[TestCase(50, "1,123")]
+		public void ApplyDivision_DisplayValueDoesNotChange(double previousValue, string displayValue)
+		{
+			//Arrange
+			var displayNumber = DisplayNumberFactory.Create(displayValue);
+			var calculatorState = new CalculatorState.Builder().PreviousValue(previousValue)
+			                                                   .DisplayNumber(displayNumber)
+			                                                   .Build();
+			_calculator = new Calculator(calculatorState);
+			var initialDisplayValue = _calculator.DisplayValue;
+
+			//Act
+			_calculator.ApplyDivision();
+
+			//Assert
+			Assert.That(_calculator.DisplayValue, Is.EqualTo(initialDisplayValue));
+		}
+	}
 }

@@ -36,5 +36,5 @@ namespace Calculator.BusinessLogic
 			var group = match.Groups[index];
 			return group.Value;
 		}
-	}
+    }
 }

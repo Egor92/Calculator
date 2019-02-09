@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace Calculator.BusinessLogic
 {
@@ -6,8 +7,9 @@ namespace Calculator.BusinessLogic
 	{
 		#region Fields
 
+		private readonly CultureInfo _cultureInfo;
 		private double _previousValue = 0;
-		private bool _isEqualsSet = false;
+		private bool _isEqualitySet = false;
 		private readonly DisplayNumber _displayNumber = new DisplayNumber();
 
 		#endregion
@@ -16,72 +18,106 @@ namespace Calculator.BusinessLogic
 
 		public Calculator()
 		{
+			var cultureInfo = (CultureInfo) CultureInfo.InvariantCulture.Clone();
+			cultureInfo.NumberFormat.NumberDecimalSeparator = ",";
+			_cultureInfo = cultureInfo;
+
+			DisplayValue = _displayNumber.ToString();
 		}
 
 		internal Calculator(CalculatorState state)
+			: this()
 		{
 			_previousValue = state.PreviousValue;
-			_isEqualsSet = state.WasEqualsSet;
+			_isEqualitySet = state.WasEqualsSet;
 			_displayNumber = state.DisplayNumber;
+			DisplayValue = _displayNumber.ToString();
 		}
 
 		#endregion
 
 		#region Implementation of ICalculator
 
-		public string DisplayValue
-		{
-			get { return _displayNumber.ToString(); }
-		}
+		public string DisplayValue { get; private set; }
 
 		public void ApplyZero()
 		{
-			ApplyNumber('0');
+			UpdateDisplayNumber(() =>
+			{
+				ApplyNumber('0');
+			});
 		}
 
 		public void ApplyOne()
 		{
-			ApplyNumber('1');
+			UpdateDisplayNumber(() =>
+			{
+				ApplyNumber('1');
+			});
 		}
 
 		public void ApplyTwo()
 		{
-			ApplyNumber('2');
+			UpdateDisplayNumber(() =>
+			{
+				ApplyNumber('2');
+			});
 		}
 
 		public void ApplyThree()
 		{
-			ApplyNumber('3');
+			UpdateDisplayNumber(() =>
+			{
+				ApplyNumber('3');
+			});
 		}
 
 		public void ApplyFour()
 		{
-			ApplyNumber('4');
+			UpdateDisplayNumber(() =>
+			{
+				ApplyNumber('4');
+			});
 		}
 
 		public void ApplyFive()
 		{
-			ApplyNumber('5');
+			UpdateDisplayNumber(() =>
+			{
+				ApplyNumber('5');
+			});
 		}
 
 		public void ApplySix()
 		{
-			ApplyNumber('6');
+			UpdateDisplayNumber(() =>
+			{
+				ApplyNumber('6');
+			});
 		}
 
 		public void ApplySeven()
 		{
-			ApplyNumber('7');
+			UpdateDisplayNumber(() =>
+			{
+				ApplyNumber('7');
+			});
 		}
 
 		public void ApplyEight()
 		{
-			ApplyNumber('8');
+			UpdateDisplayNumber(() =>
+			{
+				ApplyNumber('8');
+			});
 		}
 
 		public void ApplyNine()
 		{
-			ApplyNumber('9');
+			UpdateDisplayNumber(() =>
+			{
+				ApplyNumber('9');
+			});
 		}
 
 		private void ApplyNumber(char symbol)
@@ -91,7 +127,7 @@ namespace Calculator.BusinessLogic
 				_displayNumber.IntegerPart = string.Empty;
 			}
 
-			if (_isEqualsSet)
+			if (_isEqualitySet)
 			{
 				_displayNumber.IntegerPart = string.Empty;
 			}
@@ -106,22 +142,74 @@ namespace Calculator.BusinessLogic
 			}
 		}
 
-		public void ApplyAddition()
+		public void ApplyNegation()
+		{
+			UpdateDisplayNumber(() =>
+			{
+				if (_displayNumber.IsDefault())
+					return;
+
+				_displayNumber.IsNegative = !_displayNumber.IsNegative;
+			});
+		}
+
+		public void ApplyComma()
+		{
+			UpdateDisplayNumber(() =>
+			{
+				if (_isEqualitySet)
+				{
+					_displayNumber.Reset();
+				}
+
+				_displayNumber.HasComma = true;
+			});
+		}
+
+		public void Clear()
 		{
 			throw new NotImplementedException();
+		}
+
+		public void ClearLastSymbol()
+		{
+			throw new NotImplementedException();
+		}
+
+		public void Cancel()
+		{
+			throw new NotImplementedException();
+		}
+
+		public void ApplyAddition()
+		{
+			return;
+
+			ApplyOperation(() =>
+			{
+				_previousValue += _displayNumber.ToDouble();
+			});
 		}
 
 		public void ApplySubtraction()
 		{
-			throw new NotImplementedException();
+			return;
+
+			ApplyOperation(() =>
+			{
+				_previousValue -= _displayNumber.ToDouble();
+			});
 		}
 
 		public void ApplyMultiplication()
 		{
-			throw new NotImplementedException();
 		}
 
 		public void ApplyDivision()
+		{
+		}
+
+		public void ApplyEquality()
 		{
 			throw new NotImplementedException();
 		}
@@ -146,39 +234,18 @@ namespace Calculator.BusinessLogic
 			throw new NotImplementedException();
 		}
 
-		public void Clear()
-		{
-			throw new NotImplementedException();
-		}
-
-		public void ClearLastSymbol()
-		{
-			throw new NotImplementedException();
-		}
-
-		public void Cancel()
-		{
-			throw new NotImplementedException();
-		}
-
-		public void ApplyNegation()
-		{
-			if (_displayNumber.IsDefault())
-				return;
-
-			_displayNumber.IsNegative = !_displayNumber.IsNegative;
-		}
-
-		public void ApplyDot()
-		{
-			throw new NotImplementedException();
-		}
-
-		public void ApplyEquality()
-		{
-			throw new NotImplementedException();
-		}
-
 		#endregion
+
+		private void UpdateDisplayNumber(Action action)
+		{
+			action();
+			DisplayValue = _displayNumber.ToString();
+		}
+
+		private void ApplyOperation(Action action)
+		{
+			action();
+			DisplayValue = _previousValue.ToString(_cultureInfo);
+		}
 	}
 }

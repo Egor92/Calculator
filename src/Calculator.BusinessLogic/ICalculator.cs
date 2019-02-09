@@ -48,7 +48,7 @@
 
 		void ApplyNegation();
 
-		void ApplyDot();
+		void ApplyComma();
 
 		void ApplyEquality();
 	}

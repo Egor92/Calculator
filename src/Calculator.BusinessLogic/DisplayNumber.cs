@@ -7,10 +7,7 @@ namespace Calculator.BusinessLogic
 	{
 		public DisplayNumber()
 		{
-			IsNegative = DisplayNumberDefaults.IsNegative;
-			IntegerPart = DisplayNumberDefaults.IntegerPart;
-			HasComma = DisplayNumberDefaults.HasComma;
-			FractionalPart = DisplayNumberDefaults.FractionalPart;
+			Reset();
 		}
 
 		public bool IsNegative { get; set; }
@@ -46,5 +43,19 @@ namespace Calculator.BusinessLogic
 
 			return stringBuilder.ToString();
 		}
-	}
+
+		public double ToDouble()
+		{
+			var stringRepresentation = ToString();
+			return double.Parse(stringRepresentation);
+		}
+
+		public void Reset()
+		{
+			IsNegative = DisplayNumberDefaults.IsNegative;
+			IntegerPart = DisplayNumberDefaults.IntegerPart;
+			HasComma = DisplayNumberDefaults.HasComma;
+			FractionalPart = DisplayNumberDefaults.FractionalPart;
+		}
+    }
 }
