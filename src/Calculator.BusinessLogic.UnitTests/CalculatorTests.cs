@@ -286,7 +286,7 @@ namespace Calculator.BusinessLogic.UnitTests
 		[TestCase("0,")]
 		[TestCase("1,234")]
 		[TestCase("-1,234")]
-		public void ApplyClear_WhenAnyDisplayValue_ThenDisplayValueWillBeReset(string displayValue)
+		public void Clear_WhenAnyDisplayValue_ThenDisplayValueWillBeReset(string displayValue)
 		{
 			//Arrange
 			var displayNumber = DisplayNumberFactory.Create(displayValue);
@@ -356,6 +356,40 @@ namespace Calculator.BusinessLogic.UnitTests
 		}
 
 		[Test]
+		public void Cancel_WhenCancel_ThenDisplayValueIsZero()
+		{
+			//Arrange
+			var displayNumber = DisplayNumberFactory.Create("123");
+			var calculatorState = new CalculatorState.Builder().DisplayNumber(displayNumber)
+			                                                   .Build();
+			_calculator = new Calculator(calculatorState);
+
+			//Act
+			_calculator.Cancel();
+
+			//Assert
+			Assert.That(_calculator.DisplayValue, Is.EqualTo("0"));
+		}
+
+		[Test]
+		public void Cancel_WhenAnyNumberAndOperationWereAppliedAndThenApplyEquality_ThenDisplayValueIsZero()
+		{
+			//Arrange
+			var displayNumber = DisplayNumberFactory.Create("123");
+			var calculatorState = new CalculatorState.Builder().PreviousValue(456)
+			                                                   .DisplayNumber(displayNumber)
+			                                                   .Build();
+			_calculator = new Calculator(calculatorState);
+
+			//Act
+			_calculator.Cancel();
+			_calculator.ApplyEquality();
+
+            //Assert
+			Assert.That(_calculator.DisplayValue, Is.EqualTo("0"));
+        }
+
+        [Test]
 		[TestCase(50, "-10")]
 		[TestCase(50, "0")]
 		[TestCase(50, "10")]
@@ -442,5 +476,73 @@ namespace Calculator.BusinessLogic.UnitTests
 			//Assert
 			Assert.That(_calculator.DisplayValue, Is.EqualTo(initialDisplayValue));
 		}
-	}
+
+		[Test]
+		public void ApplyEquality_WhenAdditionWasApplied_ThenSumNumbers()
+		{
+			//Arrange
+			_calculator = new Calculator();
+
+			_calculator.ApplyTwo();
+			_calculator.ApplyAddition();
+			_calculator.ApplyThree();
+
+			//Act
+			_calculator.ApplyEquality();
+
+            //Assert
+			Assert.That(_calculator.DisplayValue, Is.EqualTo("5"));
+        }
+
+		[Test]
+		public void ApplyEquality_WhenSubtractionWasApplied_ThenSubtractNumbers()
+		{
+			//Arrange
+			_calculator = new Calculator();
+
+			_calculator.ApplyTwo();
+			_calculator.ApplySubtraction();
+			_calculator.ApplyThree();
+
+			//Act
+			_calculator.ApplyEquality();
+
+            //Assert
+			Assert.That(_calculator.DisplayValue, Is.EqualTo("-1"));
+        }
+
+		[Test]
+		public void ApplyEquality_WhenMultiplicationWasApplied_ThenMultNumbers()
+		{
+			//Arrange
+			_calculator = new Calculator();
+
+			_calculator.ApplyTwo();
+			_calculator.ApplyMultiplication();
+			_calculator.ApplyThree();
+
+			//Act
+			_calculator.ApplyEquality();
+
+            //Assert
+			Assert.That(_calculator.DisplayValue, Is.EqualTo("6"));
+        }
+
+		[Test]
+		public void ApplyEquality_WhenDivisionWasApplied_ThenDivideNumbers()
+		{
+			//Arrange
+			_calculator = new Calculator();
+
+			_calculator.ApplyTwo();
+			_calculator.ApplyDivision();
+			_calculator.ApplyThree();
+
+			//Act
+			_calculator.ApplyEquality();
+
+            //Assert
+			Assert.That(_calculator.DisplayValue, Is.EqualTo("6"));
+        }
+    }
 }

@@ -9,8 +9,9 @@ namespace Calculator.BusinessLogic
 
 		private readonly CultureInfo _cultureInfo;
 		private double _previousValue = 0;
-		private bool _isEqualitySet = false;
+		private bool _wasOperationApplied = false;
 		private readonly DisplayNumber _displayNumber = new DisplayNumber();
+		private BinaryOperation _selectedBinaryOperation;
 
 		#endregion
 
@@ -29,7 +30,7 @@ namespace Calculator.BusinessLogic
 			: this()
 		{
 			_previousValue = state.PreviousValue;
-			_isEqualitySet = state.WasEqualsSet;
+			_wasOperationApplied = state.WasEqualsSet;
 			_displayNumber = state.DisplayNumber;
 			DisplayValue = _displayNumber.ToString();
 		}
@@ -127,7 +128,7 @@ namespace Calculator.BusinessLogic
 				_displayNumber.IntegerPart = string.Empty;
 			}
 
-			if (_isEqualitySet)
+			if (_wasOperationApplied)
 			{
 				_displayNumber.IntegerPart = string.Empty;
 			}
@@ -157,7 +158,7 @@ namespace Calculator.BusinessLogic
 		{
 			UpdateDisplayNumber(() =>
 			{
-				if (_isEqualitySet)
+				if (_wasOperationApplied)
 				{
 					_displayNumber.Reset();
 				}
@@ -176,7 +177,7 @@ namespace Calculator.BusinessLogic
 
 		public void ClearLastSymbol()
 		{
-			if (_isEqualitySet)
+			if (_wasOperationApplied)
 				return;
 
 			UpdateDisplayNumber(() =>
@@ -209,40 +210,56 @@ namespace Calculator.BusinessLogic
 
 		public void Cancel()
 		{
-			throw new NotImplementedException();
+			UpdateDisplayNumber(() =>
+			{
+				_displayNumber.Reset();
+			});
 		}
 
 		public void ApplyAddition()
 		{
-			return;
-
 			ApplyOperation(() =>
 			{
-				_previousValue += _displayNumber.ToDouble();
+				_selectedBinaryOperation = BinaryOperations.Addition;
 			});
 		}
 
 		public void ApplySubtraction()
 		{
-			return;
-
 			ApplyOperation(() =>
 			{
-				_previousValue -= _displayNumber.ToDouble();
+				_selectedBinaryOperation = BinaryOperations.Subtraction;
 			});
 		}
 
-		public void ApplyMultiplication()
+        public void ApplyMultiplication()
+		{
+			ApplyOperation(() =>
+			{
+				_selectedBinaryOperation = BinaryOperations.Multiplication;
+			});
+		}
+
+        public void ApplyDivision()
 		{
 		}
 
-		public void ApplyDivision()
+		private void ApplyOperation(Action action)
 		{
+			action();
+			_wasOperationApplied = true;
+			_previousValue = _displayNumber.ToDouble();
 		}
 
 		public void ApplyEquality()
 		{
-			throw new NotImplementedException();
+			if (_selectedBinaryOperation == null)
+				return;
+
+			ApplyEquality(() =>
+			{
+				_previousValue = _selectedBinaryOperation.Execute(_previousValue, _displayNumber.ToDouble());
+			});
 		}
 
 		public void ApplyPercent()
@@ -273,7 +290,7 @@ namespace Calculator.BusinessLogic
 			DisplayValue = _displayNumber.ToString();
 		}
 
-		private void ApplyOperation(Action action)
+		private void ApplyEquality(Action action)
 		{
 			action();
 			DisplayValue = _previousValue.ToString(_cultureInfo);
