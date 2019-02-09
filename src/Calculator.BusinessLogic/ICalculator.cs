@@ -1,55 +1,55 @@
 ﻿namespace Calculator.BusinessLogic
 {
-	public interface ICalculator
-	{
-		string DisplayValue { get; }
+    public interface ICalculator
+    {
+        string DisplayValue { get; }
 
-		void ApplyZero();
+        void ApplyZero();
 
-		void ApplyOne();
+        void ApplyOne();
 
-		void ApplyTwo();
+        void ApplyTwo();
 
-		void ApplyThree();
+        void ApplyThree();
 
-		void ApplyFour();
+        void ApplyFour();
 
-		void ApplyFive();
+        void ApplyFive();
 
-		void ApplySix();
+        void ApplySix();
 
-		void ApplySeven();
+        void ApplySeven();
 
-		void ApplyEight();
+        void ApplyEight();
 
-		void ApplyNine();
+        void ApplyNine();
 
-		void ApplyAddition();
+        void ApplyAddition();
 
-		void ApplySubtraction();
+        void ApplySubtraction();
 
-		void ApplyMultiplication();
+        void ApplyMultiplication();
 
-		void ApplyDivision();
+        void ApplyDivision();
 
-		void ApplyPercent();
+        void ApplyPercent();
 
-		void ApplySquareRoot();
+        void ApplySquareRoot();
 
-		void ApplySquaring();
+        void ApplySquaring();
 
-		void ApplyTurningOver();
+        void ApplyTurningOver();
 
-		void Clear();
+        void Clear();
 
-		void ClearLastSymbol();
+        void ClearLastSymbol();
 
-		void Cancel();
+        void Cancel();
 
-		void ApplyNegation();
+        void ApplyNegation();
 
-		void ApplyComma();
+        void ApplyComma();
 
-		void ApplyEquality();
-	}
+        void ApplyEquality();
+    }
 }
