@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using Calculator.BusinessLogic.Operations;
 
 namespace Calculator.BusinessLogic
 {
@@ -11,7 +12,7 @@ namespace Calculator.BusinessLogic
 		private double _previousValue = 0;
 		private bool _wasOperationApplied = false;
 		private readonly DisplayNumber _displayNumber = new DisplayNumber();
-		private BinaryOperation _selectedBinaryOperation;
+		private IBinaryOperation _selectedBinaryOperation;
 
 		#endregion
 
@@ -220,7 +221,7 @@ namespace Calculator.BusinessLogic
 		{
 			ApplyOperation(() =>
 			{
-				_selectedBinaryOperation = BinaryOperations.Addition;
+				_selectedBinaryOperation = Operations.Operations.Addition;
 			});
 		}
 
@@ -228,20 +229,24 @@ namespace Calculator.BusinessLogic
 		{
 			ApplyOperation(() =>
 			{
-				_selectedBinaryOperation = BinaryOperations.Subtraction;
+				_selectedBinaryOperation = Operations.Operations.Subtraction;
 			});
 		}
 
-        public void ApplyMultiplication()
+		public void ApplyMultiplication()
 		{
 			ApplyOperation(() =>
 			{
-				_selectedBinaryOperation = BinaryOperations.Multiplication;
+				_selectedBinaryOperation = Operations.Operations.Multiplication;
 			});
 		}
 
-        public void ApplyDivision()
+		public void ApplyDivision()
 		{
+			ApplyOperation(() =>
+			{
+				_selectedBinaryOperation = Operations.Operations.Division;
+			});
 		}
 
 		private void ApplyOperation(Action action)
@@ -256,10 +261,18 @@ namespace Calculator.BusinessLogic
 			if (_selectedBinaryOperation == null)
 				return;
 
-			ApplyEquality(() =>
+			var value1 = _previousValue;
+			var value2 = _displayNumber.ToDouble();
+			var executableInfo = _selectedBinaryOperation.GetExecutableInfo(value1, value2);
+			if (executableInfo.CanBeExecuted)
 			{
-				_previousValue = _selectedBinaryOperation.Execute(_previousValue, _displayNumber.ToDouble());
-			});
+				_previousValue = _selectedBinaryOperation.Execute(value1, value2);
+				DisplayValue = _previousValue.ToString(_cultureInfo);
+			}
+			else
+			{
+				DisplayValue = executableInfo.Message;
+			}
 		}
 
 		public void ApplyPercent()
@@ -288,12 +301,6 @@ namespace Calculator.BusinessLogic
 		{
 			action();
 			DisplayValue = _displayNumber.ToString();
-		}
-
-		private void ApplyEquality(Action action)
-		{
-			action();
-			DisplayValue = _previousValue.ToString(_cultureInfo);
 		}
 	}
 }

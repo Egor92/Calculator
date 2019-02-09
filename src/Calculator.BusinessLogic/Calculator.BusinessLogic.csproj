@@ -42,13 +42,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\Messages.cs" />
+    <Compile Include="Operations\Addition.cs" />
+    <Compile Include="Operations\Division.cs" />
+    <Compile Include="Operations\Multiplication.cs" />
+    <Compile Include="Operations\Operations.cs" />
     <Compile Include="Calculator.cs" />
     <Compile Include="CalculatorState.cs" />
     <Compile Include="CalculatorStateFactory.cs" />
     <Compile Include="Constants\DisplayNumberDefaults.cs" />
     <Compile Include="DisplayNumber.cs" />
     <Compile Include="ICalculator.cs" />
-    <Compile Include="BinaryOperation.cs" />
+    <Compile Include="Operations\IBinaryOperation.cs" />
+    <Compile Include="Operations\ExecutableInfo.cs" />
+    <Compile Include="Operations\Subtraction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

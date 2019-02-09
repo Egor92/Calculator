@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Calculator.BusinessLogic.Constants;
+using NUnit.Framework;
 
 namespace Calculator.BusinessLogic.UnitTests
 {
@@ -536,13 +537,30 @@ namespace Calculator.BusinessLogic.UnitTests
 
 			_calculator.ApplyTwo();
 			_calculator.ApplyDivision();
-			_calculator.ApplyThree();
+			_calculator.ApplyFour();
 
 			//Act
 			_calculator.ApplyEquality();
 
             //Assert
-			Assert.That(_calculator.DisplayValue, Is.EqualTo("6"));
+			Assert.That(_calculator.DisplayValue, Is.EqualTo("0,5"));
         }
+
+		[Test]
+		public void ApplyEquality_WhenOperationIsDivisionAndValueIsZero_ThenDisplayValueShouldBeCannotDivideByZero()
+		{
+			//Arrange
+			_calculator = new Calculator();
+
+			_calculator.ApplyTwo();
+			_calculator.ApplyDivision();
+			_calculator.ApplyZero();
+
+			//Act
+			_calculator.ApplyEquality();
+
+			//Assert
+			Assert.That(_calculator.DisplayValue, Is.EqualTo(Messages.DivisionOnZero));
+		}
     }
 }
