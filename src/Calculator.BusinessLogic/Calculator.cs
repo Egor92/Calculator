@@ -168,7 +168,10 @@ namespace Calculator.BusinessLogic
 
 		public void Clear()
 		{
-			throw new NotImplementedException();
+			UpdateDisplayNumber(() =>
+			{
+				_displayNumber.Reset();
+			});
 		}
 
 		public void ClearLastSymbol()

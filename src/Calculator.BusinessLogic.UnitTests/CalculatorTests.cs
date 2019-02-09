@@ -282,6 +282,26 @@ namespace Calculator.BusinessLogic.UnitTests
 		}
 
 		[Test]
+		[TestCase("0")]
+		[TestCase("0,")]
+		[TestCase("1,234")]
+		[TestCase("-1,234")]
+		public void ApplyClear_WhenAnyDisplayValue_ThenDisplayValueWillBeReset(string displayValue)
+		{
+            //Arrange
+			var displayNumber = DisplayNumberFactory.Create(displayValue);
+			var calculatorState = new CalculatorState.Builder().DisplayNumber(displayNumber)
+			                                                   .Build();
+			_calculator = new Calculator(calculatorState);
+
+            //Act
+			_calculator.Clear();
+
+            //Assert
+			Assert.That(_calculator.DisplayValue, Is.EqualTo("0"));
+        }
+
+        [Test]
 		[TestCase(0, "0", false, ExpectedResult = "0")]
 		[TestCase(0, "1", false, ExpectedResult = "-1")]
 		[TestCase(0, "-1", false, ExpectedResult = "1")]
