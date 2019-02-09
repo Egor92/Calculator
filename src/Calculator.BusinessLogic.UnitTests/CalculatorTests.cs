@@ -266,7 +266,7 @@ namespace Calculator.BusinessLogic.UnitTests
 		[TestCase(0, "123", true, ExpectedResult = "0,")]
 		public string TestApplyComma(double previousValue, string displayValue, bool wasEqualsSet)
 		{
-            //Arrange
+			//Arrange
 			var displayNumber = DisplayNumberFactory.Create(displayValue);
 			var calculatorState = new CalculatorState.Builder().PreviousValue(previousValue)
 			                                                   .DisplayNumber(displayNumber)
@@ -274,8 +274,8 @@ namespace Calculator.BusinessLogic.UnitTests
 			                                                   .Build();
 			_calculator = new Calculator(calculatorState);
 
-            //Act
-            _calculator.ApplyComma();
+			//Act
+			_calculator.ApplyComma();
 
 			//Assert
 			return _calculator.DisplayValue;
@@ -288,20 +288,49 @@ namespace Calculator.BusinessLogic.UnitTests
 		[TestCase("-1,234")]
 		public void ApplyClear_WhenAnyDisplayValue_ThenDisplayValueWillBeReset(string displayValue)
 		{
-            //Arrange
+			//Arrange
 			var displayNumber = DisplayNumberFactory.Create(displayValue);
 			var calculatorState = new CalculatorState.Builder().DisplayNumber(displayNumber)
 			                                                   .Build();
 			_calculator = new Calculator(calculatorState);
 
-            //Act
+			//Act
 			_calculator.Clear();
 
-            //Assert
+			//Assert
 			Assert.That(_calculator.DisplayValue, Is.EqualTo("0"));
-        }
+		}
 
-        [Test]
+		[Test]
+		[TestCase("0", false, ExpectedResult = "0")]
+		[TestCase("1", false, ExpectedResult = "0")]
+		[TestCase("12", false, ExpectedResult = "1")]
+		[TestCase("-12", false, ExpectedResult = "-1")]
+		[TestCase("-1", false, ExpectedResult = "0")]
+		[TestCase("0,", false, ExpectedResult = "0")]
+		[TestCase("1,", false, ExpectedResult = "1")]
+		[TestCase("0,0", false, ExpectedResult = "0,")]
+		[TestCase("1,0", false, ExpectedResult = "1,")]
+		[TestCase("1,23", false, ExpectedResult = "1,2")]
+		[TestCase("-1,23", false, ExpectedResult = "-1,2")]
+		[TestCase("-1,23", true, ExpectedResult = "-1,23")]
+		public string TestClearLastSymbol(string displayValue, bool wasEqualsSet)
+		{
+			//Arrange
+			var displayNumber = DisplayNumberFactory.Create(displayValue);
+			var calculatorState = new CalculatorState.Builder().DisplayNumber(displayNumber)
+			                                                   .WasEqualsSet(wasEqualsSet)
+			                                                   .Build();
+			_calculator = new Calculator(calculatorState);
+
+			//Act
+			_calculator.ClearLastSymbol();
+
+			//Assert
+			return _calculator.DisplayValue;
+		}
+
+		[Test]
 		[TestCase(0, "0", false, ExpectedResult = "0")]
 		[TestCase(0, "1", false, ExpectedResult = "-1")]
 		[TestCase(0, "-1", false, ExpectedResult = "1")]

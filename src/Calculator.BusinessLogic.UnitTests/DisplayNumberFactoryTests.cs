@@ -6,13 +6,13 @@ namespace Calculator.BusinessLogic.UnitTests
 	public class DisplayNumberFactoryTests
 	{
 		[Test]
-		[TestCase(false, "123", false, null, "123")]
-		[TestCase(false, "123", true, null, "123,")]
-		[TestCase(false, "123", false, null, "123")]
+		[TestCase(false, "123", false, "", "123")]
+		[TestCase(false, "123", true, "", "123,")]
+		[TestCase(false, "123", false, "", "123")]
 		[TestCase(false, "123", true, "456", "123,456")]
-		[TestCase(true, "123", false, null, "-123")]
-		[TestCase(true, "123", true, null, "-123,")]
-		[TestCase(true, "123", false, null, "-123")]
+		[TestCase(true, "123", false, "", "-123")]
+		[TestCase(true, "123", true, "", "-123,")]
+		[TestCase(true, "123", false, "", "-123")]
 		[TestCase(true, "123", true, "456", "-123,456")]
 		public void TestCreate(bool isNegative, string integerPart, bool hasComma, string fractionalPart, string displayValue)
 		{

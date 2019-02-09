@@ -17,10 +17,6 @@ namespace Calculator.BusinessLogic
 			string integerPart = GetValue(match, 2);
 			bool hasComma = GetValue(match, 3) == ",";
 			string fractionalPart = GetValue(match, 4);
-			if (string.IsNullOrEmpty(fractionalPart))
-			{
-				fractionalPart = null;
-			}
 
 			return new DisplayNumber
 			{

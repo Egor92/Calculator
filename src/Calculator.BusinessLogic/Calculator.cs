@@ -176,7 +176,35 @@ namespace Calculator.BusinessLogic
 
 		public void ClearLastSymbol()
 		{
-			throw new NotImplementedException();
+			if (_isEqualitySet)
+				return;
+
+			UpdateDisplayNumber(() =>
+			{
+				if (_displayNumber.HasComma)
+				{
+					if (!string.IsNullOrEmpty(_displayNumber.FractionalPart))
+					{
+						_displayNumber.FractionalPart = _displayNumber.FractionalPart.Substring(0, _displayNumber.FractionalPart.Length - 1);
+					}
+					else
+					{
+						_displayNumber.HasComma = false;
+					}
+				}
+				else
+				{
+					var integerPartLength = _displayNumber.IntegerPart.Length;
+					if (integerPartLength > 1)
+					{
+						_displayNumber.IntegerPart = _displayNumber.IntegerPart.Substring(0, integerPartLength - 1);
+					}
+					else
+					{
+						_displayNumber.Reset();
+					}
+				}
+			});
 		}
 
 		public void Cancel()
