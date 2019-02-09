@@ -395,7 +395,7 @@ namespace Calculator.BusinessLogic.UnitTests
 		[TestCase(50, "0")]
 		[TestCase(50, "10")]
 		[TestCase(50, "1,123")]
-		public void ApplyAddition_DisplayValueDoesNotChange(double previousValue, string displayValue)
+		public void ApplyAddition_WhenWasNotAnyOperationBefore_ThenDisplayValueWillNotBeChanged(double previousValue, string displayValue)
 		{
 			//Arrange
 			var displayNumber = DisplayNumberFactory.Create(displayValue);
@@ -413,11 +413,28 @@ namespace Calculator.BusinessLogic.UnitTests
 		}
 
 		[Test]
+		public void ApplyAddition_WhenWasOperationBefore_ThenApplyEquation()
+		{
+			//Arrange
+			_calculator = new Calculator();
+			_calculator.ApplyTwo();
+			_calculator.ApplyFive();
+            _calculator.ApplyAddition();
+            _calculator.ApplyFour();
+
+			//Act
+			_calculator.ApplyAddition();
+
+			//Assert
+			Assert.That(_calculator.DisplayValue, Is.EqualTo("29"));
+		}
+
+        [Test]
 		[TestCase(50, "-10")]
 		[TestCase(50, "0")]
 		[TestCase(50, "10")]
 		[TestCase(50, "1,123")]
-		public void ApplySubtraction_DisplayValueDoesNotChange(double previousValue, string displayValue)
+		public void ApplySubtraction_WhenWasNotAnyOperationBefore_ThenDisplayValueWillNotBeChanged(double previousValue, string displayValue)
 		{
 			//Arrange
 			var displayNumber = DisplayNumberFactory.Create(displayValue);
@@ -435,11 +452,28 @@ namespace Calculator.BusinessLogic.UnitTests
 		}
 
 		[Test]
+		public void ApplySubtraction_WhenWasOperationBefore_ThenApplyEquation()
+		{
+            //Arrange
+			_calculator = new Calculator();
+			_calculator.ApplyTwo();
+			_calculator.ApplyFive();
+			_calculator.ApplyAddition();
+			_calculator.ApplyFour();
+
+            //Act
+            _calculator.ApplySubtraction();
+
+			//Assert
+			Assert.That(_calculator.DisplayValue, Is.EqualTo("29"));
+		}
+
+        [Test]
 		[TestCase(50, "-10")]
 		[TestCase(50, "0")]
 		[TestCase(50, "10")]
 		[TestCase(50, "1,123")]
-		public void ApplyMultiplication_DisplayValueDoesNotChange(double previousValue, string displayValue)
+		public void ApplyMultiplication_WhenWasNotAnyOperationBefore_ThenDisplayValueWillNotBeChanged(double previousValue, string displayValue)
 		{
 			//Arrange
 			var displayNumber = DisplayNumberFactory.Create(displayValue);
@@ -457,11 +491,28 @@ namespace Calculator.BusinessLogic.UnitTests
 		}
 
 		[Test]
+		public void ApplyMultiplication_WhenWasOperationBefore_ThenApplyEquation()
+		{
+            //Arrange
+			_calculator = new Calculator();
+			_calculator.ApplyTwo();
+			_calculator.ApplyFive();
+			_calculator.ApplyAddition();
+			_calculator.ApplyFour();
+
+            //Act
+            _calculator.ApplyMultiplication();
+
+			//Assert
+			Assert.That(_calculator.DisplayValue, Is.EqualTo("29"));
+		}
+
+        [Test]
 		[TestCase(50, "-10")]
 		[TestCase(50, "0")]
 		[TestCase(50, "10")]
 		[TestCase(50, "1,123")]
-		public void ApplyDivision_DisplayValueDoesNotChange(double previousValue, string displayValue)
+		public void ApplyDivision_WhenWasNotAnyOperationBefore_ThenDisplayValueWillNotBeChanged(double previousValue, string displayValue)
 		{
 			//Arrange
 			var displayNumber = DisplayNumberFactory.Create(displayValue);
@@ -479,6 +530,38 @@ namespace Calculator.BusinessLogic.UnitTests
 		}
 
 		[Test]
+		public void ApplyDivision_WhenWasOperationBefore_ThenApplyEquation()
+		{
+			//Arrange
+			_calculator = new Calculator();
+			_calculator.ApplyTwo();
+			_calculator.ApplyFive();
+			_calculator.ApplyAddition();
+			_calculator.ApplyFour();
+
+			//Act
+			_calculator.ApplyDivision();
+
+			//Assert
+			Assert.That(_calculator.DisplayValue, Is.EqualTo("29"));
+		}
+
+        [Test]
+		public void ApplyEquality_WhenWasNotAnyOperation_ThenDisplayValueWillNotChanged()
+		{
+			//Arrange
+			_calculator = new Calculator();
+
+			_calculator.ApplyThree();
+
+			//Act
+			_calculator.ApplyEquality();
+
+			//Assert
+			Assert.That(_calculator.DisplayValue, Is.EqualTo("3"));
+		}
+
+        [Test]
 		public void ApplyEquality_WhenAdditionWasApplied_ThenSumNumbers()
 		{
 			//Arrange
@@ -561,6 +644,22 @@ namespace Calculator.BusinessLogic.UnitTests
 
 			//Assert
 			Assert.That(_calculator.DisplayValue, Is.EqualTo(Messages.DivisionOnZero));
+		}
+
+		[Test]
+		public void ApplyEquality_WhenApplyAdditionAndSetAnyValue_ThenDisplayValueShouldBeTheValue()
+		{
+			//Arrange
+			_calculator = new Calculator();
+
+			_calculator.ApplyAddition();
+			_calculator.ApplyThree();
+
+			//Act
+			_calculator.ApplyEquality();
+
+			//Assert
+			Assert.That(_calculator.DisplayValue, Is.EqualTo("3"));
 		}
     }
 }

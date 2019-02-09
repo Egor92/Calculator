@@ -9,7 +9,7 @@ namespace Calculator.BusinessLogic
 		#region Fields
 
 		private readonly CultureInfo _cultureInfo;
-		private double _previousValue = 0;
+		private double? _previousValue;
 		private bool _wasOperationApplied = false;
 		private readonly DisplayNumber _displayNumber = new DisplayNumber();
 		private IBinaryOperation _selectedBinaryOperation;
@@ -251,6 +251,11 @@ namespace Calculator.BusinessLogic
 
 		private void ApplyOperation(Action action)
 		{
+			if (_previousValue != null)
+			{
+				ApplyEquality();
+			}
+
 			action();
 			_wasOperationApplied = true;
 			_previousValue = _displayNumber.ToDouble();
@@ -258,16 +263,25 @@ namespace Calculator.BusinessLogic
 
 		public void ApplyEquality()
 		{
+			if (_previousValue == null)
+			{
+				var newValue = _displayNumber.ToDouble();
+				DisplayValue = newValue.ToString(_cultureInfo);
+				_previousValue = newValue;
+				return;
+			}
+
 			if (_selectedBinaryOperation == null)
 				return;
 
-			var value1 = _previousValue;
+			var value1 = _previousValue.Value;
 			var value2 = _displayNumber.ToDouble();
 			var executableInfo = _selectedBinaryOperation.GetExecutableInfo(value1, value2);
 			if (executableInfo.CanBeExecuted)
 			{
-				_previousValue = _selectedBinaryOperation.Execute(value1, value2);
-				DisplayValue = _previousValue.ToString(_cultureInfo);
+				var newValue = _selectedBinaryOperation.Execute(value1, value2);
+				DisplayValue = newValue.ToString(_cultureInfo);
+				_previousValue = newValue;
 			}
 			else
 			{
