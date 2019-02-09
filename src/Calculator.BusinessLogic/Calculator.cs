@@ -9,10 +9,11 @@ namespace Calculator.BusinessLogic
 		#region Fields
 
 		private readonly CultureInfo _cultureInfo;
-		private double? _previousValue;
-		private bool _wasOperationApplied = false;
+		private double? _previousValue1;
+		private double? _previousValue2;
 		private readonly DisplayNumber _displayNumber = new DisplayNumber();
 		private IBinaryOperation _selectedBinaryOperation;
+		private IBinaryOperation _lastBinaryOperation;
 
 		#endregion
 
@@ -30,9 +31,9 @@ namespace Calculator.BusinessLogic
 		internal Calculator(CalculatorState state)
 			: this()
 		{
-			_previousValue = state.PreviousValue;
-			_wasOperationApplied = state.WasEqualsSet;
+			_previousValue1 = state.PreviousValue;
 			_displayNumber = state.DisplayNumber;
+			_selectedBinaryOperation = state.SelectedBinaryOperation;
 			DisplayValue = _displayNumber.ToString();
 		}
 
@@ -129,7 +130,7 @@ namespace Calculator.BusinessLogic
 				_displayNumber.IntegerPart = string.Empty;
 			}
 
-			if (_wasOperationApplied)
+			if (_selectedBinaryOperation != null)
 			{
 				_displayNumber.IntegerPart = string.Empty;
 			}
@@ -159,7 +160,7 @@ namespace Calculator.BusinessLogic
 		{
 			UpdateDisplayNumber(() =>
 			{
-				if (_wasOperationApplied)
+				if (_selectedBinaryOperation != null)
 				{
 					_displayNumber.Reset();
 				}
@@ -178,7 +179,7 @@ namespace Calculator.BusinessLogic
 
 		public void ClearLastSymbol()
 		{
-			if (_wasOperationApplied)
+			if (_selectedBinaryOperation != null)
 				return;
 
 			UpdateDisplayNumber(() =>
@@ -197,73 +198,73 @@ namespace Calculator.BusinessLogic
 
 		public void ApplyAddition()
 		{
-			ApplyOperation(() =>
-			{
-				_selectedBinaryOperation = Operations.Operations.Addition;
-			});
+			ApplyBinaryOperation(BinaryOperations.Addition);
 		}
 
 		public void ApplySubtraction()
 		{
-			ApplyOperation(() =>
-			{
-				_selectedBinaryOperation = Operations.Operations.Subtraction;
-			});
+			ApplyBinaryOperation(BinaryOperations.Subtraction);
 		}
 
 		public void ApplyMultiplication()
 		{
-			ApplyOperation(() =>
-			{
-				_selectedBinaryOperation = Operations.Operations.Multiplication;
-			});
+			ApplyBinaryOperation(BinaryOperations.Multiplication);
 		}
 
 		public void ApplyDivision()
 		{
-			ApplyOperation(() =>
-			{
-				_selectedBinaryOperation = Operations.Operations.Division;
-			});
+			ApplyBinaryOperation(BinaryOperations.Division);
 		}
 
-		private void ApplyOperation(Action action)
+		private void ApplyBinaryOperation(IBinaryOperation binaryOperation)
 		{
-			if (_previousValue != null)
+			if (_previousValue1 != null)
 			{
 				ApplyEquality();
 			}
 
-			action();
-			_wasOperationApplied = true;
-			_previousValue = _displayNumber.ToDouble();
+			_selectedBinaryOperation = binaryOperation;
+			_previousValue1 = _displayNumber.ToDouble();
 		}
 
 		public void ApplyEquality()
 		{
-			if (_previousValue == null)
+			if (_previousValue1 == null)
 			{
 				var newValue = _displayNumber.ToDouble();
 				DisplayValue = newValue.ToString(_cultureInfo);
-				_previousValue = newValue;
+				_previousValue1 = newValue;
 				return;
 			}
 
-			if (_selectedBinaryOperation == null)
-				return;
-
-			var value1 = _previousValue.Value;
-			var value2 = _displayNumber.ToDouble();
-			var executableInfo = _selectedBinaryOperation.GetExecutableInfo(value1, value2);
-			if (executableInfo.CanBeExecuted)
+			if (_selectedBinaryOperation == null && _lastBinaryOperation != null && _previousValue2 != null)
 			{
-				var newValue = _selectedBinaryOperation.Execute(value1, value2);
+				var value1 = _displayNumber.ToDouble();
+				var value2 = _previousValue2.Value;
+				var newValue = _lastBinaryOperation.Execute(value1, value2);
 				DisplayValue = newValue.ToString(_cultureInfo);
-				_previousValue = newValue;
+				_previousValue1 = newValue;
 			}
-			else
+			else if (_selectedBinaryOperation != null)
 			{
-				DisplayValue = executableInfo.Message;
+				var value1 = _previousValue1.Value;
+				var value2 = _displayNumber.ToDouble();
+				var executableInfo = _selectedBinaryOperation.GetExecutableInfo(value1, value2);
+				if (executableInfo.CanBeExecuted)
+				{
+					var newValue = _selectedBinaryOperation.Execute(value1, value2);
+					DisplayValue = newValue.ToString(_cultureInfo);
+					_previousValue1 = newValue;
+					_previousValue2 = value2;
+					_lastBinaryOperation = _selectedBinaryOperation;
+				}
+				else
+				{
+					DisplayValue = executableInfo.Message;
+				}
+
+				_selectedBinaryOperation = null;
+				_displayNumber.Reset();
 			}
 		}
 

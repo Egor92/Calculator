@@ -1,6 +1,6 @@
 ﻿namespace Calculator.BusinessLogic.Operations
 {
-	public static class Operations
+	public static class BinaryOperations
 	{
 		public static readonly IBinaryOperation Addition = new Addition();
 		public static readonly IBinaryOperation Subtraction = new Subtraction();

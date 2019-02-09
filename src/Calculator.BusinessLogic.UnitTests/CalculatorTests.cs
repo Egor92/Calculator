@@ -386,11 +386,11 @@ namespace Calculator.BusinessLogic.UnitTests
 			_calculator.Cancel();
 			_calculator.ApplyEquality();
 
-            //Assert
+			//Assert
 			Assert.That(_calculator.DisplayValue, Is.EqualTo("0"));
-        }
+		}
 
-        [Test]
+		[Test]
 		[TestCase(50, "-10")]
 		[TestCase(50, "0")]
 		[TestCase(50, "10")]
@@ -419,8 +419,8 @@ namespace Calculator.BusinessLogic.UnitTests
 			_calculator = new Calculator();
 			_calculator.ApplyTwo();
 			_calculator.ApplyFive();
-            _calculator.ApplyAddition();
-            _calculator.ApplyFour();
+			_calculator.ApplyAddition();
+			_calculator.ApplyFour();
 
 			//Act
 			_calculator.ApplyAddition();
@@ -429,7 +429,7 @@ namespace Calculator.BusinessLogic.UnitTests
 			Assert.That(_calculator.DisplayValue, Is.EqualTo("29"));
 		}
 
-        [Test]
+		[Test]
 		[TestCase(50, "-10")]
 		[TestCase(50, "0")]
 		[TestCase(50, "10")]
@@ -454,21 +454,21 @@ namespace Calculator.BusinessLogic.UnitTests
 		[Test]
 		public void ApplySubtraction_WhenWasOperationBefore_ThenApplyEquation()
 		{
-            //Arrange
+			//Arrange
 			_calculator = new Calculator();
 			_calculator.ApplyTwo();
 			_calculator.ApplyFive();
 			_calculator.ApplyAddition();
 			_calculator.ApplyFour();
 
-            //Act
-            _calculator.ApplySubtraction();
+			//Act
+			_calculator.ApplySubtraction();
 
 			//Assert
 			Assert.That(_calculator.DisplayValue, Is.EqualTo("29"));
 		}
 
-        [Test]
+		[Test]
 		[TestCase(50, "-10")]
 		[TestCase(50, "0")]
 		[TestCase(50, "10")]
@@ -493,21 +493,21 @@ namespace Calculator.BusinessLogic.UnitTests
 		[Test]
 		public void ApplyMultiplication_WhenWasOperationBefore_ThenApplyEquation()
 		{
-            //Arrange
+			//Arrange
 			_calculator = new Calculator();
 			_calculator.ApplyTwo();
 			_calculator.ApplyFive();
 			_calculator.ApplyAddition();
 			_calculator.ApplyFour();
 
-            //Act
-            _calculator.ApplyMultiplication();
+			//Act
+			_calculator.ApplyMultiplication();
 
 			//Assert
 			Assert.That(_calculator.DisplayValue, Is.EqualTo("29"));
 		}
 
-        [Test]
+		[Test]
 		[TestCase(50, "-10")]
 		[TestCase(50, "0")]
 		[TestCase(50, "10")]
@@ -546,7 +546,7 @@ namespace Calculator.BusinessLogic.UnitTests
 			Assert.That(_calculator.DisplayValue, Is.EqualTo("29"));
 		}
 
-        [Test]
+		[Test]
 		public void ApplyEquality_WhenWasNotAnyOperation_ThenDisplayValueWillNotChanged()
 		{
 			//Arrange
@@ -561,7 +561,7 @@ namespace Calculator.BusinessLogic.UnitTests
 			Assert.That(_calculator.DisplayValue, Is.EqualTo("3"));
 		}
 
-        [Test]
+		[Test]
 		public void ApplyEquality_WhenAdditionWasApplied_ThenSumNumbers()
 		{
 			//Arrange
@@ -574,9 +574,9 @@ namespace Calculator.BusinessLogic.UnitTests
 			//Act
 			_calculator.ApplyEquality();
 
-            //Assert
+			//Assert
 			Assert.That(_calculator.DisplayValue, Is.EqualTo("5"));
-        }
+		}
 
 		[Test]
 		public void ApplyEquality_WhenSubtractionWasApplied_ThenSubtractNumbers()
@@ -591,9 +591,9 @@ namespace Calculator.BusinessLogic.UnitTests
 			//Act
 			_calculator.ApplyEquality();
 
-            //Assert
+			//Assert
 			Assert.That(_calculator.DisplayValue, Is.EqualTo("-1"));
-        }
+		}
 
 		[Test]
 		public void ApplyEquality_WhenMultiplicationWasApplied_ThenMultNumbers()
@@ -608,9 +608,9 @@ namespace Calculator.BusinessLogic.UnitTests
 			//Act
 			_calculator.ApplyEquality();
 
-            //Assert
+			//Assert
 			Assert.That(_calculator.DisplayValue, Is.EqualTo("6"));
-        }
+		}
 
 		[Test]
 		public void ApplyEquality_WhenDivisionWasApplied_ThenDivideNumbers()
@@ -625,9 +625,9 @@ namespace Calculator.BusinessLogic.UnitTests
 			//Act
 			_calculator.ApplyEquality();
 
-            //Assert
+			//Assert
 			Assert.That(_calculator.DisplayValue, Is.EqualTo("0,5"));
-        }
+		}
 
 		[Test]
 		public void ApplyEquality_WhenOperationIsDivisionAndValueIsZero_ThenDisplayValueShouldBeCannotDivideByZero()
@@ -661,5 +661,24 @@ namespace Calculator.BusinessLogic.UnitTests
 			//Assert
 			Assert.That(_calculator.DisplayValue, Is.EqualTo("3"));
 		}
-    }
+
+		[Test]
+		public void ApplyEquation_WhenEquationWasAppliedAndAnotherNumberWasSetAndThenApplyEquation_ThenApplyBinaryOperationToTheNewNumber()
+		{
+			//Arrange
+			_calculator = new Calculator();
+
+			_calculator.ApplyThree();
+			_calculator.ApplyMultiplication();
+			_calculator.ApplyTwo();
+			_calculator.ApplyEquality();
+			_calculator.ApplyFive();
+
+			//Act
+			_calculator.ApplyEquality();
+
+			//Assert
+			Assert.That(_calculator.DisplayValue, Is.EqualTo("10"));
+		}
+	}
 }

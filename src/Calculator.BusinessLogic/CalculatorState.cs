@@ -1,12 +1,14 @@
-﻿namespace Calculator.BusinessLogic
+﻿using Calculator.BusinessLogic.Operations;
+
+namespace Calculator.BusinessLogic
 {
 	internal class CalculatorState
 	{
-		internal double PreviousValue { get; set; }
+		internal double PreviousValue { get; private set; }
 
-		internal DisplayNumber DisplayNumber { get; set; }
+		internal DisplayNumber DisplayNumber { get; private set; }
 
-		internal bool WasEqualsSet { get; set; }
+		internal IBinaryOperation SelectedBinaryOperation { get; private set; }
 
 		internal class Builder
 		{
@@ -38,7 +40,9 @@
 				{
 					PreviousValue = _previousValue,
 					DisplayNumber = _displayNumber,
-					WasEqualsSet = _wasEqualsSet,
+					SelectedBinaryOperation = _wasEqualsSet
+						? BinaryOperations.Addition
+						: null,
 				};
 			}
 		}

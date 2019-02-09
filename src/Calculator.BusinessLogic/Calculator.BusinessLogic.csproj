@@ -46,7 +46,7 @@
     <Compile Include="Operations\Addition.cs" />
     <Compile Include="Operations\Division.cs" />
     <Compile Include="Operations\Multiplication.cs" />
-    <Compile Include="Operations\Operations.cs" />
+    <Compile Include="Operations\BinaryOperations.cs" />
     <Compile Include="Calculator.cs" />
     <Compile Include="CalculatorState.cs" />
     <Compile Include="CalculatorStateFactory.cs" />
