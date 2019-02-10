@@ -10,7 +10,7 @@ namespace Calculator.DesktopApplication.Controls
     public class Shell : Window
     {
         private Grid _windowRoot;
-        private Grid _layoutRoot;
+        private FrameworkElement _layoutRoot;
         private Button _minimizeButton;
         private Button _maximizeButton;
         private Button _restoreButton;
@@ -20,13 +20,13 @@ namespace Calculator.DesktopApplication.Controls
         private T GetRequiredTemplateChild<T>(string childName)
             where T : DependencyObject
         {
-            return (T) GetTemplateChild(childName);
+            return GetTemplateChild(childName) as T;
         }
 
         public override void OnApplyTemplate()
         {
             _windowRoot = GetRequiredTemplateChild<Grid>("WindowRoot");
-            _layoutRoot = GetRequiredTemplateChild<Grid>("LayoutRoot");
+            _layoutRoot = GetRequiredTemplateChild<FrameworkElement>("LayoutRoot");
             _minimizeButton = GetRequiredTemplateChild<Button>("MinimizeButton");
             _maximizeButton = GetRequiredTemplateChild<Button>("MaximizeButton");
             _restoreButton = GetRequiredTemplateChild<Button>("RestoreButton");
@@ -93,8 +93,8 @@ namespace Calculator.DesktopApplication.Controls
         protected virtual void OnHeaderBarMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Point position = e.GetPosition(this);
-            int headerBarHeight = 36;
-            int leftmostClickableOffset = 50;
+            int headerBarHeight = (int)_headerBar.ActualHeight;
+            int leftmostClickableOffset = 36;
 
             if (position.X - _layoutRoot.Margin.Left <= leftmostClickableOffset && position.Y <= headerBarHeight)
             {
@@ -125,7 +125,7 @@ namespace Calculator.DesktopApplication.Controls
             Point position = e.GetPosition(this);
             Point screen = PointToScreen(position);
             int num = 36;
-            if (position.Y < (double) num)
+            if (position.Y < num)
             {
                 IntPtr handle = (new WindowInteropHelper(this)).Handle;
                 IntPtr systemMenu = NativeUtils.GetSystemMenu(handle, false);

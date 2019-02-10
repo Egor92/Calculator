@@ -4,7 +4,7 @@
                     xmlns:helpers="clr-namespace:Calculator.DesktopApplication.Helpers"
                     xmlns:local="clr-namespace:Calculator.DesktopApplication.Controls">
 
-    <Style x:Key="TitleBarButtonStyle"
+    <Style x:Key="WindowButtonStyle"
            TargetType="{x:Type Button}">
         <Setter Property="Focusable" Value="False" />
         <Setter Property="Template">
@@ -12,19 +12,28 @@
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Grid>
                         <Border x:Name="border"
-                                Background="Transparent" />
-                        <ContentPresenter />
+                                Margin="0"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                SnapsToDevicePixels="True">
+                            <ContentPresenter Margin="{TemplateBinding Padding}"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              Content="{TemplateBinding Content}"
+                                              ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                                              RecognizesAccessKey="True"
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        </Border>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="{TemplateBinding helpers:ShellTitleBarButtonProperties.MouseOverBackground}" />
-                            <Setter Property="Foreground" Value="{TemplateBinding helpers:ShellTitleBarButtonProperties.MousePressedForeground}" />
-                            <Setter TargetName="border" Property="Opacity" Value="0.7" />
+                            <Setter TargetName="border" Property="Background" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, Path=(helpers:ShellTitleBarButtonProperties.MouseOverBackground)}" />
+                            <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, Path=(helpers:ShellTitleBarButtonProperties.MousePressedForeground)}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="{TemplateBinding helpers:ShellTitleBarButtonProperties.MousePressedBackground}" />
-                            <Setter Property="Foreground" Value="{TemplateBinding helpers:ShellTitleBarButtonProperties.MousePressedForeground}" />
-                            <Setter TargetName="border" Property="Opacity" Value="1" />
+                            <Setter TargetName="border" Property="Background" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, Path=(helpers:ShellTitleBarButtonProperties.MousePressedBackground)}" />
+                            <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, Path=(helpers:ShellTitleBarButtonProperties.MousePressedForeground)}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -32,67 +41,38 @@
         </Setter>
     </Style>
 
-    <Style x:Key="WindowButtonStyle"
-           TargetType="{x:Type Button}">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type ButtonBase}">
-                    <Border x:Name="Chrome"
-                            Margin="0"
-                            Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            SnapsToDevicePixels="True">
-                        <ContentPresenter Margin="{TemplateBinding Padding}"
-                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                          Content="{TemplateBinding Content}"
-                                          ContentStringFormat="{TemplateBinding ContentStringFormat}"
-                                          ContentTemplate="{TemplateBinding ContentTemplate}"
-                                          RecognizesAccessKey="True"
-                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="FontFamily" Value="Webdings" />
-        <Setter Property="FontSize" Value="13.333" />
-        <Setter Property="Foreground" Value="Black" />
-        <Setter Property="Margin" Value="0,2,3,0" />
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Foreground" Value="Gray" />
-            </Trigger>
-        </Style.Triggers>
-    </Style>
-
     <Style TargetType="{x:Type local:Shell}">
         <Setter Property="WindowStyle" Value="None" />
-        <Setter Property="Background" Value="White" />
-        <Setter Property="BorderBrush" Value="Black" />
-        <Setter Property="MinHeight" Value="320" />
-        <Setter Property="MinWidth" Value="480" />
+        <Setter Property="Background" Value="#EDEDED" />
+        <Setter Property="BorderBrush" Value="DarkGray" />
         <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
-        <Setter Property="Title" Value="{Binding Title}" />
-
+        <Setter Property="WindowChrome.WindowChrome">
+            <Setter.Value>
+                <WindowChrome CaptionHeight="0"
+                              CornerRadius="0"
+                              GlassFrameThickness="0"
+                              NonClientFrameEdges="None"
+                              ResizeBorderThickness="5" />
+            </Setter.Value>
+        </Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:Shell}">
 
-                    <Grid x:Name="WindowRoot"
-                          Background="Transparent">
-
-                        <Grid x:Name="LayoutRoot"
-                              Background="{TemplateBinding Background}">
+                    <Border x:Name="LayoutRoot"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="1">
+                        <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="36" />
+                                <RowDefinition Height="31" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
 
                             <!--  TitleBar  -->
                             <Grid x:Name="PART_HeaderBar">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="36" />
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
@@ -100,40 +80,57 @@
                                 <TextBlock Grid.Column="0"
                                            Grid.ColumnSpan="3"
                                            Width="Auto"
-                                           Padding="200,0,200,0"
+                                           Padding="12,0"
                                            HorizontalAlignment="Stretch"
                                            VerticalAlignment="Center"
                                            Panel.ZIndex="0"
-                                           FontSize="13"
+                                           FontSize="12"
                                            Foreground="Black"
                                            IsEnabled="{TemplateBinding IsActive}"
                                            Text="{TemplateBinding Title}"
-                                           TextAlignment="Center"
+                                           TextAlignment="Left"
                                            TextTrimming="CharacterEllipsis" />
 
                                 <Grid x:Name="WindowControlsGrid"
                                       Grid.Column="2"
+                                      Width="137"
                                       Background="White">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="36" />
-                                        <ColumnDefinition Width="36" />
-                                        <ColumnDefinition Width="36" />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
                                     </Grid.ColumnDefinitions>
 
                                     <Button x:Name="MinimizeButton"
                                             Grid.Column="0"
                                             fa:Awesome.Content="WindowMinimize"
+                                            helpers:ShellTitleBarButtonProperties.MouseOverBackground="LightGray"
+                                            helpers:ShellTitleBarButtonProperties.MouseOverForeground="Black"
+                                            helpers:ShellTitleBarButtonProperties.MousePressedBackground="DarkGray"
+                                            helpers:ShellTitleBarButtonProperties.MousePressedForeground="Black"
+                                            Foreground="Black"
                                             Style="{StaticResource WindowButtonStyle}"
                                             TextElement.FontFamily="pack://application:,,,/FontAwesome.WPF;component/#FontAwesome" />
+
                                     <Button x:Name="MaximizeButton"
                                             Grid.Column="1"
                                             fa:Awesome.Content="WindowMaximize"
+                                            helpers:ShellTitleBarButtonProperties.MouseOverBackground="LightGray"
+                                            helpers:ShellTitleBarButtonProperties.MouseOverForeground="Black"
+                                            helpers:ShellTitleBarButtonProperties.MousePressedBackground="DarkGray"
+                                            helpers:ShellTitleBarButtonProperties.MousePressedForeground="Black"
+                                            Foreground="Black"
                                             Style="{StaticResource WindowButtonStyle}"
                                             TextElement.FontFamily="pack://application:,,,/FontAwesome.WPF;component/#FontAwesome" />
 
                                     <Button x:Name="RestoreButton"
                                             Grid.Column="1"
                                             fa:Awesome.Content="WindowRestore"
+                                            helpers:ShellTitleBarButtonProperties.MouseOverBackground="LightGray"
+                                            helpers:ShellTitleBarButtonProperties.MouseOverForeground="Black"
+                                            helpers:ShellTitleBarButtonProperties.MousePressedBackground="DarkGray"
+                                            helpers:ShellTitleBarButtonProperties.MousePressedForeground="Black"
+                                            Foreground="Black"
                                             Style="{StaticResource WindowButtonStyle}"
                                             TextElement.FontFamily="pack://application:,,,/FontAwesome.WPF;component/#FontAwesome"
                                             Visibility="Collapsed" />
@@ -141,6 +138,11 @@
                                     <Button x:Name="CloseButton"
                                             Grid.Column="2"
                                             fa:Awesome.Content="Times"
+                                            helpers:ShellTitleBarButtonProperties.MouseOverBackground="Red"
+                                            helpers:ShellTitleBarButtonProperties.MouseOverForeground="White"
+                                            helpers:ShellTitleBarButtonProperties.MousePressedBackground="#FF7878"
+                                            helpers:ShellTitleBarButtonProperties.MousePressedForeground="Black"
+                                            Foreground="Black"
                                             Style="{StaticResource WindowButtonStyle}"
                                             TextElement.FontFamily="pack://application:,,,/FontAwesome.WPF;component/#FontAwesome"
                                             TextElement.FontSize="24" />
@@ -153,7 +155,7 @@
                                 <ContentPresenter x:Name="PART_MainContentPresenter" />
                             </Grid>
                         </Grid>
-                    </Grid>
+                    </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

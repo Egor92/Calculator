@@ -7,7 +7,10 @@ namespace Calculator.DesktopApplication
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            var shell = new Shell();
+            var shell = new Shell
+            {
+                Title = "Calculator",
+            };
             shell.Show();
         }
     }
