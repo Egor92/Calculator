@@ -31,13 +31,13 @@ namespace Calculator.BusinessLogic.UnitTests
         [TestCase(0, "0,1", false, ExpectedResult = "0,10")]
         [TestCase(0, "0,", false, ExpectedResult = "0,0")]
         [TestCase(999, "999", true, ExpectedResult = "0")]
-        public string TestApplyZero(double previousValue, string displayValue, bool isLastActionAnOperation)
+        public string TestApplyZero(double previousValue, string displayValue, bool isLastActionAnBinaryOperation)
         {
             //Arrange
             var displayNumber = DisplayNumberFactory.Create(displayValue);
             var calculatorState = new CalculatorState.Builder().PreviousValue(previousValue)
                                                                .DisplayNumber(displayNumber)
-                                                               .IsLastActionAnOperation(isLastActionAnOperation)
+                                                               .IsLastActionAnBinaryOperation(isLastActionAnBinaryOperation)
                                                                .Build();
             _calculator = new Calculator(calculatorState);
 
@@ -76,13 +76,13 @@ namespace Calculator.BusinessLogic.UnitTests
         [TestCase(0, "0,1", false, ExpectedResult = "0,11")]
         [TestCase(0, "0,", false, ExpectedResult = "0,1")]
         [TestCase(999, "999", true, ExpectedResult = "1")]
-        public string TestApplyOne(double previousValue, string displayValue, bool isLastActionAnOperation)
+        public string TestApplyOne(double previousValue, string displayValue, bool isLastActionAnBinaryOperation)
         {
             //Arrange
             var displayNumber = DisplayNumberFactory.Create(displayValue);
             var calculatorState = new CalculatorState.Builder().PreviousValue(previousValue)
                                                                .DisplayNumber(displayNumber)
-                                                               .IsLastActionAnOperation(isLastActionAnOperation)
+                                                               .IsLastActionAnBinaryOperation(isLastActionAnBinaryOperation)
                                                                .Build();
             _calculator = new Calculator(calculatorState);
 
@@ -121,13 +121,13 @@ namespace Calculator.BusinessLogic.UnitTests
         [TestCase(0, "0,1", false, ExpectedResult = "0,12")]
         [TestCase(0, "0,", false, ExpectedResult = "0,2")]
         [TestCase(999, "999", true, ExpectedResult = "2")]
-        public string TestApplyTwo(double previousValue, string displayValue, bool isLastActionAnOperation)
+        public string TestApplyTwo(double previousValue, string displayValue, bool isLastActionAnBinaryOperation)
         {
             //Arrange
             var displayNumber = DisplayNumberFactory.Create(displayValue);
             var calculatorState = new CalculatorState.Builder().PreviousValue(previousValue)
                                                                .DisplayNumber(displayNumber)
-                                                               .IsLastActionAnOperation(isLastActionAnOperation)
+                                                               .IsLastActionAnBinaryOperation(isLastActionAnBinaryOperation)
                                                                .Build();
             _calculator = new Calculator(calculatorState);
 
@@ -166,13 +166,13 @@ namespace Calculator.BusinessLogic.UnitTests
         [TestCase(0, "0,1", false, ExpectedResult = "0,13")]
         [TestCase(0, "0,", false, ExpectedResult = "0,3")]
         [TestCase(999, "999", true, ExpectedResult = "3")]
-        public string TestApplyThree(double previousValue, string displayValue, bool isLastActionAnOperation)
+        public string TestApplyThree(double previousValue, string displayValue, bool isLastActionAnBinaryOperation)
         {
             //Arrange
             var displayNumber = DisplayNumberFactory.Create(displayValue);
             var calculatorState = new CalculatorState.Builder().PreviousValue(previousValue)
                                                                .DisplayNumber(displayNumber)
-                                                               .IsLastActionAnOperation(isLastActionAnOperation)
+                                                               .IsLastActionAnBinaryOperation(isLastActionAnBinaryOperation)
                                                                .Build();
             _calculator = new Calculator(calculatorState);
 
@@ -211,13 +211,13 @@ namespace Calculator.BusinessLogic.UnitTests
         [TestCase(0, "0,1", false, ExpectedResult = "0,14")]
         [TestCase(0, "0,", false, ExpectedResult = "0,4")]
         [TestCase(999, "999", true, ExpectedResult = "4")]
-        public string TestApplyFour(double previousValue, string displayValue, bool isLastActionAnOperation)
+        public string TestApplyFour(double previousValue, string displayValue, bool isLastActionAnBinaryOperation)
         {
             //Arrange
             var displayNumber = DisplayNumberFactory.Create(displayValue);
             var calculatorState = new CalculatorState.Builder().PreviousValue(previousValue)
                                                                .DisplayNumber(displayNumber)
-                                                               .IsLastActionAnOperation(isLastActionAnOperation)
+                                                               .IsLastActionAnBinaryOperation(isLastActionAnBinaryOperation)
                                                                .Build();
             _calculator = new Calculator(calculatorState);
 
@@ -256,13 +256,13 @@ namespace Calculator.BusinessLogic.UnitTests
         [TestCase(0, "0,1", false, ExpectedResult = "0,15")]
         [TestCase(0, "0,", false, ExpectedResult = "0,5")]
         [TestCase(999, "999", true, ExpectedResult = "5")]
-        public string TestApplyFive(double previousValue, string displayValue, bool isLastActionAnOperation)
+        public string TestApplyFive(double previousValue, string displayValue, bool isLastActionAnBinaryOperation)
         {
             //Arrange
             var displayNumber = DisplayNumberFactory.Create(displayValue);
             var calculatorState = new CalculatorState.Builder().PreviousValue(previousValue)
                                                                .DisplayNumber(displayNumber)
-                                                               .IsLastActionAnOperation(isLastActionAnOperation)
+                                                               .IsLastActionAnBinaryOperation(isLastActionAnBinaryOperation)
                                                                .Build();
             _calculator = new Calculator(calculatorState);
 
@@ -301,13 +301,13 @@ namespace Calculator.BusinessLogic.UnitTests
         [TestCase(0, "0,1", false, ExpectedResult = "0,16")]
         [TestCase(0, "0,", false, ExpectedResult = "0,6")]
         [TestCase(999, "999", true, ExpectedResult = "6")]
-        public string TestApplySix(double previousValue, string displayValue, bool isLastActionAnOperation)
+        public string TestApplySix(double previousValue, string displayValue, bool isLastActionAnBinaryOperation)
         {
             //Arrange
             var displayNumber = DisplayNumberFactory.Create(displayValue);
             var calculatorState = new CalculatorState.Builder().PreviousValue(previousValue)
                                                                .DisplayNumber(displayNumber)
-                                                               .IsLastActionAnOperation(isLastActionAnOperation)
+                                                               .IsLastActionAnBinaryOperation(isLastActionAnBinaryOperation)
                                                                .Build();
             _calculator = new Calculator(calculatorState);
 
@@ -346,13 +346,13 @@ namespace Calculator.BusinessLogic.UnitTests
         [TestCase(0, "0,1", false, ExpectedResult = "0,17")]
         [TestCase(0, "0,", false, ExpectedResult = "0,7")]
         [TestCase(999, "999", true, ExpectedResult = "7")]
-        public string TestApplySeven(double previousValue, string displayValue, bool isLastActionAnOperation)
+        public string TestApplySeven(double previousValue, string displayValue, bool isLastActionAnBinaryOperation)
         {
             //Arrange
             var displayNumber = DisplayNumberFactory.Create(displayValue);
             var calculatorState = new CalculatorState.Builder().PreviousValue(previousValue)
                                                                .DisplayNumber(displayNumber)
-                                                               .IsLastActionAnOperation(isLastActionAnOperation)
+                                                               .IsLastActionAnBinaryOperation(isLastActionAnBinaryOperation)
                                                                .Build();
             _calculator = new Calculator(calculatorState);
 
@@ -391,13 +391,13 @@ namespace Calculator.BusinessLogic.UnitTests
         [TestCase(0, "0,1", false, ExpectedResult = "0,18")]
         [TestCase(0, "0,", false, ExpectedResult = "0,8")]
         [TestCase(999, "999", true, ExpectedResult = "8")]
-        public string TestApplyEight(double previousValue, string displayValue, bool isLastActionAnOperation)
+        public string TestApplyEight(double previousValue, string displayValue, bool isLastActionAnBinaryOperation)
         {
             //Arrange
             var displayNumber = DisplayNumberFactory.Create(displayValue);
             var calculatorState = new CalculatorState.Builder().PreviousValue(previousValue)
                                                                .DisplayNumber(displayNumber)
-                                                               .IsLastActionAnOperation(isLastActionAnOperation)
+                                                               .IsLastActionAnBinaryOperation(isLastActionAnBinaryOperation)
                                                                .Build();
             _calculator = new Calculator(calculatorState);
 
@@ -436,13 +436,13 @@ namespace Calculator.BusinessLogic.UnitTests
         [TestCase(0, "0,1", false, ExpectedResult = "0,19")]
         [TestCase(0, "0,", false, ExpectedResult = "0,9")]
         [TestCase(999, "999", true, ExpectedResult = "9")]
-        public string TestApplyNine(double previousValue, string displayValue, bool isLastActionAnOperation)
+        public string TestApplyNine(double previousValue, string displayValue, bool isLastActionAnBinaryOperation)
         {
             //Arrange
             var displayNumber = DisplayNumberFactory.Create(displayValue);
             var calculatorState = new CalculatorState.Builder().PreviousValue(previousValue)
                                                                .DisplayNumber(displayNumber)
-                                                               .IsLastActionAnOperation(isLastActionAnOperation)
+                                                               .IsLastActionAnBinaryOperation(isLastActionAnBinaryOperation)
                                                                .Build();
             _calculator = new Calculator(calculatorState);
 
@@ -481,13 +481,13 @@ namespace Calculator.BusinessLogic.UnitTests
         [TestCase(0, "-1,", false, ExpectedResult = "-1,")]
         [TestCase(0, "1,234", false, ExpectedResult = "1,234")]
         [TestCase(0, "123", true, ExpectedResult = "0,")]
-        public string TestApplyComma(double previousValue, string displayValue, bool isLastActionAnOperation)
+        public string TestApplyComma(double previousValue, string displayValue, bool isLastActionAnBinaryOperation)
         {
             //Arrange
             var displayNumber = DisplayNumberFactory.Create(displayValue);
             var calculatorState = new CalculatorState.Builder().PreviousValue(previousValue)
                                                                .DisplayNumber(displayNumber)
-                                                               .IsLastActionAnOperation(isLastActionAnOperation)
+                                                               .IsLastActionAnBinaryOperation(isLastActionAnBinaryOperation)
                                                                .Build();
             _calculator = new Calculator(calculatorState);
 
@@ -539,12 +539,12 @@ namespace Calculator.BusinessLogic.UnitTests
         [TestCase("1,23", false, ExpectedResult = "1,2")]
         [TestCase("-1,23", false, ExpectedResult = "-1,2")]
         [TestCase("-1,23", true, ExpectedResult = "-1,23")]
-        public string TestClearLastSymbol(string displayValue, bool isLastActionAnOperation)
+        public string TestClearLastSymbol(string displayValue, bool isLastActionAnBinaryOperation)
         {
             //Arrange
             var displayNumber = DisplayNumberFactory.Create(displayValue);
             var calculatorState = new CalculatorState.Builder().DisplayNumber(displayNumber)
-                                                               .IsLastActionAnOperation(isLastActionAnOperation)
+                                                               .IsLastActionAnBinaryOperation(isLastActionAnBinaryOperation)
                                                                .Build();
             _calculator = new Calculator(calculatorState);
 
@@ -567,13 +567,13 @@ namespace Calculator.BusinessLogic.UnitTests
         [TestCase(0, "0,", false, ExpectedResult = "-0,")]
         [TestCase(0, "0,0", false, ExpectedResult = "-0,0")]
         [TestCase(999, "999", true, ExpectedResult = "-999")]
-        public string TestApplyNegation(double previousValue, string displayValue, bool isLastActionAnOperation)
+        public string TestApplyNegation(double previousValue, string displayValue, bool isLastActionAnBinaryOperation)
         {
             //Arrange
             var displayNumber = DisplayNumberFactory.Create(displayValue);
             var calculatorState = new CalculatorState.Builder().PreviousValue(previousValue)
                                                                .DisplayNumber(displayNumber)
-                                                               .IsLastActionAnOperation(isLastActionAnOperation)
+                                                               .IsLastActionAnBinaryOperation(isLastActionAnBinaryOperation)
                                                                .Build();
             _calculator = new Calculator(calculatorState);
 
@@ -977,6 +977,48 @@ namespace Calculator.BusinessLogic.UnitTests
 
             //Assert
             Assert.That(_calculator.DisplayValue, Is.EqualTo("1"));
+        }
+
+        #endregion
+
+        #region ApplySquareRoot
+
+        [Test]
+        public void ApplySquareRoot_WhenOperationAndTwoNumbersAppliedAndApplyEquationSeveralTimes_ThenTheOperationShouldBeApplied()
+        {
+            //Arrange
+            _calculator = new Calculator();
+
+            _calculator.ApplyFour();
+            _calculator.ApplyAddition();
+            _calculator.ApplyTwo();
+            _calculator.ApplyFive();
+            _calculator.ApplySquareRoot();
+
+            //Act & Assert
+            _calculator.ApplyEquality();
+            Assert.That(_calculator.DisplayValue, Is.EqualTo("9"));
+
+            _calculator.ApplyEquality();
+            Assert.That(_calculator.DisplayValue, Is.EqualTo("14"));
+        }
+
+        [Test]
+        public void ApplySquareRoot_WhenOperationAndTwoNumbersApplied_ThenInvokeOperationWithSecondOperandAsPercent()
+        {
+            //Arrange
+            _calculator = new Calculator();
+
+            _calculator.ApplyFour();
+            _calculator.ApplyAddition();
+            _calculator.ApplyTwo();
+            _calculator.ApplyFive();
+
+            //Act
+            _calculator.ApplySquareRoot();
+
+            //Assert
+            Assert.That(_calculator.DisplayValue, Is.EqualTo("5"));
         }
 
         #endregion

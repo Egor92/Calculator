@@ -6,13 +6,13 @@
 
         internal DisplayNumber DisplayNumber { get; private set; }
 
-        internal bool IsLastActionAnOperation { get; private set; }
+        internal bool IsLastActionAnBinaryOperation { get; private set; }
 
         internal class Builder
         {
             private double _previousValue;
             private DisplayNumber _displayNumber;
-            private bool _isLastActionAnOperation;
+            private bool _isLastActionAnBinaryOperation;
 
             internal Builder PreviousValue(double previousValue)
             {
@@ -26,9 +26,9 @@
                 return this;
             }
 
-            internal Builder IsLastActionAnOperation(bool isLastActionAnOperation)
+            internal Builder IsLastActionAnBinaryOperation(bool isLastActionAnBinaryOperation)
             {
-                _isLastActionAnOperation = isLastActionAnOperation;
+                _isLastActionAnBinaryOperation = isLastActionAnBinaryOperation;
                 return this;
             }
 
@@ -38,7 +38,7 @@
                 {
                     PreviousValue = _previousValue,
                     DisplayNumber = _displayNumber,
-                    IsLastActionAnOperation = _isLastActionAnOperation,
+                    IsLastActionAnBinaryOperation = _isLastActionAnBinaryOperation,
                 };
             }
         }

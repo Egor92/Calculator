@@ -59,6 +59,8 @@
     <Compile Include="Operations\Binary\IBinaryOperation.cs" />
     <Compile Include="Operations\ExecutableInfo.cs" />
     <Compile Include="Operations\Binary\Subtraction.cs" />
+    <Compile Include="Operations\Unary\SquareRoot.cs" />
+    <Compile Include="Operations\Unary\UnaryOperations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

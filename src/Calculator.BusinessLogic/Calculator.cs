@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using Calculator.BusinessLogic.Operations.Binary;
+using Calculator.BusinessLogic.Operations.Unary;
 
 namespace Calculator.BusinessLogic
 {
@@ -11,7 +12,7 @@ namespace Calculator.BusinessLogic
         private readonly CultureInfo _cultureInfo;
         private DisplayNumber _displayNumber = new DisplayNumber();
         private IBinaryOperation _selectedBinaryOperation;
-        private bool _isLastActionAnOperation;
+        private bool _isLastActionAnBinaryOperation;
 
         private double? _lastOperand1;
         private double _lastOperand2;
@@ -36,7 +37,7 @@ namespace Calculator.BusinessLogic
         {
             _lastOperand1 = state.PreviousValue;
             _displayNumber = state.DisplayNumber;
-            _isLastActionAnOperation = state.IsLastActionAnOperation;
+            _isLastActionAnBinaryOperation = state.IsLastActionAnBinaryOperation;
             DisplayValue = _displayNumber.ToString();
         }
 
@@ -133,7 +134,7 @@ namespace Calculator.BusinessLogic
                 _displayNumber.IntegerPart = string.Empty;
             }
 
-            if (_isLastActionAnOperation)
+            if (_isLastActionAnBinaryOperation)
             {
                 _displayNumber.IntegerPart = string.Empty;
             }
@@ -163,7 +164,7 @@ namespace Calculator.BusinessLogic
         {
             ChangeDisplayNumber(() =>
             {
-                if (_isLastActionAnOperation)
+                if (_isLastActionAnBinaryOperation)
                 {
                     _displayNumber.Reset();
                 }
@@ -182,7 +183,7 @@ namespace Calculator.BusinessLogic
 
         public void ClearLastSymbol()
         {
-            if (_isLastActionAnOperation)
+            if (_isLastActionAnBinaryOperation)
                 return;
 
             ChangeDisplayNumber(() =>
@@ -228,7 +229,7 @@ namespace Calculator.BusinessLogic
 
             _selectedBinaryOperation = binaryOperation;
             _lastOperand1 = _displayNumber.ToDouble();
-            _isLastActionAnOperation = true;
+            _isLastActionAnBinaryOperation = true;
         }
 
         public void ApplyEquality()
@@ -276,7 +277,7 @@ namespace Calculator.BusinessLogic
             }
             finally
             {
-                _isLastActionAnOperation = true;
+                _isLastActionAnBinaryOperation = true;
             }
         }
 
@@ -309,15 +310,15 @@ namespace Calculator.BusinessLogic
         {
             var value1 = _lastOperand1.GetValueOrDefault();
             var value2 = _displayNumber.ToDouble();
-            var percentOperation = BinaryOperations.Percent;
-            var executableInfo = percentOperation.GetExecutableInfo(value1, value2);
+            var operation = BinaryOperations.Percent;
+            var executableInfo = operation.GetExecutableInfo(value1, value2);
             if (!executableInfo.CanBeExecuted)
             {
                 DisplayValue = executableInfo.Message;
                 return;
             }
 
-            var result = percentOperation.Execute(value1, value2);
+            var result = operation.Execute(value1, value2);
             var displayValue = result.ToString(_cultureInfo);
             _displayNumber = DisplayNumberFactory.Create(displayValue);
             DisplayValue = displayValue;
@@ -325,7 +326,19 @@ namespace Calculator.BusinessLogic
 
         public void ApplySquareRoot()
         {
-            throw new NotImplementedException();
+            var value = _displayNumber.ToDouble();
+            var operation = UnaryOperations.SquareRoot;
+            var executableInfo = operation.GetExecutableInfo(value);
+            if (!executableInfo.CanBeExecuted)
+            {
+                DisplayValue = executableInfo.Message;
+                return;
+            }
+
+            var result = operation.Execute(value);
+            var displayValue = result.ToString(_cultureInfo);
+            _displayNumber = DisplayNumberFactory.Create(displayValue);
+            DisplayValue = displayValue;
         }
 
         public void ApplySquaring()
@@ -343,7 +356,7 @@ namespace Calculator.BusinessLogic
         private void ChangeDisplayNumber(Action action)
         {
             action();
-            _isLastActionAnOperation = false;
+            _isLastActionAnBinaryOperation = false;
             DisplayValue = _displayNumber.ToString();
         }
     }

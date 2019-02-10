@@ -3,5 +3,6 @@
     public static class ErrorMessages
     {
         public const string DivisionOnZero = "Cannot divide by zero";
+        public const string InvalidInput = "Invalid input";
     }
 }

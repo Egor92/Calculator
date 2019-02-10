@@ -21,7 +21,7 @@ namespace Calculator.BusinessLogic.UnitTests.Operations.Binary
         }
 
         [Test]
-        public void CanExecute_WhenSecondValueIsZero_ThenCannotExecuteAndReturnExecute()
+        public void CanExecute_WhenSecondValueIsZero_ThenCannotExecuteAndReturnErrorMessage()
         {
             //Arrange
             var division = new Division();
@@ -34,7 +34,7 @@ namespace Calculator.BusinessLogic.UnitTests.Operations.Binary
         }
 
         [Test]
-        public void Execute_WhenAnyValues_ThenReturnDivision()
+        public void Execute_WhenSecondValueIsNotZero_ThenReturnDivision()
         {
             //Arrange
             var division = new Division();
