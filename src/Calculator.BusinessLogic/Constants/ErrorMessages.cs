@@ -1,6 +1,6 @@
 ﻿namespace Calculator.BusinessLogic.Constants
 {
-    public static class Messages
+    public static class ErrorMessages
     {
         public const string DivisionOnZero = "Cannot divide by zero";
     }

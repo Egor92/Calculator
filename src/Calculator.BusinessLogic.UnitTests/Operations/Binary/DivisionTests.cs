@@ -1,8 +1,8 @@
 ﻿using Calculator.BusinessLogic.Constants;
-using Calculator.BusinessLogic.Operations;
+using Calculator.BusinessLogic.Operations.Binary;
 using NUnit.Framework;
 
-namespace Calculator.BusinessLogic.UnitTests.Operations
+namespace Calculator.BusinessLogic.UnitTests.Operations.Binary
 {
     [TestFixture]
     public class DivisionTests
@@ -30,7 +30,7 @@ namespace Calculator.BusinessLogic.UnitTests.Operations
             var executableInfo = division.GetExecutableInfo(10, 0);
 
             //Assert
-            Assert.That(executableInfo.Message, Is.EqualTo(Messages.DivisionOnZero));
+            Assert.That(executableInfo.Message, Is.EqualTo(ErrorMessages.DivisionOnZero));
         }
 
         [Test]

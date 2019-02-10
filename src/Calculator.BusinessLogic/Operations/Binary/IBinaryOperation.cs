@@ -1,4 +1,4 @@
-﻿namespace Calculator.BusinessLogic.Operations
+﻿namespace Calculator.BusinessLogic.Operations.Binary
 {
     public interface IBinaryOperation
     {

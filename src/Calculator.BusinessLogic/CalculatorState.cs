@@ -1,6 +1,4 @@
-﻿using Calculator.BusinessLogic.Operations;
-
-namespace Calculator.BusinessLogic
+﻿namespace Calculator.BusinessLogic
 {
     internal class CalculatorState
     {
@@ -8,13 +6,13 @@ namespace Calculator.BusinessLogic
 
         internal DisplayNumber DisplayNumber { get; private set; }
 
-        internal IBinaryOperation SelectedBinaryOperation { get; private set; }
+        internal bool IsLastActionAnOperation { get; private set; }
 
         internal class Builder
         {
             private double _previousValue;
             private DisplayNumber _displayNumber;
-            private bool _wasEqualsSet;
+            private bool _isLastActionAnOperation;
 
             internal Builder PreviousValue(double previousValue)
             {
@@ -28,9 +26,9 @@ namespace Calculator.BusinessLogic
                 return this;
             }
 
-            internal Builder WasEqualsSet(bool wasEqualsSet)
+            internal Builder IsLastActionAnOperation(bool isLastActionAnOperation)
             {
-                _wasEqualsSet = wasEqualsSet;
+                _isLastActionAnOperation = isLastActionAnOperation;
                 return this;
             }
 
@@ -40,9 +38,7 @@ namespace Calculator.BusinessLogic
                 {
                     PreviousValue = _previousValue,
                     DisplayNumber = _displayNumber,
-                    SelectedBinaryOperation = _wasEqualsSet
-                        ? BinaryOperations.Addition
-                        : null,
+                    IsLastActionAnOperation = _isLastActionAnOperation,
                 };
             }
         }

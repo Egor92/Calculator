@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Globalization;
-using Calculator.BusinessLogic.Operations;
+using Calculator.BusinessLogic.Operations.Binary;
 
 namespace Calculator.BusinessLogic
 {
@@ -9,11 +9,14 @@ namespace Calculator.BusinessLogic
         #region Fields
 
         private readonly CultureInfo _cultureInfo;
-        private double? _previousValue1;
-        private double? _previousValue2;
-        private readonly DisplayNumber _displayNumber = new DisplayNumber();
+        private DisplayNumber _displayNumber = new DisplayNumber();
         private IBinaryOperation _selectedBinaryOperation;
+        private bool _isLastActionAnOperation;
+
+        private double? _lastOperand1;
+        private double _lastOperand2;
         private IBinaryOperation _lastBinaryOperation;
+        private double _lastResult;
 
         #endregion
 
@@ -31,9 +34,9 @@ namespace Calculator.BusinessLogic
         internal Calculator(CalculatorState state)
             : this()
         {
-            _previousValue1 = state.PreviousValue;
+            _lastOperand1 = state.PreviousValue;
             _displayNumber = state.DisplayNumber;
-            _selectedBinaryOperation = state.SelectedBinaryOperation;
+            _isLastActionAnOperation = state.IsLastActionAnOperation;
             DisplayValue = _displayNumber.ToString();
         }
 
@@ -45,7 +48,7 @@ namespace Calculator.BusinessLogic
 
         public void ApplyZero()
         {
-            UpdateDisplayNumber(() =>
+            ChangeDisplayNumber(() =>
             {
                 ApplyNumber('0');
             });
@@ -53,7 +56,7 @@ namespace Calculator.BusinessLogic
 
         public void ApplyOne()
         {
-            UpdateDisplayNumber(() =>
+            ChangeDisplayNumber(() =>
             {
                 ApplyNumber('1');
             });
@@ -61,7 +64,7 @@ namespace Calculator.BusinessLogic
 
         public void ApplyTwo()
         {
-            UpdateDisplayNumber(() =>
+            ChangeDisplayNumber(() =>
             {
                 ApplyNumber('2');
             });
@@ -69,7 +72,7 @@ namespace Calculator.BusinessLogic
 
         public void ApplyThree()
         {
-            UpdateDisplayNumber(() =>
+            ChangeDisplayNumber(() =>
             {
                 ApplyNumber('3');
             });
@@ -77,7 +80,7 @@ namespace Calculator.BusinessLogic
 
         public void ApplyFour()
         {
-            UpdateDisplayNumber(() =>
+            ChangeDisplayNumber(() =>
             {
                 ApplyNumber('4');
             });
@@ -85,7 +88,7 @@ namespace Calculator.BusinessLogic
 
         public void ApplyFive()
         {
-            UpdateDisplayNumber(() =>
+            ChangeDisplayNumber(() =>
             {
                 ApplyNumber('5');
             });
@@ -93,7 +96,7 @@ namespace Calculator.BusinessLogic
 
         public void ApplySix()
         {
-            UpdateDisplayNumber(() =>
+            ChangeDisplayNumber(() =>
             {
                 ApplyNumber('6');
             });
@@ -101,7 +104,7 @@ namespace Calculator.BusinessLogic
 
         public void ApplySeven()
         {
-            UpdateDisplayNumber(() =>
+            ChangeDisplayNumber(() =>
             {
                 ApplyNumber('7');
             });
@@ -109,7 +112,7 @@ namespace Calculator.BusinessLogic
 
         public void ApplyEight()
         {
-            UpdateDisplayNumber(() =>
+            ChangeDisplayNumber(() =>
             {
                 ApplyNumber('8');
             });
@@ -117,7 +120,7 @@ namespace Calculator.BusinessLogic
 
         public void ApplyNine()
         {
-            UpdateDisplayNumber(() =>
+            ChangeDisplayNumber(() =>
             {
                 ApplyNumber('9');
             });
@@ -130,7 +133,7 @@ namespace Calculator.BusinessLogic
                 _displayNumber.IntegerPart = string.Empty;
             }
 
-            if (_selectedBinaryOperation != null)
+            if (_isLastActionAnOperation)
             {
                 _displayNumber.IntegerPart = string.Empty;
             }
@@ -147,7 +150,7 @@ namespace Calculator.BusinessLogic
 
         public void ApplyNegation()
         {
-            UpdateDisplayNumber(() =>
+            ChangeDisplayNumber(() =>
             {
                 if (_displayNumber.IsDefault())
                     return;
@@ -158,9 +161,9 @@ namespace Calculator.BusinessLogic
 
         public void ApplyComma()
         {
-            UpdateDisplayNumber(() =>
+            ChangeDisplayNumber(() =>
             {
-                if (_selectedBinaryOperation != null)
+                if (_isLastActionAnOperation)
                 {
                     _displayNumber.Reset();
                 }
@@ -171,7 +174,7 @@ namespace Calculator.BusinessLogic
 
         public void Clear()
         {
-            UpdateDisplayNumber(() =>
+            ChangeDisplayNumber(() =>
             {
                 _displayNumber.Reset();
             });
@@ -179,10 +182,10 @@ namespace Calculator.BusinessLogic
 
         public void ClearLastSymbol()
         {
-            if (_selectedBinaryOperation != null)
+            if (_isLastActionAnOperation)
                 return;
 
-            UpdateDisplayNumber(() =>
+            ChangeDisplayNumber(() =>
             {
                 _displayNumber.ClearLastSymbol();
             });
@@ -190,7 +193,7 @@ namespace Calculator.BusinessLogic
 
         public void Cancel()
         {
-            UpdateDisplayNumber(() =>
+            ChangeDisplayNumber(() =>
             {
                 _displayNumber.Reset();
             });
@@ -218,44 +221,50 @@ namespace Calculator.BusinessLogic
 
         private void ApplyBinaryOperation(IBinaryOperation binaryOperation)
         {
-            if (_previousValue1 != null)
+            if (_lastResult != null)
             {
                 ApplyEquality();
             }
 
             _selectedBinaryOperation = binaryOperation;
-            _previousValue1 = _displayNumber.ToDouble();
+            _lastOperand1 = _displayNumber.ToDouble();
+            _isLastActionAnOperation = true;
         }
 
         public void ApplyEquality()
         {
-            if (_previousValue1 == null)
+            try
             {
-                var newValue = _displayNumber.ToDouble();
-                DisplayValue = newValue.ToString(_cultureInfo);
-                _previousValue1 = newValue;
-                return;
-            }
+                if (_lastOperand1 == null)
+                {
+                    var newValue = _displayNumber.ToDouble();
+                    DisplayValue = newValue.ToString(_cultureInfo);
 
-            if (_selectedBinaryOperation == null && _lastBinaryOperation != null && _previousValue2 != null)
-            {
-                var value1 = _displayNumber.ToDouble();
-                var value2 = _previousValue2.Value;
-                var newValue = _lastBinaryOperation.Execute(value1, value2);
-                DisplayValue = newValue.ToString(_cultureInfo);
-                _previousValue1 = newValue;
-            }
-            else if (_selectedBinaryOperation != null)
-            {
-                var value1 = _previousValue1.Value;
-                var value2 = _displayNumber.ToDouble();
-                var executableInfo = _selectedBinaryOperation.GetExecutableInfo(value1, value2);
+                    _lastOperand1 = newValue;
+                    _lastResult = newValue;
+                    return;
+                }
+
+                var binaryOperationInfo = GetBinaryOperationInfo();
+                if (binaryOperationInfo == null)
+                    return;
+
+                var value1 = binaryOperationInfo.Value1;
+                var value2 = binaryOperationInfo.Value2;
+                var binaryOperation = binaryOperationInfo.BinaryOperation;
+
+                var executableInfo = binaryOperation.GetExecutableInfo(value1, value2);
                 if (executableInfo.CanBeExecuted)
                 {
-                    var newValue = _selectedBinaryOperation.Execute(value1, value2);
-                    DisplayValue = newValue.ToString(_cultureInfo);
-                    _previousValue1 = newValue;
-                    _previousValue2 = value2;
+                    var result = binaryOperation.Execute(value1, value2);
+
+                    var displayValue = result.ToString(_cultureInfo);
+                    _displayNumber = DisplayNumberFactory.Create(displayValue);
+                    DisplayValue = displayValue;
+
+                    _lastOperand1 = value1;
+                    _lastOperand2 = value2;
+                    _lastResult = result;
                     _lastBinaryOperation = _selectedBinaryOperation;
                 }
                 else
@@ -264,13 +273,54 @@ namespace Calculator.BusinessLogic
                 }
 
                 _selectedBinaryOperation = null;
-                _displayNumber.Reset();
             }
+            finally
+            {
+                _isLastActionAnOperation = true;
+            }
+        }
+
+        private BinaryOperationInfo GetBinaryOperationInfo()
+        {
+            if (_selectedBinaryOperation != null)
+            {
+                return new BinaryOperationInfo
+                {
+                    Value1 = _lastResult,
+                    Value2 = _displayNumber.ToDouble(),
+                    BinaryOperation = _selectedBinaryOperation,
+                };
+            }
+
+            if (_lastBinaryOperation != null)
+            {
+                return new BinaryOperationInfo
+                {
+                    Value1 = _displayNumber.ToDouble(),
+                    Value2 = _lastOperand2,
+                    BinaryOperation = _lastBinaryOperation,
+                };
+            }
+
+            return null;
         }
 
         public void ApplyPercent()
         {
-            throw new NotImplementedException();
+            var value1 = _lastOperand1.GetValueOrDefault();
+            var value2 = _displayNumber.ToDouble();
+            var percentOperation = BinaryOperations.Percent;
+            var executableInfo = percentOperation.GetExecutableInfo(value1, value2);
+            if (!executableInfo.CanBeExecuted)
+            {
+                DisplayValue = executableInfo.Message;
+                return;
+            }
+
+            var result = percentOperation.Execute(value1, value2);
+            var displayValue = result.ToString(_cultureInfo);
+            _displayNumber = DisplayNumberFactory.Create(displayValue);
+            DisplayValue = displayValue;
         }
 
         public void ApplySquareRoot()
@@ -290,9 +340,10 @@ namespace Calculator.BusinessLogic
 
         #endregion
 
-        private void UpdateDisplayNumber(Action action)
+        private void ChangeDisplayNumber(Action action)
         {
             action();
+            _isLastActionAnOperation = false;
             DisplayValue = _displayNumber.ToString();
         }
     }

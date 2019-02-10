@@ -1,6 +1,6 @@
 ﻿using Calculator.BusinessLogic.Constants;
 
-namespace Calculator.BusinessLogic.Operations
+namespace Calculator.BusinessLogic.Operations.Binary
 {
     public class Division : IBinaryOperation
     {
@@ -8,7 +8,7 @@ namespace Calculator.BusinessLogic.Operations
         {
             if (value2 == 0.0)
             {
-                return ExecutableInfo.CreateNotExecutable(Messages.DivisionOnZero);
+                return ExecutableInfo.CreateNotExecutable(ErrorMessages.DivisionOnZero);
             }
 
             return ExecutableInfo.CreateExecutable();

@@ -8,6 +8,8 @@ namespace Calculator.BusinessLogic.UnitTests
     {
         private Calculator _calculator;
 
+        #region DisplayValue
+
         [Test]
         public void DisplayValue_InitialDefaultValueIsZero()
         {
@@ -18,6 +20,10 @@ namespace Calculator.BusinessLogic.UnitTests
             Assert.That(_calculator.DisplayValue, Is.EqualTo("0"));
         }
 
+        #endregion
+
+        #region ApplyZero
+
         [Test]
         [TestCase(0, "0", false, ExpectedResult = "0")]
         [TestCase(0, "1", false, ExpectedResult = "10")]
@@ -25,13 +31,13 @@ namespace Calculator.BusinessLogic.UnitTests
         [TestCase(0, "0,1", false, ExpectedResult = "0,10")]
         [TestCase(0, "0,", false, ExpectedResult = "0,0")]
         [TestCase(999, "999", true, ExpectedResult = "0")]
-        public string TestApplyZero(double previousValue, string displayValue, bool wasEqualsSet)
+        public string TestApplyZero(double previousValue, string displayValue, bool isLastActionAnOperation)
         {
             //Arrange
             var displayNumber = DisplayNumberFactory.Create(displayValue);
             var calculatorState = new CalculatorState.Builder().PreviousValue(previousValue)
                                                                .DisplayNumber(displayNumber)
-                                                               .WasEqualsSet(wasEqualsSet)
+                                                               .IsLastActionAnOperation(isLastActionAnOperation)
                                                                .Build();
             _calculator = new Calculator(calculatorState);
 
@@ -43,19 +49,40 @@ namespace Calculator.BusinessLogic.UnitTests
         }
 
         [Test]
+        public void ApplyZero_WhenApplyTwoNumbersAfterOperation_ThenDisplayValueConsistOfTheTwoNumbers()
+        {
+            //Arrange
+            _calculator = new Calculator();
+
+            _calculator.ApplyFour();
+            _calculator.ApplyAddition();
+
+            //Act
+            _calculator.ApplyZero();
+            _calculator.ApplyZero();
+
+            //Assert
+            Assert.That(_calculator.DisplayValue, Is.EqualTo("0"));
+        }
+
+        #endregion
+
+        #region ApplyOne
+
+        [Test]
         [TestCase(0, "0", false, ExpectedResult = "1")]
         [TestCase(0, "1", false, ExpectedResult = "11")]
         [TestCase(0, "-1", false, ExpectedResult = "-11")]
         [TestCase(0, "0,1", false, ExpectedResult = "0,11")]
         [TestCase(0, "0,", false, ExpectedResult = "0,1")]
         [TestCase(999, "999", true, ExpectedResult = "1")]
-        public string TestApplyOne(double previousValue, string displayValue, bool wasEqualsSet)
+        public string TestApplyOne(double previousValue, string displayValue, bool isLastActionAnOperation)
         {
             //Arrange
             var displayNumber = DisplayNumberFactory.Create(displayValue);
             var calculatorState = new CalculatorState.Builder().PreviousValue(previousValue)
                                                                .DisplayNumber(displayNumber)
-                                                               .WasEqualsSet(wasEqualsSet)
+                                                               .IsLastActionAnOperation(isLastActionAnOperation)
                                                                .Build();
             _calculator = new Calculator(calculatorState);
 
@@ -67,19 +94,40 @@ namespace Calculator.BusinessLogic.UnitTests
         }
 
         [Test]
+        public void ApplyOne_WhenApplyTwoNumbersAfterOperation_ThenDisplayValueConsistOfTheTwoNumbers()
+        {
+            //Arrange
+            _calculator = new Calculator();
+
+            _calculator.ApplyFour();
+            _calculator.ApplyAddition();
+
+            //Act
+            _calculator.ApplyOne();
+            _calculator.ApplyZero();
+
+            //Assert
+            Assert.That(_calculator.DisplayValue, Is.EqualTo("10"));
+        }
+
+        #endregion
+
+        #region ApplyTwo
+
+        [Test]
         [TestCase(0, "0", false, ExpectedResult = "2")]
         [TestCase(0, "1", false, ExpectedResult = "12")]
         [TestCase(0, "-1", false, ExpectedResult = "-12")]
         [TestCase(0, "0,1", false, ExpectedResult = "0,12")]
         [TestCase(0, "0,", false, ExpectedResult = "0,2")]
         [TestCase(999, "999", true, ExpectedResult = "2")]
-        public string TestApplyTwo(double previousValue, string displayValue, bool wasEqualsSet)
+        public string TestApplyTwo(double previousValue, string displayValue, bool isLastActionAnOperation)
         {
             //Arrange
             var displayNumber = DisplayNumberFactory.Create(displayValue);
             var calculatorState = new CalculatorState.Builder().PreviousValue(previousValue)
                                                                .DisplayNumber(displayNumber)
-                                                               .WasEqualsSet(wasEqualsSet)
+                                                               .IsLastActionAnOperation(isLastActionAnOperation)
                                                                .Build();
             _calculator = new Calculator(calculatorState);
 
@@ -91,19 +139,40 @@ namespace Calculator.BusinessLogic.UnitTests
         }
 
         [Test]
+        public void ApplyTwo_WhenApplyTwoNumbersAfterOperation_ThenDisplayValueConsistOfTheTwoNumbers()
+        {
+            //Arrange
+            _calculator = new Calculator();
+
+            _calculator.ApplyFour();
+            _calculator.ApplyAddition();
+
+            //Act
+            _calculator.ApplyTwo();
+            _calculator.ApplyZero();
+
+            //Assert
+            Assert.That(_calculator.DisplayValue, Is.EqualTo("20"));
+        }
+
+        #endregion
+
+        #region ApplyThree
+
+        [Test]
         [TestCase(0, "0", false, ExpectedResult = "3")]
         [TestCase(0, "1", false, ExpectedResult = "13")]
         [TestCase(0, "-1", false, ExpectedResult = "-13")]
         [TestCase(0, "0,1", false, ExpectedResult = "0,13")]
         [TestCase(0, "0,", false, ExpectedResult = "0,3")]
         [TestCase(999, "999", true, ExpectedResult = "3")]
-        public string TestApplyThree(double previousValue, string displayValue, bool wasEqualsSet)
+        public string TestApplyThree(double previousValue, string displayValue, bool isLastActionAnOperation)
         {
             //Arrange
             var displayNumber = DisplayNumberFactory.Create(displayValue);
             var calculatorState = new CalculatorState.Builder().PreviousValue(previousValue)
                                                                .DisplayNumber(displayNumber)
-                                                               .WasEqualsSet(wasEqualsSet)
+                                                               .IsLastActionAnOperation(isLastActionAnOperation)
                                                                .Build();
             _calculator = new Calculator(calculatorState);
 
@@ -115,19 +184,40 @@ namespace Calculator.BusinessLogic.UnitTests
         }
 
         [Test]
+        public void ApplyThree_WhenApplyTwoNumbersAfterOperation_ThenDisplayValueConsistOfTheTwoNumbers()
+        {
+            //Arrange
+            _calculator = new Calculator();
+
+            _calculator.ApplyFour();
+            _calculator.ApplyAddition();
+
+            //Act
+            _calculator.ApplyThree();
+            _calculator.ApplyZero();
+
+            //Assert
+            Assert.That(_calculator.DisplayValue, Is.EqualTo("30"));
+        }
+
+        #endregion
+
+        #region ApplyFour
+
+        [Test]
         [TestCase(0, "0", false, ExpectedResult = "4")]
         [TestCase(0, "1", false, ExpectedResult = "14")]
         [TestCase(0, "-1", false, ExpectedResult = "-14")]
         [TestCase(0, "0,1", false, ExpectedResult = "0,14")]
         [TestCase(0, "0,", false, ExpectedResult = "0,4")]
         [TestCase(999, "999", true, ExpectedResult = "4")]
-        public string TestApplyFour(double previousValue, string displayValue, bool wasEqualsSet)
+        public string TestApplyFour(double previousValue, string displayValue, bool isLastActionAnOperation)
         {
             //Arrange
             var displayNumber = DisplayNumberFactory.Create(displayValue);
             var calculatorState = new CalculatorState.Builder().PreviousValue(previousValue)
                                                                .DisplayNumber(displayNumber)
-                                                               .WasEqualsSet(wasEqualsSet)
+                                                               .IsLastActionAnOperation(isLastActionAnOperation)
                                                                .Build();
             _calculator = new Calculator(calculatorState);
 
@@ -139,19 +229,40 @@ namespace Calculator.BusinessLogic.UnitTests
         }
 
         [Test]
+        public void ApplyFour_WhenApplyTwoNumbersAfterOperation_ThenDisplayValueConsistOfTheTwoNumbers()
+        {
+            //Arrange
+            _calculator = new Calculator();
+
+            _calculator.ApplyFour();
+            _calculator.ApplyAddition();
+
+            //Act
+            _calculator.ApplyFour();
+            _calculator.ApplyZero();
+
+            //Assert
+            Assert.That(_calculator.DisplayValue, Is.EqualTo("40"));
+        }
+
+        #endregion
+
+        #region ApplyFive
+
+        [Test]
         [TestCase(0, "0", false, ExpectedResult = "5")]
         [TestCase(0, "1", false, ExpectedResult = "15")]
         [TestCase(0, "-1", false, ExpectedResult = "-15")]
         [TestCase(0, "0,1", false, ExpectedResult = "0,15")]
         [TestCase(0, "0,", false, ExpectedResult = "0,5")]
         [TestCase(999, "999", true, ExpectedResult = "5")]
-        public string TestApplyFive(double previousValue, string displayValue, bool wasEqualsSet)
+        public string TestApplyFive(double previousValue, string displayValue, bool isLastActionAnOperation)
         {
             //Arrange
             var displayNumber = DisplayNumberFactory.Create(displayValue);
             var calculatorState = new CalculatorState.Builder().PreviousValue(previousValue)
                                                                .DisplayNumber(displayNumber)
-                                                               .WasEqualsSet(wasEqualsSet)
+                                                               .IsLastActionAnOperation(isLastActionAnOperation)
                                                                .Build();
             _calculator = new Calculator(calculatorState);
 
@@ -163,19 +274,40 @@ namespace Calculator.BusinessLogic.UnitTests
         }
 
         [Test]
+        public void ApplyFive_WhenApplyTwoNumbersAfterOperation_ThenDisplayValueConsistOfTheTwoNumbers()
+        {
+            //Arrange
+            _calculator = new Calculator();
+
+            _calculator.ApplyFour();
+            _calculator.ApplyAddition();
+
+            //Act
+            _calculator.ApplyFive();
+            _calculator.ApplyZero();
+
+            //Assert
+            Assert.That(_calculator.DisplayValue, Is.EqualTo("50"));
+        }
+
+        #endregion
+
+        #region ApplySix
+
+        [Test]
         [TestCase(0, "0", false, ExpectedResult = "6")]
         [TestCase(0, "1", false, ExpectedResult = "16")]
         [TestCase(0, "-1", false, ExpectedResult = "-16")]
         [TestCase(0, "0,1", false, ExpectedResult = "0,16")]
         [TestCase(0, "0,", false, ExpectedResult = "0,6")]
         [TestCase(999, "999", true, ExpectedResult = "6")]
-        public string TestApplySix(double previousValue, string displayValue, bool wasEqualsSet)
+        public string TestApplySix(double previousValue, string displayValue, bool isLastActionAnOperation)
         {
             //Arrange
             var displayNumber = DisplayNumberFactory.Create(displayValue);
             var calculatorState = new CalculatorState.Builder().PreviousValue(previousValue)
                                                                .DisplayNumber(displayNumber)
-                                                               .WasEqualsSet(wasEqualsSet)
+                                                               .IsLastActionAnOperation(isLastActionAnOperation)
                                                                .Build();
             _calculator = new Calculator(calculatorState);
 
@@ -187,19 +319,40 @@ namespace Calculator.BusinessLogic.UnitTests
         }
 
         [Test]
+        public void ApplySix_WhenApplyTwoNumbersAfterOperation_ThenDisplayValueConsistOfTheTwoNumbers()
+        {
+            //Arrange
+            _calculator = new Calculator();
+
+            _calculator.ApplyFour();
+            _calculator.ApplyAddition();
+
+            //Act
+            _calculator.ApplySix();
+            _calculator.ApplyZero();
+
+            //Assert
+            Assert.That(_calculator.DisplayValue, Is.EqualTo("60"));
+        }
+
+        #endregion
+
+        #region ApplySeven
+
+        [Test]
         [TestCase(0, "0", false, ExpectedResult = "7")]
         [TestCase(0, "1", false, ExpectedResult = "17")]
         [TestCase(0, "-1", false, ExpectedResult = "-17")]
         [TestCase(0, "0,1", false, ExpectedResult = "0,17")]
         [TestCase(0, "0,", false, ExpectedResult = "0,7")]
         [TestCase(999, "999", true, ExpectedResult = "7")]
-        public string TestApplySeven(double previousValue, string displayValue, bool wasEqualsSet)
+        public string TestApplySeven(double previousValue, string displayValue, bool isLastActionAnOperation)
         {
             //Arrange
             var displayNumber = DisplayNumberFactory.Create(displayValue);
             var calculatorState = new CalculatorState.Builder().PreviousValue(previousValue)
                                                                .DisplayNumber(displayNumber)
-                                                               .WasEqualsSet(wasEqualsSet)
+                                                               .IsLastActionAnOperation(isLastActionAnOperation)
                                                                .Build();
             _calculator = new Calculator(calculatorState);
 
@@ -211,19 +364,40 @@ namespace Calculator.BusinessLogic.UnitTests
         }
 
         [Test]
+        public void ApplySeven_WhenApplyTwoNumbersAfterOperation_ThenDisplayValueConsistOfTheTwoNumbers()
+        {
+            //Arrange
+            _calculator = new Calculator();
+
+            _calculator.ApplyFour();
+            _calculator.ApplyAddition();
+
+            //Act
+            _calculator.ApplySeven();
+            _calculator.ApplyZero();
+
+            //Assert
+            Assert.That(_calculator.DisplayValue, Is.EqualTo("70"));
+        }
+
+        #endregion
+
+        #region ApplyEight
+
+        [Test]
         [TestCase(0, "0", false, ExpectedResult = "8")]
         [TestCase(0, "1", false, ExpectedResult = "18")]
         [TestCase(0, "-1", false, ExpectedResult = "-18")]
         [TestCase(0, "0,1", false, ExpectedResult = "0,18")]
         [TestCase(0, "0,", false, ExpectedResult = "0,8")]
         [TestCase(999, "999", true, ExpectedResult = "8")]
-        public string TestApplyEight(double previousValue, string displayValue, bool wasEqualsSet)
+        public string TestApplyEight(double previousValue, string displayValue, bool isLastActionAnOperation)
         {
             //Arrange
             var displayNumber = DisplayNumberFactory.Create(displayValue);
             var calculatorState = new CalculatorState.Builder().PreviousValue(previousValue)
                                                                .DisplayNumber(displayNumber)
-                                                               .WasEqualsSet(wasEqualsSet)
+                                                               .IsLastActionAnOperation(isLastActionAnOperation)
                                                                .Build();
             _calculator = new Calculator(calculatorState);
 
@@ -235,19 +409,40 @@ namespace Calculator.BusinessLogic.UnitTests
         }
 
         [Test]
+        public void ApplyEight_WhenApplyTwoNumbersAfterOperation_ThenDisplayValueConsistOfTheTwoNumbers()
+        {
+            //Arrange
+            _calculator = new Calculator();
+
+            _calculator.ApplyFour();
+            _calculator.ApplyAddition();
+
+            //Act
+            _calculator.ApplyEight();
+            _calculator.ApplyZero();
+
+            //Assert
+            Assert.That(_calculator.DisplayValue, Is.EqualTo("80"));
+        }
+
+        #endregion
+
+        #region ApplyNine
+
+        [Test]
         [TestCase(0, "0", false, ExpectedResult = "9")]
         [TestCase(0, "1", false, ExpectedResult = "19")]
         [TestCase(0, "-1", false, ExpectedResult = "-19")]
         [TestCase(0, "0,1", false, ExpectedResult = "0,19")]
         [TestCase(0, "0,", false, ExpectedResult = "0,9")]
         [TestCase(999, "999", true, ExpectedResult = "9")]
-        public string TestApplyNine(double previousValue, string displayValue, bool wasEqualsSet)
+        public string TestApplyNine(double previousValue, string displayValue, bool isLastActionAnOperation)
         {
             //Arrange
             var displayNumber = DisplayNumberFactory.Create(displayValue);
             var calculatorState = new CalculatorState.Builder().PreviousValue(previousValue)
                                                                .DisplayNumber(displayNumber)
-                                                               .WasEqualsSet(wasEqualsSet)
+                                                               .IsLastActionAnOperation(isLastActionAnOperation)
                                                                .Build();
             _calculator = new Calculator(calculatorState);
 
@@ -259,19 +454,40 @@ namespace Calculator.BusinessLogic.UnitTests
         }
 
         [Test]
+        public void ApplyNine_WhenApplyTwoNumbersAfterOperation_ThenDisplayValueConsistOfTheTwoNumbers()
+        {
+            //Arrange
+            _calculator = new Calculator();
+
+            _calculator.ApplyFour();
+            _calculator.ApplyAddition();
+
+            //Act
+            _calculator.ApplyNine();
+            _calculator.ApplyZero();
+
+            //Assert
+            Assert.That(_calculator.DisplayValue, Is.EqualTo("90"));
+        }
+
+        #endregion
+
+        #region ApplyComma
+
+        [Test]
         [TestCase(0, "0", false, ExpectedResult = "0,")]
         [TestCase(0, "1", false, ExpectedResult = "1,")]
         [TestCase(0, "0,", false, ExpectedResult = "0,")]
         [TestCase(0, "-1,", false, ExpectedResult = "-1,")]
         [TestCase(0, "1,234", false, ExpectedResult = "1,234")]
         [TestCase(0, "123", true, ExpectedResult = "0,")]
-        public string TestApplyComma(double previousValue, string displayValue, bool wasEqualsSet)
+        public string TestApplyComma(double previousValue, string displayValue, bool isLastActionAnOperation)
         {
             //Arrange
             var displayNumber = DisplayNumberFactory.Create(displayValue);
             var calculatorState = new CalculatorState.Builder().PreviousValue(previousValue)
                                                                .DisplayNumber(displayNumber)
-                                                               .WasEqualsSet(wasEqualsSet)
+                                                               .IsLastActionAnOperation(isLastActionAnOperation)
                                                                .Build();
             _calculator = new Calculator(calculatorState);
 
@@ -281,6 +497,10 @@ namespace Calculator.BusinessLogic.UnitTests
             //Assert
             return _calculator.DisplayValue;
         }
+
+        #endregion
+
+        #region Clear
 
         [Test]
         [TestCase("0")]
@@ -302,6 +522,10 @@ namespace Calculator.BusinessLogic.UnitTests
             Assert.That(_calculator.DisplayValue, Is.EqualTo("0"));
         }
 
+        #endregion
+
+        #region ClearLastSymbol
+
         [Test]
         [TestCase("0", false, ExpectedResult = "0")]
         [TestCase("1", false, ExpectedResult = "0")]
@@ -315,12 +539,12 @@ namespace Calculator.BusinessLogic.UnitTests
         [TestCase("1,23", false, ExpectedResult = "1,2")]
         [TestCase("-1,23", false, ExpectedResult = "-1,2")]
         [TestCase("-1,23", true, ExpectedResult = "-1,23")]
-        public string TestClearLastSymbol(string displayValue, bool wasEqualsSet)
+        public string TestClearLastSymbol(string displayValue, bool isLastActionAnOperation)
         {
             //Arrange
             var displayNumber = DisplayNumberFactory.Create(displayValue);
             var calculatorState = new CalculatorState.Builder().DisplayNumber(displayNumber)
-                                                               .WasEqualsSet(wasEqualsSet)
+                                                               .IsLastActionAnOperation(isLastActionAnOperation)
                                                                .Build();
             _calculator = new Calculator(calculatorState);
 
@@ -331,6 +555,10 @@ namespace Calculator.BusinessLogic.UnitTests
             return _calculator.DisplayValue;
         }
 
+        #endregion
+
+        #region ApplyNegation
+
         [Test]
         [TestCase(0, "0", false, ExpectedResult = "0")]
         [TestCase(0, "1", false, ExpectedResult = "-1")]
@@ -339,13 +567,13 @@ namespace Calculator.BusinessLogic.UnitTests
         [TestCase(0, "0,", false, ExpectedResult = "-0,")]
         [TestCase(0, "0,0", false, ExpectedResult = "-0,0")]
         [TestCase(999, "999", true, ExpectedResult = "-999")]
-        public string TestApplyNegation(double previousValue, string displayValue, bool wasEqualsSet)
+        public string TestApplyNegation(double previousValue, string displayValue, bool isLastActionAnOperation)
         {
             //Arrange
             var displayNumber = DisplayNumberFactory.Create(displayValue);
             var calculatorState = new CalculatorState.Builder().PreviousValue(previousValue)
                                                                .DisplayNumber(displayNumber)
-                                                               .WasEqualsSet(wasEqualsSet)
+                                                               .IsLastActionAnOperation(isLastActionAnOperation)
                                                                .Build();
             _calculator = new Calculator(calculatorState);
 
@@ -355,6 +583,10 @@ namespace Calculator.BusinessLogic.UnitTests
             //Assert
             return _calculator.DisplayValue;
         }
+
+        #endregion
+
+        #region Cancel
 
         [Test]
         public void Cancel_WhenCancel_ThenDisplayValueIsZero()
@@ -371,6 +603,10 @@ namespace Calculator.BusinessLogic.UnitTests
             //Assert
             Assert.That(_calculator.DisplayValue, Is.EqualTo("0"));
         }
+
+        #endregion
+
+        #region Cancel
 
         [Test]
         public void Cancel_WhenAnyNumberAndOperationWereAppliedAndThenApplyEquality_ThenDisplayValueIsZero()
@@ -389,6 +625,10 @@ namespace Calculator.BusinessLogic.UnitTests
             //Assert
             Assert.That(_calculator.DisplayValue, Is.EqualTo("0"));
         }
+
+        #endregion
+
+        #region ApplyAddition
 
         [Test]
         [TestCase(50, "-10")]
@@ -429,6 +669,10 @@ namespace Calculator.BusinessLogic.UnitTests
             Assert.That(_calculator.DisplayValue, Is.EqualTo("29"));
         }
 
+        #endregion
+
+        #region ApplySubtraction
+
         [Test]
         [TestCase(50, "-10")]
         [TestCase(50, "0")]
@@ -467,6 +711,10 @@ namespace Calculator.BusinessLogic.UnitTests
             //Assert
             Assert.That(_calculator.DisplayValue, Is.EqualTo("29"));
         }
+
+        #endregion
+
+        #region ApplyMultiplication
 
         [Test]
         [TestCase(50, "-10")]
@@ -507,6 +755,10 @@ namespace Calculator.BusinessLogic.UnitTests
             Assert.That(_calculator.DisplayValue, Is.EqualTo("29"));
         }
 
+        #endregion
+
+        #region ApplyDivision
+
         [Test]
         [TestCase(50, "-10")]
         [TestCase(50, "0")]
@@ -545,6 +797,10 @@ namespace Calculator.BusinessLogic.UnitTests
             //Assert
             Assert.That(_calculator.DisplayValue, Is.EqualTo("29"));
         }
+
+        #endregion
+
+        #region ApplyEquality
 
         [Test]
         public void ApplyEquality_WhenWasNotAnyOperation_ThenDisplayValueWillNotChanged()
@@ -643,7 +899,7 @@ namespace Calculator.BusinessLogic.UnitTests
             _calculator.ApplyEquality();
 
             //Assert
-            Assert.That(_calculator.DisplayValue, Is.EqualTo(Messages.DivisionOnZero));
+            Assert.That(_calculator.DisplayValue, Is.EqualTo(ErrorMessages.DivisionOnZero));
         }
 
         [Test]
@@ -680,5 +936,49 @@ namespace Calculator.BusinessLogic.UnitTests
             //Assert
             Assert.That(_calculator.DisplayValue, Is.EqualTo("10"));
         }
+
+        #endregion
+
+        #region ApplyPercent
+
+        [Test]
+        public void ApplyPercent_WhenOperationAndTwoNumbersAppliedAndApplyEquationSeveralTimes_ThenTheOperationShouldBeApplied()
+        {
+            //Arrange
+            _calculator = new Calculator();
+
+            _calculator.ApplyFour();
+            _calculator.ApplyAddition();
+            _calculator.ApplyTwo();
+            _calculator.ApplyFive();
+            _calculator.ApplyPercent();
+
+            //Act & Assert
+            _calculator.ApplyEquality();
+            Assert.That(_calculator.DisplayValue, Is.EqualTo("5"));
+
+            _calculator.ApplyEquality();
+            Assert.That(_calculator.DisplayValue, Is.EqualTo("6"));
+        }
+
+        [Test]
+        public void ApplyPercent_WhenOperationAndTwoNumbersApplied_ThenInvokeOperationWithSecondOperandAsPercent()
+        {
+            //Arrange
+            _calculator = new Calculator();
+
+            _calculator.ApplyFour();
+            _calculator.ApplyAddition();
+            _calculator.ApplyTwo();
+            _calculator.ApplyFive();
+
+            //Act
+            _calculator.ApplyPercent();
+
+            //Assert
+            Assert.That(_calculator.DisplayValue, Is.EqualTo("1"));
+        }
+
+        #endregion
     }
 }

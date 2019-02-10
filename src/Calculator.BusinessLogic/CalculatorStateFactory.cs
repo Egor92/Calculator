@@ -27,6 +27,12 @@ namespace Calculator.BusinessLogic
             };
         }
 
+        internal static DisplayNumber Create(double value)
+        {
+            var displayValue = value.ToString();
+            return Create(displayValue);
+        }
+
         private static string GetValue(Match match, int index)
         {
             var group = match.Groups[index];

@@ -1,7 +1,7 @@
-﻿using Calculator.BusinessLogic.Operations;
+﻿using Calculator.BusinessLogic.Operations.Binary;
 using NUnit.Framework;
 
-namespace Calculator.BusinessLogic.UnitTests.Operations
+namespace Calculator.BusinessLogic.UnitTests.Operations.Binary
 {
     [TestFixture]
     public class SubtractionTests

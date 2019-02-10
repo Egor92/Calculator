@@ -50,11 +50,12 @@
     <Compile Include="DisplayNumberExtensionsTests.cs" />
     <Compile Include="DisplayNumberFactoryTests.cs" />
     <Compile Include="DisplayNumberTests.cs" />
-    <Compile Include="Operations\DivisionTests.cs" />
-    <Compile Include="Operations\MultiplicationTests.cs" />
-    <Compile Include="Operations\SubtractionTests.cs" />
-    <Compile Include="Operations\AdditionTests.cs" />
+    <Compile Include="Operations\Binary\DivisionTests.cs" />
+    <Compile Include="Operations\Binary\MultiplicationTests.cs" />
+    <Compile Include="Operations\Binary\SubtractionTests.cs" />
+    <Compile Include="Operations\Binary\AdditionTests.cs" />
     <Compile Include="Operations\ExecutableInfoTests.cs" />
+    <Compile Include="Operations\Binary\PercentTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -65,6 +66,9 @@
       <Project>{5D98F6FE-3EC5-4099-BDE9-C681AF90C630}</Project>
       <Name>Calculator.BusinessLogic</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Operations\Unary\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
