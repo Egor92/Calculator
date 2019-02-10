@@ -357,7 +357,19 @@ namespace Calculator.BusinessLogic
 
         public void ApplyTurningOver()
         {
-            throw new NotImplementedException();
+            var value = _displayNumber.ToDouble();
+            var operation = UnaryOperations.TurningOver;
+            var executableInfo = operation.GetExecutableInfo(value);
+            if (!executableInfo.CanBeExecuted)
+            {
+                DisplayValue = executableInfo.Message;
+                return;
+            }
+
+            var result = operation.Execute(value);
+            var displayValue = result.ToString(_cultureInfo);
+            _displayNumber = DisplayNumberFactory.Create(displayValue);
+            DisplayValue = displayValue;
         }
 
         #endregion

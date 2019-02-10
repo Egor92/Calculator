@@ -12,7 +12,7 @@ namespace Calculator.BusinessLogic.UnitTests.Operations.Binary
         [TestCase(-4, 25)]
         [TestCase(4, 0)]
         [TestCase(4, -25)]
-        public void CanExecute_WhenAnyValues_ThenCanExecute(double value1, double value2)
+        public void GetExecutableInfo_WhenAnyValues_ThenCanExecute(double value1, double value2)
         {
             //Arrange
             var percent = new Percent();

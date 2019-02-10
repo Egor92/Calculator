@@ -8,7 +8,7 @@ namespace Calculator.BusinessLogic.UnitTests.Operations.Binary
     public class DivisionTests
     {
         [Test]
-        public void CanExecute_WhenSecondValueIsNotZero_ThenCanExecute()
+        public void GetExecutableInfo_WhenSecondValueIsNotZero_ThenCanExecute()
         {
             //Arrange
             var division = new Division();
@@ -21,7 +21,7 @@ namespace Calculator.BusinessLogic.UnitTests.Operations.Binary
         }
 
         [Test]
-        public void CanExecute_WhenSecondValueIsZero_ThenCannotExecuteAndReturnErrorMessage()
+        public void GetExecutableInfo_WhenSecondValueIsZero_ThenCannotExecuteAndReturnErrorMessage()
         {
             //Arrange
             var division = new Division();

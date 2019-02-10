@@ -56,6 +56,7 @@
     <Compile Include="Operations\Binary\AdditionTests.cs" />
     <Compile Include="Operations\ExecutableInfoTests.cs" />
     <Compile Include="Operations\Binary\PercentTests.cs" />
+    <Compile Include="Operations\Unary\TurningOverTests.cs" />
     <Compile Include="Operations\Unary\SquaringTests.cs" />
     <Compile Include="Operations\Unary\SquareRootTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

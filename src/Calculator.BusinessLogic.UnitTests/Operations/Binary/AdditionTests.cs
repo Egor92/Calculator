@@ -7,7 +7,7 @@ namespace Calculator.BusinessLogic.UnitTests.Operations.Binary
     public class AdditionTests
     {
         [Test]
-        public void CanExecute_WhenAnyValues_ThenCanExecute()
+        public void GetExecutableInfo_WhenAnyValues_ThenCanExecute()
         {
             //Arrange
             var addition = new Addition();

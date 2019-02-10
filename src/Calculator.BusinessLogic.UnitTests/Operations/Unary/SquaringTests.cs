@@ -11,7 +11,7 @@ namespace Calculator.BusinessLogic.UnitTests.Operations.Unary
         [TestCase(0)]
         [TestCase(1)]
         [TestCase(2)]
-        public void CanExecute_WhenValueIsAny_ThenCanExecute(double value)
+        public void GetExecutableInfo_WhenValueIsAny_ThenCanExecute(double value)
         {
             //Arrange
             var squaring = new Squaring();

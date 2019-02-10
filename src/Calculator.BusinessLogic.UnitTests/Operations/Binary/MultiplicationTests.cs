@@ -7,7 +7,7 @@ namespace Calculator.BusinessLogic.UnitTests.Operations.Binary
     public class MultiplicationTests
     {
         [Test]
-        public void CanExecute_WhenAnyValues_ThenCanExecute()
+        public void GetExecutableInfo_WhenAnyValues_ThenCanExecute()
         {
             //Arrange
             var multiplication = new Multiplication();

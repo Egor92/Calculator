@@ -1114,5 +1114,78 @@ namespace Calculator.BusinessLogic.UnitTests
         }
 
         #endregion
+
+        #region ApplyTurningOver
+
+        [Test]
+        public void ApplyTurningOver_WhenApplyEquationSeveralTimes_ThenDisplayValueShouldNotChange()
+        {
+            //Arrange
+            _calculator = new Calculator();
+
+            _calculator.ApplyFive();
+            _calculator.ApplyTurningOver();
+
+            //Act & Assert
+            _calculator.ApplyEquality();
+            Assert.That(_calculator.DisplayValue, Is.EqualTo("0,2"));
+
+            _calculator.ApplyEquality();
+            Assert.That(_calculator.DisplayValue, Is.EqualTo("0,2"));
+
+            _calculator.ApplyEquality();
+            Assert.That(_calculator.DisplayValue, Is.EqualTo("0,2"));
+        }
+
+        [Test]
+        public void ApplyTurningOver_WhenNumberIsNotZero_ThenDisplayTurningOver()
+        {
+            //Arrange
+            _calculator = new Calculator();
+
+            _calculator.ApplyFive();
+
+            //Act
+            _calculator.ApplyTurningOver();
+
+            //Assert
+            Assert.That(_calculator.DisplayValue, Is.EqualTo("0,2"));
+        }
+
+        [Test]
+        public void ApplyTurningOver_WhenNumberIsZero_ThenDisplayDivisionOnZero()
+        {
+            //Arrange
+            _calculator = new Calculator();
+
+            _calculator.ApplyZero();
+
+            //Act
+            _calculator.ApplyTurningOver();
+
+            //Assert
+            Assert.That(_calculator.DisplayValue, Is.EqualTo(ErrorMessages.DivisionOnZero));
+        }
+
+        [Test]
+        public void ApplyTurningOver_WhenApplyTurningOverTimes_ThenTurningOverShouldBeAppliedTheSameTimes()
+        {
+            //Arrange
+            _calculator = new Calculator();
+
+            _calculator.ApplyFive();
+
+            //Act & Assert
+            _calculator.ApplyTurningOver();
+            Assert.That(_calculator.DisplayValue, Is.EqualTo("0,2"));
+
+            _calculator.ApplyTurningOver();
+            Assert.That(_calculator.DisplayValue, Is.EqualTo("5"));
+
+            _calculator.ApplyTurningOver();
+            Assert.That(_calculator.DisplayValue, Is.EqualTo("0,2"));
+        }
+
+        #endregion
     }
 }

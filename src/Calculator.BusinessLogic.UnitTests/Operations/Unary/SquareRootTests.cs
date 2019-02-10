@@ -11,7 +11,7 @@ namespace Calculator.BusinessLogic.UnitTests.Operations.Unary
         [TestCase(0)]
         [TestCase(1)]
         [TestCase(2)]
-        public void CanExecute_WhenValueIsNotNegative_ThenCanExecute(double value)
+        public void GetExecutableInfo_WhenValueIsNotNegative_ThenCanExecute(double value)
         {
             //Arrange
             var squareRoot = new SquareRoot();
@@ -24,7 +24,7 @@ namespace Calculator.BusinessLogic.UnitTests.Operations.Unary
         }
 
         [Test]
-        public void CanExecute_WhenValueIsNegative_ThenCannotExecuteAndReturnErrorMessage()
+        public void GetExecutableInfo_WhenValueIsNegative_ThenCannotExecuteAndReturnErrorMessage()
         {
             //Arrange
             var squareRoot = new SquareRoot();
