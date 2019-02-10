@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using Calculator.BusinessLogic.Operations;
 using Calculator.BusinessLogic.Operations.Binary;
 using Calculator.BusinessLogic.Operations.Unary;
 
@@ -307,66 +308,67 @@ namespace Calculator.BusinessLogic
         {
             var value1 = _lastOperand1.GetValueOrDefault();
             var value2 = _displayNumber.ToDouble();
-            var operation = BinaryOperations.Percent;
-            var executableInfo = operation.GetExecutableInfo(value1, value2);
-            if (!executableInfo.CanBeExecuted)
-            {
-                DisplayValue = executableInfo.Message;
-                return;
-            }
-
-            var result = operation.Execute(value1, value2);
-            var displayValue = result.ToString(_cultureInfo);
-            _displayNumber = DisplayNumberFactory.Create(displayValue);
-            DisplayValue = displayValue;
+            ExecuteOperation(BinaryOperations.Percent, value1, value2);
         }
 
         public void ApplySquareRoot()
         {
             var value = _displayNumber.ToDouble();
-            var operation = UnaryOperations.SquareRoot;
-            var executableInfo = operation.GetExecutableInfo(value);
-            if (!executableInfo.CanBeExecuted)
-            {
-                DisplayValue = executableInfo.Message;
-                return;
-            }
-
-            var result = operation.Execute(value);
-            var displayValue = result.ToString(_cultureInfo);
-            _displayNumber = DisplayNumberFactory.Create(displayValue);
-            DisplayValue = displayValue;
+            ExecuteOperation(UnaryOperations.SquareRoot, value);
         }
 
         public void ApplySquaring()
         {
             var value = _displayNumber.ToDouble();
-            var operation = UnaryOperations.Squaring;
-            var executableInfo = operation.GetExecutableInfo(value);
-            if (!executableInfo.CanBeExecuted)
-            {
-                DisplayValue = executableInfo.Message;
-                return;
-            }
-
-            var result = operation.Execute(value);
-            var displayValue = result.ToString(_cultureInfo);
-            _displayNumber = DisplayNumberFactory.Create(displayValue);
-            DisplayValue = displayValue;
+            ExecuteOperation(UnaryOperations.Squaring, value);
         }
 
         public void ApplyTurningOver()
         {
             var value = _displayNumber.ToDouble();
-            var operation = UnaryOperations.TurningOver;
-            var executableInfo = operation.GetExecutableInfo(value);
+            ExecuteOperation(UnaryOperations.TurningOver, value);
+        }
+
+        private void ExecuteOperation(IUnaryOperation operation, double value)
+        {
+            ExecuteOperation(GetExecutableInfo, GetResult);
+
+            ExecutableInfo GetExecutableInfo()
+            {
+                return operation.GetExecutableInfo(value);
+            }
+
+            double GetResult()
+            {
+                return operation.Execute(value);
+            }
+        }
+
+        private void ExecuteOperation(IBinaryOperation operation, double value1, double value2)
+        {
+            ExecuteOperation(GetExecutableInfo, GetResult);
+
+            ExecutableInfo GetExecutableInfo()
+            {
+                return operation.GetExecutableInfo(value1, value2);
+            }
+
+            double GetResult()
+            {
+                return operation.Execute(value1, value2);
+            }
+        }
+
+        private void ExecuteOperation(Func<ExecutableInfo> getExecutableInfo, Func<double> getResult)
+        {
+            var executableInfo = getExecutableInfo();
             if (!executableInfo.CanBeExecuted)
             {
                 DisplayValue = executableInfo.Message;
                 return;
             }
 
-            var result = operation.Execute(value);
+            var result = getResult();
             var displayValue = result.ToString(_cultureInfo);
             _displayNumber = DisplayNumberFactory.Create(displayValue);
             DisplayValue = displayValue;
