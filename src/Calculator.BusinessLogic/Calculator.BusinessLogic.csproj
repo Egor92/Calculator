@@ -59,6 +59,7 @@
     <Compile Include="Operations\Binary\IBinaryOperation.cs" />
     <Compile Include="Operations\ExecutableInfo.cs" />
     <Compile Include="Operations\Binary\Subtraction.cs" />
+    <Compile Include="Operations\Unary\Squaring.cs" />
     <Compile Include="Operations\Unary\SquareRoot.cs" />
     <Compile Include="Operations\Unary\UnaryOperations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

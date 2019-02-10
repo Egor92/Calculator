@@ -984,41 +984,133 @@ namespace Calculator.BusinessLogic.UnitTests
         #region ApplySquareRoot
 
         [Test]
-        public void ApplySquareRoot_WhenOperationAndTwoNumbersAppliedAndApplyEquationSeveralTimes_ThenTheOperationShouldBeApplied()
+        public void ApplySquareRoot_WhenApplyEquationSeveralTimes_ThenDisplayValueShouldNotChange()
         {
             //Arrange
             _calculator = new Calculator();
 
             _calculator.ApplyFour();
-            _calculator.ApplyAddition();
-            _calculator.ApplyTwo();
-            _calculator.ApplyFive();
             _calculator.ApplySquareRoot();
 
             //Act & Assert
             _calculator.ApplyEquality();
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("9"));
+            Assert.That(_calculator.DisplayValue, Is.EqualTo("2"));
 
             _calculator.ApplyEquality();
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("14"));
+            Assert.That(_calculator.DisplayValue, Is.EqualTo("2"));
+
+            _calculator.ApplyEquality();
+            Assert.That(_calculator.DisplayValue, Is.EqualTo("2"));
         }
 
         [Test]
-        public void ApplySquareRoot_WhenOperationAndTwoNumbersApplied_ThenInvokeOperationWithSecondOperandAsPercent()
+        public void ApplySquareRoot_WhenNumberIsNotNegative_ThenDisplaySquaringResult()
         {
             //Arrange
             _calculator = new Calculator();
 
             _calculator.ApplyFour();
-            _calculator.ApplyAddition();
-            _calculator.ApplyTwo();
-            _calculator.ApplyFive();
 
             //Act
             _calculator.ApplySquareRoot();
 
             //Assert
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("5"));
+            Assert.That(_calculator.DisplayValue, Is.EqualTo("2"));
+        }
+
+        [Test]
+        public void ApplySquareRoot_WhenNumberIsNegative_ThenDisplayInvalidInput()
+        {
+            //Arrange
+            _calculator = new Calculator();
+
+            _calculator.ApplyTwo();
+            _calculator.ApplyNegation();
+
+            //Act
+            _calculator.ApplySquareRoot();
+
+            //Assert
+            Assert.That(_calculator.DisplayValue, Is.EqualTo(ErrorMessages.InvalidInput));
+        }
+
+        [Test]
+        public void ApplySquareRoot_WhenApplySquaringSeveralTimes_ThenApplySquaringTheSameTimes()
+        {
+            //Arrange
+            _calculator = new Calculator();
+
+            _calculator.ApplyTwo();
+            _calculator.ApplyFive();
+            _calculator.ApplySix();
+
+            //Act & Assert
+            _calculator.ApplySquareRoot();
+            Assert.That(_calculator.DisplayValue, Is.EqualTo("16"));
+
+            _calculator.ApplySquareRoot();
+            Assert.That(_calculator.DisplayValue, Is.EqualTo("4"));
+
+            _calculator.ApplySquareRoot();
+            Assert.That(_calculator.DisplayValue, Is.EqualTo("2"));
+        }
+
+        #endregion
+
+        #region ApplySquaring
+
+        [Test]
+        public void ApplySquaring_WhenApplyEquationSeveralTimes_ThenDisplayValueShouldNotChange()
+        {
+            //Arrange
+            _calculator = new Calculator();
+
+            _calculator.ApplyFour();
+            _calculator.ApplySquaring();
+
+            //Act & Assert
+            _calculator.ApplyEquality();
+            Assert.That(_calculator.DisplayValue, Is.EqualTo("16"));
+
+            _calculator.ApplyEquality();
+            Assert.That(_calculator.DisplayValue, Is.EqualTo("16"));
+
+            _calculator.ApplyEquality();
+            Assert.That(_calculator.DisplayValue, Is.EqualTo("16"));
+        }
+
+        [Test]
+        public void ApplySquaring_WhenAnyNumber_ThenDisplaySquaringResult()
+        {
+            //Arrange
+            _calculator = new Calculator();
+
+            _calculator.ApplyFour();
+
+            //Act
+            _calculator.ApplySquaring();
+
+            //Assert
+            Assert.That(_calculator.DisplayValue, Is.EqualTo("16"));
+        }
+
+        [Test]
+        public void ApplySquaring_WhenApplySquaringSeveralTimes_ThenApplySquaringTheSameTimes()
+        {
+            //Arrange
+            _calculator = new Calculator();
+
+            _calculator.ApplyTwo();
+
+            //Act & Assert
+            _calculator.ApplySquaring();
+            Assert.That(_calculator.DisplayValue, Is.EqualTo("4"));
+
+            _calculator.ApplySquaring();
+            Assert.That(_calculator.DisplayValue, Is.EqualTo("16"));
+
+            _calculator.ApplySquaring();
+            Assert.That(_calculator.DisplayValue, Is.EqualTo("256"));
         }
 
         #endregion
