@@ -224,6 +224,12 @@ namespace Calculator.BusinessLogic
         {
             ChangeDisplayNumber(() =>
             {
+                _lastOperand1 = null;
+                _lastOperand2 = 0;
+                _lastResult = 0;
+                _lastBinaryOperation = null;
+                _selectedBinaryOperation = null;
+                _isLastActionAnBinaryOperation = false;
                 _displayNumber.Reset();
             });
         }

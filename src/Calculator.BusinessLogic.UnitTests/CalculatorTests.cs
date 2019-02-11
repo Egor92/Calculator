@@ -661,6 +661,41 @@ namespace Calculator.BusinessLogic.UnitTests
             Assert.That(calculator.DisplayValue, Is.EqualTo("0"));
         }
 
+        [Test]
+        public void Cancel_WhenTwoNumbersAndOperationWereAppliedThenCancelAndApplyEquality_ThenDisplayValueShouldBeZero()
+        {
+            //Arrange
+            var calculator = new Calculator();
+            calculator.ApplyThree();
+            calculator.ApplyAddition();
+            calculator.ApplyTwo();
+
+            //Act
+            calculator.Cancel();
+            calculator.ApplyEquality();
+
+            //Assert
+            Assert.That(calculator.DisplayValue, Is.EqualTo("0"));
+        }
+
+        [Test]
+        public void Cancel_WhenTwoNumbersAndOperationWereAppliedThenApplyEqualityAndCancelAndApplyEqualityAgain_ThenDisplayValueShouldBeZero()
+        {
+            //Arrange
+            var calculator = new Calculator();
+            calculator.ApplyThree();
+            calculator.ApplyAddition();
+            calculator.ApplyTwo();
+
+            //Act
+            calculator.ApplyEquality();
+            calculator.Cancel();
+            calculator.ApplyEquality();
+
+            //Assert
+            Assert.That(calculator.DisplayValue, Is.EqualTo("0"));
+        }
+
         #endregion
 
         #region ApplyAddition
