@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Globalization;
+using System.Reactive.Linq;
+using System.Reactive.Subjects;
 using Calculator.BusinessLogic.Operations;
 using Calculator.BusinessLogic.Operations.Binary;
 using Calculator.BusinessLogic.Operations.Unary;
@@ -46,7 +48,32 @@ namespace Calculator.BusinessLogic
 
         #region Implementation of ICalculator
 
-        public string DisplayValue { get; private set; }
+        #region DisplayValue
+
+        private string _displayValue;
+
+        public string DisplayValue
+        {
+            get { return _displayValue; }
+            private set
+            {
+                _displayValue = value;
+                _displayValueChanged.OnNext(value);
+            }
+        }
+
+        #endregion
+
+        #region DisplayValueChanged
+
+        private readonly SubjectBase<string> _displayValueChanged = new BehaviorSubject<string>(string.Empty);
+
+        public IObservable<string> DisplayValueChanged
+        {
+            get { return _displayValueChanged.AsObservable(); }
+        }
+
+        #endregion
 
         public void ApplyZero()
         {

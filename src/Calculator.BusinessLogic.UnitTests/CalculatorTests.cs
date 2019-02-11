@@ -1,4 +1,5 @@
-﻿using Calculator.BusinessLogic.Constants;
+﻿using System;
+using Calculator.BusinessLogic.Constants;
 using NUnit.Framework;
 
 namespace Calculator.BusinessLogic.UnitTests
@@ -6,18 +7,56 @@ namespace Calculator.BusinessLogic.UnitTests
     [TestFixture]
     public class CalculatorTests
     {
-        private Calculator _calculator;
-
         #region DisplayValue
 
         [Test]
         public void DisplayValue_InitialDefaultValueIsZero()
         {
             //Arrange
-            _calculator = new Calculator();
+            var calculator = new Calculator();
 
             //Assert
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("0"));
+            Assert.That(calculator.DisplayValue, Is.EqualTo("0"));
+        }
+
+        #endregion
+
+        #region DisplayValueChanged
+
+        [Test]
+        public void DisplayValueChanged_WhenDisplayValueIsChanged_ThenDisplayValueChangedShouldBeRaised()
+        {
+            //Arrange
+            var calculator = new Calculator();
+            bool isRaised = false;
+            calculator.DisplayValueChanged.Subscribe(x =>
+            {
+                isRaised = true;
+            });
+
+            //Act
+            calculator.ApplyTwo();
+
+            //Assert
+            Assert.That(isRaised, Is.True);
+        }
+
+        [Test]
+        public void DisplayValueChanged_WhenDisplayValueIsChanged_ThenPassedValueShouldBeEqualDisplayValue()
+        {
+            //Arrange
+            var calculator = new Calculator();
+            string displayValue = null;
+            calculator.DisplayValueChanged.Subscribe(x =>
+            {
+                displayValue = x;
+            });
+
+            //Act
+            calculator.ApplyTwo();
+
+            //Assert
+            Assert.That(displayValue, Is.EqualTo(calculator.DisplayValue));
         }
 
         #endregion
@@ -39,30 +78,30 @@ namespace Calculator.BusinessLogic.UnitTests
                                                                .DisplayNumber(displayNumber)
                                                                .IsLastActionAnBinaryOperation(isLastActionAnBinaryOperation)
                                                                .Build();
-            _calculator = new Calculator(calculatorState);
+            var calculator = new Calculator(calculatorState);
 
             //Act
-            _calculator.ApplyZero();
+            calculator.ApplyZero();
 
             //Assert
-            return _calculator.DisplayValue;
+            return calculator.DisplayValue;
         }
 
         [Test]
         public void ApplyZero_WhenApplyTwoNumbersAfterOperation_ThenDisplayValueConsistOfTheTwoNumbers()
         {
             //Arrange
-            _calculator = new Calculator();
+            var calculator = new Calculator();
 
-            _calculator.ApplyFour();
-            _calculator.ApplyAddition();
+            calculator.ApplyFour();
+            calculator.ApplyAddition();
 
             //Act
-            _calculator.ApplyZero();
-            _calculator.ApplyZero();
+            calculator.ApplyZero();
+            calculator.ApplyZero();
 
             //Assert
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("0"));
+            Assert.That(calculator.DisplayValue, Is.EqualTo("0"));
         }
 
         #endregion
@@ -84,30 +123,30 @@ namespace Calculator.BusinessLogic.UnitTests
                                                                .DisplayNumber(displayNumber)
                                                                .IsLastActionAnBinaryOperation(isLastActionAnBinaryOperation)
                                                                .Build();
-            _calculator = new Calculator(calculatorState);
+            var calculator = new Calculator(calculatorState);
 
             //Act
-            _calculator.ApplyOne();
+            calculator.ApplyOne();
 
             //Assert
-            return _calculator.DisplayValue;
+            return calculator.DisplayValue;
         }
 
         [Test]
         public void ApplyOne_WhenApplyTwoNumbersAfterOperation_ThenDisplayValueConsistOfTheTwoNumbers()
         {
             //Arrange
-            _calculator = new Calculator();
+            var calculator = new Calculator();
 
-            _calculator.ApplyFour();
-            _calculator.ApplyAddition();
+            calculator.ApplyFour();
+            calculator.ApplyAddition();
 
             //Act
-            _calculator.ApplyOne();
-            _calculator.ApplyZero();
+            calculator.ApplyOne();
+            calculator.ApplyZero();
 
             //Assert
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("10"));
+            Assert.That(calculator.DisplayValue, Is.EqualTo("10"));
         }
 
         #endregion
@@ -129,30 +168,30 @@ namespace Calculator.BusinessLogic.UnitTests
                                                                .DisplayNumber(displayNumber)
                                                                .IsLastActionAnBinaryOperation(isLastActionAnBinaryOperation)
                                                                .Build();
-            _calculator = new Calculator(calculatorState);
+            var calculator = new Calculator(calculatorState);
 
             //Act
-            _calculator.ApplyTwo();
+            calculator.ApplyTwo();
 
             //Assert
-            return _calculator.DisplayValue;
+            return calculator.DisplayValue;
         }
 
         [Test]
         public void ApplyTwo_WhenApplyTwoNumbersAfterOperation_ThenDisplayValueConsistOfTheTwoNumbers()
         {
             //Arrange
-            _calculator = new Calculator();
+            var calculator = new Calculator();
 
-            _calculator.ApplyFour();
-            _calculator.ApplyAddition();
+            calculator.ApplyFour();
+            calculator.ApplyAddition();
 
             //Act
-            _calculator.ApplyTwo();
-            _calculator.ApplyZero();
+            calculator.ApplyTwo();
+            calculator.ApplyZero();
 
             //Assert
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("20"));
+            Assert.That(calculator.DisplayValue, Is.EqualTo("20"));
         }
 
         #endregion
@@ -174,30 +213,30 @@ namespace Calculator.BusinessLogic.UnitTests
                                                                .DisplayNumber(displayNumber)
                                                                .IsLastActionAnBinaryOperation(isLastActionAnBinaryOperation)
                                                                .Build();
-            _calculator = new Calculator(calculatorState);
+            var calculator = new Calculator(calculatorState);
 
             //Act
-            _calculator.ApplyThree();
+            calculator.ApplyThree();
 
             //Assert
-            return _calculator.DisplayValue;
+            return calculator.DisplayValue;
         }
 
         [Test]
         public void ApplyThree_WhenApplyTwoNumbersAfterOperation_ThenDisplayValueConsistOfTheTwoNumbers()
         {
             //Arrange
-            _calculator = new Calculator();
+            var calculator = new Calculator();
 
-            _calculator.ApplyFour();
-            _calculator.ApplyAddition();
+            calculator.ApplyFour();
+            calculator.ApplyAddition();
 
             //Act
-            _calculator.ApplyThree();
-            _calculator.ApplyZero();
+            calculator.ApplyThree();
+            calculator.ApplyZero();
 
             //Assert
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("30"));
+            Assert.That(calculator.DisplayValue, Is.EqualTo("30"));
         }
 
         #endregion
@@ -219,30 +258,30 @@ namespace Calculator.BusinessLogic.UnitTests
                                                                .DisplayNumber(displayNumber)
                                                                .IsLastActionAnBinaryOperation(isLastActionAnBinaryOperation)
                                                                .Build();
-            _calculator = new Calculator(calculatorState);
+            var calculator = new Calculator(calculatorState);
 
             //Act
-            _calculator.ApplyFour();
+            calculator.ApplyFour();
 
             //Assert
-            return _calculator.DisplayValue;
+            return calculator.DisplayValue;
         }
 
         [Test]
         public void ApplyFour_WhenApplyTwoNumbersAfterOperation_ThenDisplayValueConsistOfTheTwoNumbers()
         {
             //Arrange
-            _calculator = new Calculator();
+            var calculator = new Calculator();
 
-            _calculator.ApplyFour();
-            _calculator.ApplyAddition();
+            calculator.ApplyFour();
+            calculator.ApplyAddition();
 
             //Act
-            _calculator.ApplyFour();
-            _calculator.ApplyZero();
+            calculator.ApplyFour();
+            calculator.ApplyZero();
 
             //Assert
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("40"));
+            Assert.That(calculator.DisplayValue, Is.EqualTo("40"));
         }
 
         #endregion
@@ -264,30 +303,30 @@ namespace Calculator.BusinessLogic.UnitTests
                                                                .DisplayNumber(displayNumber)
                                                                .IsLastActionAnBinaryOperation(isLastActionAnBinaryOperation)
                                                                .Build();
-            _calculator = new Calculator(calculatorState);
+            var calculator = new Calculator(calculatorState);
 
             //Act
-            _calculator.ApplyFive();
+            calculator.ApplyFive();
 
             //Assert
-            return _calculator.DisplayValue;
+            return calculator.DisplayValue;
         }
 
         [Test]
         public void ApplyFive_WhenApplyTwoNumbersAfterOperation_ThenDisplayValueConsistOfTheTwoNumbers()
         {
             //Arrange
-            _calculator = new Calculator();
+            var calculator = new Calculator();
 
-            _calculator.ApplyFour();
-            _calculator.ApplyAddition();
+            calculator.ApplyFour();
+            calculator.ApplyAddition();
 
             //Act
-            _calculator.ApplyFive();
-            _calculator.ApplyZero();
+            calculator.ApplyFive();
+            calculator.ApplyZero();
 
             //Assert
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("50"));
+            Assert.That(calculator.DisplayValue, Is.EqualTo("50"));
         }
 
         #endregion
@@ -309,30 +348,30 @@ namespace Calculator.BusinessLogic.UnitTests
                                                                .DisplayNumber(displayNumber)
                                                                .IsLastActionAnBinaryOperation(isLastActionAnBinaryOperation)
                                                                .Build();
-            _calculator = new Calculator(calculatorState);
+            var calculator = new Calculator(calculatorState);
 
             //Act
-            _calculator.ApplySix();
+            calculator.ApplySix();
 
             //Assert
-            return _calculator.DisplayValue;
+            return calculator.DisplayValue;
         }
 
         [Test]
         public void ApplySix_WhenApplyTwoNumbersAfterOperation_ThenDisplayValueConsistOfTheTwoNumbers()
         {
             //Arrange
-            _calculator = new Calculator();
+            var calculator = new Calculator();
 
-            _calculator.ApplyFour();
-            _calculator.ApplyAddition();
+            calculator.ApplyFour();
+            calculator.ApplyAddition();
 
             //Act
-            _calculator.ApplySix();
-            _calculator.ApplyZero();
+            calculator.ApplySix();
+            calculator.ApplyZero();
 
             //Assert
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("60"));
+            Assert.That(calculator.DisplayValue, Is.EqualTo("60"));
         }
 
         #endregion
@@ -354,30 +393,30 @@ namespace Calculator.BusinessLogic.UnitTests
                                                                .DisplayNumber(displayNumber)
                                                                .IsLastActionAnBinaryOperation(isLastActionAnBinaryOperation)
                                                                .Build();
-            _calculator = new Calculator(calculatorState);
+            var calculator = new Calculator(calculatorState);
 
             //Act
-            _calculator.ApplySeven();
+            calculator.ApplySeven();
 
             //Assert
-            return _calculator.DisplayValue;
+            return calculator.DisplayValue;
         }
 
         [Test]
         public void ApplySeven_WhenApplyTwoNumbersAfterOperation_ThenDisplayValueConsistOfTheTwoNumbers()
         {
             //Arrange
-            _calculator = new Calculator();
+            var calculator = new Calculator();
 
-            _calculator.ApplyFour();
-            _calculator.ApplyAddition();
+            calculator.ApplyFour();
+            calculator.ApplyAddition();
 
             //Act
-            _calculator.ApplySeven();
-            _calculator.ApplyZero();
+            calculator.ApplySeven();
+            calculator.ApplyZero();
 
             //Assert
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("70"));
+            Assert.That(calculator.DisplayValue, Is.EqualTo("70"));
         }
 
         #endregion
@@ -399,30 +438,30 @@ namespace Calculator.BusinessLogic.UnitTests
                                                                .DisplayNumber(displayNumber)
                                                                .IsLastActionAnBinaryOperation(isLastActionAnBinaryOperation)
                                                                .Build();
-            _calculator = new Calculator(calculatorState);
+            var calculator = new Calculator(calculatorState);
 
             //Act
-            _calculator.ApplyEight();
+            calculator.ApplyEight();
 
             //Assert
-            return _calculator.DisplayValue;
+            return calculator.DisplayValue;
         }
 
         [Test]
         public void ApplyEight_WhenApplyTwoNumbersAfterOperation_ThenDisplayValueConsistOfTheTwoNumbers()
         {
             //Arrange
-            _calculator = new Calculator();
+            var calculator = new Calculator();
 
-            _calculator.ApplyFour();
-            _calculator.ApplyAddition();
+            calculator.ApplyFour();
+            calculator.ApplyAddition();
 
             //Act
-            _calculator.ApplyEight();
-            _calculator.ApplyZero();
+            calculator.ApplyEight();
+            calculator.ApplyZero();
 
             //Assert
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("80"));
+            Assert.That(calculator.DisplayValue, Is.EqualTo("80"));
         }
 
         #endregion
@@ -444,30 +483,30 @@ namespace Calculator.BusinessLogic.UnitTests
                                                                .DisplayNumber(displayNumber)
                                                                .IsLastActionAnBinaryOperation(isLastActionAnBinaryOperation)
                                                                .Build();
-            _calculator = new Calculator(calculatorState);
+            var calculator = new Calculator(calculatorState);
 
             //Act
-            _calculator.ApplyNine();
+            calculator.ApplyNine();
 
             //Assert
-            return _calculator.DisplayValue;
+            return calculator.DisplayValue;
         }
 
         [Test]
         public void ApplyNine_WhenApplyTwoNumbersAfterOperation_ThenDisplayValueConsistOfTheTwoNumbers()
         {
             //Arrange
-            _calculator = new Calculator();
+            var calculator = new Calculator();
 
-            _calculator.ApplyFour();
-            _calculator.ApplyAddition();
+            calculator.ApplyFour();
+            calculator.ApplyAddition();
 
             //Act
-            _calculator.ApplyNine();
-            _calculator.ApplyZero();
+            calculator.ApplyNine();
+            calculator.ApplyZero();
 
             //Assert
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("90"));
+            Assert.That(calculator.DisplayValue, Is.EqualTo("90"));
         }
 
         #endregion
@@ -489,13 +528,13 @@ namespace Calculator.BusinessLogic.UnitTests
                                                                .DisplayNumber(displayNumber)
                                                                .IsLastActionAnBinaryOperation(isLastActionAnBinaryOperation)
                                                                .Build();
-            _calculator = new Calculator(calculatorState);
+            var calculator = new Calculator(calculatorState);
 
             //Act
-            _calculator.ApplyComma();
+            calculator.ApplyComma();
 
             //Assert
-            return _calculator.DisplayValue;
+            return calculator.DisplayValue;
         }
 
         #endregion
@@ -513,13 +552,13 @@ namespace Calculator.BusinessLogic.UnitTests
             var displayNumber = DisplayNumberFactory.Create(displayValue);
             var calculatorState = new CalculatorState.Builder().DisplayNumber(displayNumber)
                                                                .Build();
-            _calculator = new Calculator(calculatorState);
+            var calculator = new Calculator(calculatorState);
 
             //Act
-            _calculator.Clear();
+            calculator.Clear();
 
             //Assert
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("0"));
+            Assert.That(calculator.DisplayValue, Is.EqualTo("0"));
         }
 
         #endregion
@@ -546,13 +585,13 @@ namespace Calculator.BusinessLogic.UnitTests
             var calculatorState = new CalculatorState.Builder().DisplayNumber(displayNumber)
                                                                .IsLastActionAnBinaryOperation(isLastActionAnBinaryOperation)
                                                                .Build();
-            _calculator = new Calculator(calculatorState);
+            var calculator = new Calculator(calculatorState);
 
             //Act
-            _calculator.ClearLastSymbol();
+            calculator.ClearLastSymbol();
 
             //Assert
-            return _calculator.DisplayValue;
+            return calculator.DisplayValue;
         }
 
         #endregion
@@ -575,13 +614,13 @@ namespace Calculator.BusinessLogic.UnitTests
                                                                .DisplayNumber(displayNumber)
                                                                .IsLastActionAnBinaryOperation(isLastActionAnBinaryOperation)
                                                                .Build();
-            _calculator = new Calculator(calculatorState);
+            var calculator = new Calculator(calculatorState);
 
             //Act
-            _calculator.ApplyNegation();
+            calculator.ApplyNegation();
 
             //Assert
-            return _calculator.DisplayValue;
+            return calculator.DisplayValue;
         }
 
         #endregion
@@ -595,13 +634,13 @@ namespace Calculator.BusinessLogic.UnitTests
             var displayNumber = DisplayNumberFactory.Create("123");
             var calculatorState = new CalculatorState.Builder().DisplayNumber(displayNumber)
                                                                .Build();
-            _calculator = new Calculator(calculatorState);
+            var calculator = new Calculator(calculatorState);
 
             //Act
-            _calculator.Cancel();
+            calculator.Cancel();
 
             //Assert
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("0"));
+            Assert.That(calculator.DisplayValue, Is.EqualTo("0"));
         }
 
         #endregion
@@ -616,14 +655,14 @@ namespace Calculator.BusinessLogic.UnitTests
             var calculatorState = new CalculatorState.Builder().PreviousValue(456)
                                                                .DisplayNumber(displayNumber)
                                                                .Build();
-            _calculator = new Calculator(calculatorState);
+            var calculator = new Calculator(calculatorState);
 
             //Act
-            _calculator.Cancel();
-            _calculator.ApplyEquality();
+            calculator.Cancel();
+            calculator.ApplyEquality();
 
             //Assert
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("0"));
+            Assert.That(calculator.DisplayValue, Is.EqualTo("0"));
         }
 
         #endregion
@@ -642,31 +681,31 @@ namespace Calculator.BusinessLogic.UnitTests
             var calculatorState = new CalculatorState.Builder().PreviousValue(previousValue)
                                                                .DisplayNumber(displayNumber)
                                                                .Build();
-            _calculator = new Calculator(calculatorState);
-            var initialDisplayValue = _calculator.DisplayValue;
+            var calculator = new Calculator(calculatorState);
+            var initialDisplayValue = calculator.DisplayValue;
 
             //Act
-            _calculator.ApplyAddition();
+            calculator.ApplyAddition();
 
             //Assert
-            Assert.That(_calculator.DisplayValue, Is.EqualTo(initialDisplayValue));
+            Assert.That(calculator.DisplayValue, Is.EqualTo(initialDisplayValue));
         }
 
         [Test]
         public void ApplyAddition_WhenWasOperationBefore_ThenApplyEquation()
         {
             //Arrange
-            _calculator = new Calculator();
-            _calculator.ApplyTwo();
-            _calculator.ApplyFive();
-            _calculator.ApplyAddition();
-            _calculator.ApplyFour();
+            var calculator = new Calculator();
+            calculator.ApplyTwo();
+            calculator.ApplyFive();
+            calculator.ApplyAddition();
+            calculator.ApplyFour();
 
             //Act
-            _calculator.ApplyAddition();
+            calculator.ApplyAddition();
 
             //Assert
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("29"));
+            Assert.That(calculator.DisplayValue, Is.EqualTo("29"));
         }
 
         #endregion
@@ -685,31 +724,31 @@ namespace Calculator.BusinessLogic.UnitTests
             var calculatorState = new CalculatorState.Builder().PreviousValue(previousValue)
                                                                .DisplayNumber(displayNumber)
                                                                .Build();
-            _calculator = new Calculator(calculatorState);
-            var initialDisplayValue = _calculator.DisplayValue;
+            var calculator = new Calculator(calculatorState);
+            var initialDisplayValue = calculator.DisplayValue;
 
             //Act
-            _calculator.ApplySubtraction();
+            calculator.ApplySubtraction();
 
             //Assert
-            Assert.That(_calculator.DisplayValue, Is.EqualTo(initialDisplayValue));
+            Assert.That(calculator.DisplayValue, Is.EqualTo(initialDisplayValue));
         }
 
         [Test]
         public void ApplySubtraction_WhenWasOperationBefore_ThenApplyEquation()
         {
             //Arrange
-            _calculator = new Calculator();
-            _calculator.ApplyTwo();
-            _calculator.ApplyFive();
-            _calculator.ApplyAddition();
-            _calculator.ApplyFour();
+            var calculator = new Calculator();
+            calculator.ApplyTwo();
+            calculator.ApplyFive();
+            calculator.ApplyAddition();
+            calculator.ApplyFour();
 
             //Act
-            _calculator.ApplySubtraction();
+            calculator.ApplySubtraction();
 
             //Assert
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("29"));
+            Assert.That(calculator.DisplayValue, Is.EqualTo("29"));
         }
 
         #endregion
@@ -728,31 +767,31 @@ namespace Calculator.BusinessLogic.UnitTests
             var calculatorState = new CalculatorState.Builder().PreviousValue(previousValue)
                                                                .DisplayNumber(displayNumber)
                                                                .Build();
-            _calculator = new Calculator(calculatorState);
-            var initialDisplayValue = _calculator.DisplayValue;
+            var calculator = new Calculator(calculatorState);
+            var initialDisplayValue = calculator.DisplayValue;
 
             //Act
-            _calculator.ApplyMultiplication();
+            calculator.ApplyMultiplication();
 
             //Assert
-            Assert.That(_calculator.DisplayValue, Is.EqualTo(initialDisplayValue));
+            Assert.That(calculator.DisplayValue, Is.EqualTo(initialDisplayValue));
         }
 
         [Test]
         public void ApplyMultiplication_WhenWasOperationBefore_ThenApplyEquation()
         {
             //Arrange
-            _calculator = new Calculator();
-            _calculator.ApplyTwo();
-            _calculator.ApplyFive();
-            _calculator.ApplyAddition();
-            _calculator.ApplyFour();
+            var calculator = new Calculator();
+            calculator.ApplyTwo();
+            calculator.ApplyFive();
+            calculator.ApplyAddition();
+            calculator.ApplyFour();
 
             //Act
-            _calculator.ApplyMultiplication();
+            calculator.ApplyMultiplication();
 
             //Assert
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("29"));
+            Assert.That(calculator.DisplayValue, Is.EqualTo("29"));
         }
 
         #endregion
@@ -771,31 +810,31 @@ namespace Calculator.BusinessLogic.UnitTests
             var calculatorState = new CalculatorState.Builder().PreviousValue(previousValue)
                                                                .DisplayNumber(displayNumber)
                                                                .Build();
-            _calculator = new Calculator(calculatorState);
-            var initialDisplayValue = _calculator.DisplayValue;
+            var calculator = new Calculator(calculatorState);
+            var initialDisplayValue = calculator.DisplayValue;
 
             //Act
-            _calculator.ApplyDivision();
+            calculator.ApplyDivision();
 
             //Assert
-            Assert.That(_calculator.DisplayValue, Is.EqualTo(initialDisplayValue));
+            Assert.That(calculator.DisplayValue, Is.EqualTo(initialDisplayValue));
         }
 
         [Test]
         public void ApplyDivision_WhenWasOperationBefore_ThenApplyEquation()
         {
             //Arrange
-            _calculator = new Calculator();
-            _calculator.ApplyTwo();
-            _calculator.ApplyFive();
-            _calculator.ApplyAddition();
-            _calculator.ApplyFour();
+            var calculator = new Calculator();
+            calculator.ApplyTwo();
+            calculator.ApplyFive();
+            calculator.ApplyAddition();
+            calculator.ApplyFour();
 
             //Act
-            _calculator.ApplyDivision();
+            calculator.ApplyDivision();
 
             //Assert
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("29"));
+            Assert.That(calculator.DisplayValue, Is.EqualTo("29"));
         }
 
         #endregion
@@ -806,135 +845,135 @@ namespace Calculator.BusinessLogic.UnitTests
         public void ApplyEquality_WhenWasNotAnyOperation_ThenDisplayValueWillNotChanged()
         {
             //Arrange
-            _calculator = new Calculator();
+            var calculator = new Calculator();
 
-            _calculator.ApplyThree();
+            calculator.ApplyThree();
 
             //Act
-            _calculator.ApplyEquality();
+            calculator.ApplyEquality();
 
             //Assert
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("3"));
+            Assert.That(calculator.DisplayValue, Is.EqualTo("3"));
         }
 
         [Test]
         public void ApplyEquality_WhenAdditionWasApplied_ThenSumNumbers()
         {
             //Arrange
-            _calculator = new Calculator();
+            var calculator = new Calculator();
 
-            _calculator.ApplyTwo();
-            _calculator.ApplyAddition();
-            _calculator.ApplyThree();
+            calculator.ApplyTwo();
+            calculator.ApplyAddition();
+            calculator.ApplyThree();
 
             //Act
-            _calculator.ApplyEquality();
+            calculator.ApplyEquality();
 
             //Assert
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("5"));
+            Assert.That(calculator.DisplayValue, Is.EqualTo("5"));
         }
 
         [Test]
         public void ApplyEquality_WhenSubtractionWasApplied_ThenSubtractNumbers()
         {
             //Arrange
-            _calculator = new Calculator();
+            var calculator = new Calculator();
 
-            _calculator.ApplyTwo();
-            _calculator.ApplySubtraction();
-            _calculator.ApplyThree();
+            calculator.ApplyTwo();
+            calculator.ApplySubtraction();
+            calculator.ApplyThree();
 
             //Act
-            _calculator.ApplyEquality();
+            calculator.ApplyEquality();
 
             //Assert
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("-1"));
+            Assert.That(calculator.DisplayValue, Is.EqualTo("-1"));
         }
 
         [Test]
         public void ApplyEquality_WhenMultiplicationWasApplied_ThenMultNumbers()
         {
             //Arrange
-            _calculator = new Calculator();
+            var calculator = new Calculator();
 
-            _calculator.ApplyTwo();
-            _calculator.ApplyMultiplication();
-            _calculator.ApplyThree();
+            calculator.ApplyTwo();
+            calculator.ApplyMultiplication();
+            calculator.ApplyThree();
 
             //Act
-            _calculator.ApplyEquality();
+            calculator.ApplyEquality();
 
             //Assert
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("6"));
+            Assert.That(calculator.DisplayValue, Is.EqualTo("6"));
         }
 
         [Test]
         public void ApplyEquality_WhenDivisionWasApplied_ThenDivideNumbers()
         {
             //Arrange
-            _calculator = new Calculator();
+            var calculator = new Calculator();
 
-            _calculator.ApplyTwo();
-            _calculator.ApplyDivision();
-            _calculator.ApplyFour();
+            calculator.ApplyTwo();
+            calculator.ApplyDivision();
+            calculator.ApplyFour();
 
             //Act
-            _calculator.ApplyEquality();
+            calculator.ApplyEquality();
 
             //Assert
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("0,5"));
+            Assert.That(calculator.DisplayValue, Is.EqualTo("0,5"));
         }
 
         [Test]
         public void ApplyEquality_WhenOperationIsDivisionAndValueIsZero_ThenDisplayValueShouldBeCannotDivideByZero()
         {
             //Arrange
-            _calculator = new Calculator();
+            var calculator = new Calculator();
 
-            _calculator.ApplyTwo();
-            _calculator.ApplyDivision();
-            _calculator.ApplyZero();
+            calculator.ApplyTwo();
+            calculator.ApplyDivision();
+            calculator.ApplyZero();
 
             //Act
-            _calculator.ApplyEquality();
+            calculator.ApplyEquality();
 
             //Assert
-            Assert.That(_calculator.DisplayValue, Is.EqualTo(ErrorMessages.DivisionOnZero));
+            Assert.That(calculator.DisplayValue, Is.EqualTo(ErrorMessages.DivisionOnZero));
         }
 
         [Test]
         public void ApplyEquality_WhenApplyAdditionAndSetAnyValue_ThenDisplayValueShouldBeTheValue()
         {
             //Arrange
-            _calculator = new Calculator();
+            var calculator = new Calculator();
 
-            _calculator.ApplyAddition();
-            _calculator.ApplyThree();
+            calculator.ApplyAddition();
+            calculator.ApplyThree();
 
             //Act
-            _calculator.ApplyEquality();
+            calculator.ApplyEquality();
 
             //Assert
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("3"));
+            Assert.That(calculator.DisplayValue, Is.EqualTo("3"));
         }
 
         [Test]
         public void ApplyEquation_WhenEquationWasAppliedAndAnotherNumberWasSetAndThenApplyEquation_ThenApplyBinaryOperationToTheNewNumber()
         {
             //Arrange
-            _calculator = new Calculator();
+            var calculator = new Calculator();
 
-            _calculator.ApplyThree();
-            _calculator.ApplyMultiplication();
-            _calculator.ApplyTwo();
-            _calculator.ApplyEquality();
-            _calculator.ApplyFive();
+            calculator.ApplyThree();
+            calculator.ApplyMultiplication();
+            calculator.ApplyTwo();
+            calculator.ApplyEquality();
+            calculator.ApplyFive();
 
             //Act
-            _calculator.ApplyEquality();
+            calculator.ApplyEquality();
 
             //Assert
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("10"));
+            Assert.That(calculator.DisplayValue, Is.EqualTo("10"));
         }
 
         #endregion
@@ -945,38 +984,38 @@ namespace Calculator.BusinessLogic.UnitTests
         public void ApplyPercent_WhenOperationAndTwoNumbersAppliedAndApplyEquationSeveralTimes_ThenTheOperationShouldBeApplied()
         {
             //Arrange
-            _calculator = new Calculator();
+            var calculator = new Calculator();
 
-            _calculator.ApplyFour();
-            _calculator.ApplyAddition();
-            _calculator.ApplyTwo();
-            _calculator.ApplyFive();
-            _calculator.ApplyPercent();
+            calculator.ApplyFour();
+            calculator.ApplyAddition();
+            calculator.ApplyTwo();
+            calculator.ApplyFive();
+            calculator.ApplyPercent();
 
             //Act & Assert
-            _calculator.ApplyEquality();
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("5"));
+            calculator.ApplyEquality();
+            Assert.That(calculator.DisplayValue, Is.EqualTo("5"));
 
-            _calculator.ApplyEquality();
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("6"));
+            calculator.ApplyEquality();
+            Assert.That(calculator.DisplayValue, Is.EqualTo("6"));
         }
 
         [Test]
         public void ApplyPercent_WhenOperationAndTwoNumbersApplied_ThenInvokeOperationWithSecondOperandAsPercent()
         {
             //Arrange
-            _calculator = new Calculator();
+            var calculator = new Calculator();
 
-            _calculator.ApplyFour();
-            _calculator.ApplyAddition();
-            _calculator.ApplyTwo();
-            _calculator.ApplyFive();
+            calculator.ApplyFour();
+            calculator.ApplyAddition();
+            calculator.ApplyTwo();
+            calculator.ApplyFive();
 
             //Act
-            _calculator.ApplyPercent();
+            calculator.ApplyPercent();
 
             //Assert
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("1"));
+            Assert.That(calculator.DisplayValue, Is.EqualTo("1"));
         }
 
         #endregion
@@ -987,72 +1026,72 @@ namespace Calculator.BusinessLogic.UnitTests
         public void ApplySquareRoot_WhenApplyEquationSeveralTimes_ThenDisplayValueShouldNotChange()
         {
             //Arrange
-            _calculator = new Calculator();
+            var calculator = new Calculator();
 
-            _calculator.ApplyFour();
-            _calculator.ApplySquareRoot();
+            calculator.ApplyFour();
+            calculator.ApplySquareRoot();
 
             //Act & Assert
-            _calculator.ApplyEquality();
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("2"));
+            calculator.ApplyEquality();
+            Assert.That(calculator.DisplayValue, Is.EqualTo("2"));
 
-            _calculator.ApplyEquality();
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("2"));
+            calculator.ApplyEquality();
+            Assert.That(calculator.DisplayValue, Is.EqualTo("2"));
 
-            _calculator.ApplyEquality();
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("2"));
+            calculator.ApplyEquality();
+            Assert.That(calculator.DisplayValue, Is.EqualTo("2"));
         }
 
         [Test]
         public void ApplySquareRoot_WhenNumberIsNotNegative_ThenDisplaySquaringResult()
         {
             //Arrange
-            _calculator = new Calculator();
+            var calculator = new Calculator();
 
-            _calculator.ApplyFour();
+            calculator.ApplyFour();
 
             //Act
-            _calculator.ApplySquareRoot();
+            calculator.ApplySquareRoot();
 
             //Assert
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("2"));
+            Assert.That(calculator.DisplayValue, Is.EqualTo("2"));
         }
 
         [Test]
         public void ApplySquareRoot_WhenNumberIsNegative_ThenDisplayInvalidInput()
         {
             //Arrange
-            _calculator = new Calculator();
+            var calculator = new Calculator();
 
-            _calculator.ApplyTwo();
-            _calculator.ApplyNegation();
+            calculator.ApplyTwo();
+            calculator.ApplyNegation();
 
             //Act
-            _calculator.ApplySquareRoot();
+            calculator.ApplySquareRoot();
 
             //Assert
-            Assert.That(_calculator.DisplayValue, Is.EqualTo(ErrorMessages.InvalidInput));
+            Assert.That(calculator.DisplayValue, Is.EqualTo(ErrorMessages.InvalidInput));
         }
 
         [Test]
         public void ApplySquareRoot_WhenApplySquaringSeveralTimes_ThenApplySquaringTheSameTimes()
         {
             //Arrange
-            _calculator = new Calculator();
+            var calculator = new Calculator();
 
-            _calculator.ApplyTwo();
-            _calculator.ApplyFive();
-            _calculator.ApplySix();
+            calculator.ApplyTwo();
+            calculator.ApplyFive();
+            calculator.ApplySix();
 
             //Act & Assert
-            _calculator.ApplySquareRoot();
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("16"));
+            calculator.ApplySquareRoot();
+            Assert.That(calculator.DisplayValue, Is.EqualTo("16"));
 
-            _calculator.ApplySquareRoot();
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("4"));
+            calculator.ApplySquareRoot();
+            Assert.That(calculator.DisplayValue, Is.EqualTo("4"));
 
-            _calculator.ApplySquareRoot();
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("2"));
+            calculator.ApplySquareRoot();
+            Assert.That(calculator.DisplayValue, Is.EqualTo("2"));
         }
 
         #endregion
@@ -1063,54 +1102,54 @@ namespace Calculator.BusinessLogic.UnitTests
         public void ApplySquaring_WhenApplyEquationSeveralTimes_ThenDisplayValueShouldNotChange()
         {
             //Arrange
-            _calculator = new Calculator();
+            var calculator = new Calculator();
 
-            _calculator.ApplyFour();
-            _calculator.ApplySquaring();
+            calculator.ApplyFour();
+            calculator.ApplySquaring();
 
             //Act & Assert
-            _calculator.ApplyEquality();
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("16"));
+            calculator.ApplyEquality();
+            Assert.That(calculator.DisplayValue, Is.EqualTo("16"));
 
-            _calculator.ApplyEquality();
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("16"));
+            calculator.ApplyEquality();
+            Assert.That(calculator.DisplayValue, Is.EqualTo("16"));
 
-            _calculator.ApplyEquality();
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("16"));
+            calculator.ApplyEquality();
+            Assert.That(calculator.DisplayValue, Is.EqualTo("16"));
         }
 
         [Test]
         public void ApplySquaring_WhenAnyNumber_ThenDisplaySquaringResult()
         {
             //Arrange
-            _calculator = new Calculator();
+            var calculator = new Calculator();
 
-            _calculator.ApplyFour();
+            calculator.ApplyFour();
 
             //Act
-            _calculator.ApplySquaring();
+            calculator.ApplySquaring();
 
             //Assert
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("16"));
+            Assert.That(calculator.DisplayValue, Is.EqualTo("16"));
         }
 
         [Test]
         public void ApplySquaring_WhenApplySquaringSeveralTimes_ThenApplySquaringTheSameTimes()
         {
             //Arrange
-            _calculator = new Calculator();
+            var calculator = new Calculator();
 
-            _calculator.ApplyTwo();
+            calculator.ApplyTwo();
 
             //Act & Assert
-            _calculator.ApplySquaring();
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("4"));
+            calculator.ApplySquaring();
+            Assert.That(calculator.DisplayValue, Is.EqualTo("4"));
 
-            _calculator.ApplySquaring();
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("16"));
+            calculator.ApplySquaring();
+            Assert.That(calculator.DisplayValue, Is.EqualTo("16"));
 
-            _calculator.ApplySquaring();
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("256"));
+            calculator.ApplySquaring();
+            Assert.That(calculator.DisplayValue, Is.EqualTo("256"));
         }
 
         #endregion
@@ -1121,69 +1160,69 @@ namespace Calculator.BusinessLogic.UnitTests
         public void ApplyTurningOver_WhenApplyEquationSeveralTimes_ThenDisplayValueShouldNotChange()
         {
             //Arrange
-            _calculator = new Calculator();
+            var calculator = new Calculator();
 
-            _calculator.ApplyFive();
-            _calculator.ApplyTurningOver();
+            calculator.ApplyFive();
+            calculator.ApplyTurningOver();
 
             //Act & Assert
-            _calculator.ApplyEquality();
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("0,2"));
+            calculator.ApplyEquality();
+            Assert.That(calculator.DisplayValue, Is.EqualTo("0,2"));
 
-            _calculator.ApplyEquality();
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("0,2"));
+            calculator.ApplyEquality();
+            Assert.That(calculator.DisplayValue, Is.EqualTo("0,2"));
 
-            _calculator.ApplyEquality();
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("0,2"));
+            calculator.ApplyEquality();
+            Assert.That(calculator.DisplayValue, Is.EqualTo("0,2"));
         }
 
         [Test]
         public void ApplyTurningOver_WhenNumberIsNotZero_ThenDisplayTurningOver()
         {
             //Arrange
-            _calculator = new Calculator();
+            var calculator = new Calculator();
 
-            _calculator.ApplyFive();
+            calculator.ApplyFive();
 
             //Act
-            _calculator.ApplyTurningOver();
+            calculator.ApplyTurningOver();
 
             //Assert
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("0,2"));
+            Assert.That(calculator.DisplayValue, Is.EqualTo("0,2"));
         }
 
         [Test]
         public void ApplyTurningOver_WhenNumberIsZero_ThenDisplayDivisionOnZero()
         {
             //Arrange
-            _calculator = new Calculator();
+            var calculator = new Calculator();
 
-            _calculator.ApplyZero();
+            calculator.ApplyZero();
 
             //Act
-            _calculator.ApplyTurningOver();
+            calculator.ApplyTurningOver();
 
             //Assert
-            Assert.That(_calculator.DisplayValue, Is.EqualTo(ErrorMessages.DivisionOnZero));
+            Assert.That(calculator.DisplayValue, Is.EqualTo(ErrorMessages.DivisionOnZero));
         }
 
         [Test]
         public void ApplyTurningOver_WhenApplyTurningOverTimes_ThenTurningOverShouldBeAppliedTheSameTimes()
         {
             //Arrange
-            _calculator = new Calculator();
+            var calculator = new Calculator();
 
-            _calculator.ApplyFive();
+            calculator.ApplyFive();
 
             //Act & Assert
-            _calculator.ApplyTurningOver();
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("0,2"));
+            calculator.ApplyTurningOver();
+            Assert.That(calculator.DisplayValue, Is.EqualTo("0,2"));
 
-            _calculator.ApplyTurningOver();
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("5"));
+            calculator.ApplyTurningOver();
+            Assert.That(calculator.DisplayValue, Is.EqualTo("5"));
 
-            _calculator.ApplyTurningOver();
-            Assert.That(_calculator.DisplayValue, Is.EqualTo("0,2"));
+            calculator.ApplyTurningOver();
+            Assert.That(calculator.DisplayValue, Is.EqualTo("0,2"));
         }
 
         #endregion

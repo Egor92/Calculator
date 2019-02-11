@@ -1,8 +1,12 @@
-﻿namespace Calculator.BusinessLogic
+﻿using System;
+
+namespace Calculator.BusinessLogic
 {
     public interface ICalculator
     {
         string DisplayValue { get; }
+
+        IObservable<string> DisplayValueChanged { get; }
 
         void ApplyZero();
 
