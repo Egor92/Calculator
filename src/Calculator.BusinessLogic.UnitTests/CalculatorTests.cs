@@ -643,10 +643,6 @@ namespace Calculator.BusinessLogic.UnitTests
             Assert.That(calculator.DisplayValue, Is.EqualTo("0"));
         }
 
-        #endregion
-
-        #region Cancel
-
         [Test]
         public void Cancel_WhenAnyNumberAndOperationWereAppliedAndThenApplyEquality_ThenDisplayValueIsZero()
         {
@@ -976,8 +972,6 @@ namespace Calculator.BusinessLogic.UnitTests
             Assert.That(calculator.DisplayValue, Is.EqualTo("10"));
         }
 
-        #endregion
-
         #region ApplyPercent
 
         [Test]
@@ -1224,6 +1218,54 @@ namespace Calculator.BusinessLogic.UnitTests
             calculator.ApplyTurningOver();
             Assert.That(calculator.DisplayValue, Is.EqualTo("0,2"));
         }
+
+        #endregion
+
+        #region Scenarios
+
+        [Test]
+        public void WhenOperationAndTwoNumbersAppliedAndApplyEquationSeveralTimes_ThenApplyTheOperationTheSameTimes()
+        {
+            //Arrange
+            var calculator = new Calculator();
+
+            calculator.ApplyThree();
+            calculator.ApplyAddition();
+            calculator.ApplyTwo();
+
+            //Act & Assert
+            for (int i = 1; i < 10; i++)
+            {
+                calculator.ApplyEquality();
+                var expectedValue = 3 + 2 * i;
+                Assert.That(calculator.DisplayValue, Is.EqualTo(expectedValue.ToString()));
+            }
+        }
+
+        [Test]
+        public void WhenOperationAndTwoNumbersAppliedAndApplyAnyBinaryOpartion_ThenApplyTheOperationSingleTime()
+        {
+            //Arrange
+            var calculator = new Calculator();
+
+            calculator.ApplyThree();
+            calculator.ApplyAddition();
+            calculator.ApplyTwo();
+
+            //Act
+            calculator.ApplyAddition();
+            calculator.ApplyAddition();
+            calculator.ApplyAddition();
+            calculator.ApplyAddition();
+            calculator.ApplyAddition();
+            calculator.ApplyAddition();
+            calculator.ApplyAddition();
+
+            //Assert
+            Assert.That(calculator.DisplayValue, Is.EqualTo("5"));
+        }
+
+        #endregion
 
         #endregion
     }

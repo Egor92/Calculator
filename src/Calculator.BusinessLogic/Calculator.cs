@@ -250,7 +250,10 @@ namespace Calculator.BusinessLogic
 
         private void ApplyBinaryOperation(IBinaryOperation binaryOperation)
         {
-            ApplyEquality();
+            if (!_isLastActionAnBinaryOperation)
+            {
+                ApplyEquality();
+            }
 
             _selectedBinaryOperation = binaryOperation;
             _lastOperand1 = _displayNumber.ToDouble();
@@ -291,7 +294,7 @@ namespace Calculator.BusinessLogic
                     _lastOperand1 = value1;
                     _lastOperand2 = value2;
                     _lastResult = result;
-                    _lastBinaryOperation = _selectedBinaryOperation;
+                    _lastBinaryOperation = binaryOperation;
                 }
                 else
                 {
