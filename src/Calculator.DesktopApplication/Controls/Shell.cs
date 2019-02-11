@@ -7,6 +7,8 @@ using Calculator.DesktopApplication.Helpers;
 
 namespace Calculator.DesktopApplication.Controls
 {
+    //https://www.source-weave.com/blog/custom-wpf-window
+    //https://habr.com/ru/post/158561/
     public class Shell : Window
     {
         private Grid _windowRoot;
