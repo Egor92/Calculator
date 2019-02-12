@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Reactive.Disposables;
 using Calculator.BusinessLogic;
 using ReactiveUI;
@@ -7,7 +6,7 @@ using ReactiveUI.Fody.Helpers;
 
 namespace Calculator.DesktopApplication.ViewModels
 {
-    public class CalculatorViewModel : ReactiveObject
+    public abstract class CalculatorViewModel : ReactiveObject, IDisposable
     {
         #region Fields
 
@@ -643,40 +642,23 @@ namespace Calculator.DesktopApplication.ViewModels
 
         #endregion
 
-        #region ButtonVMs
+        #endregion
 
-        public IEnumerable<ButtonViewModel> ButtonVMs
+        #region IDisposable
+
+        protected virtual void Dispose(bool disposing)
         {
-            get
+            if (disposing)
             {
-                yield return PercentButtonVM;
-                yield return SquareRootButtonVM;
-                yield return SquaringButtonVM;
-                yield return TurningOverButtonVM;
-                yield return ClearButtonVM;
-                yield return CancelButtonVM;
-                yield return ClearLastSymbolButtonVM;
-                yield return DivisionButtonVM;
-                yield return NumberSevenButtonVM;
-                yield return NumberEightButtonVM;
-                yield return NumberNineButtonVM;
-                yield return MultiplicationButtonVM;
-                yield return NumberFourButtonVM;
-                yield return NumberFiveButtonVM;
-                yield return NumberSixButtonVM;
-                yield return SubtractionButtonVM;
-                yield return NumberOneButtonVM;
-                yield return NumberTwoButtonVM;
-                yield return NumberThreeButtonVM;
-                yield return AdditionButtonVM;
-                yield return NegationButtonVM;
-                yield return NumberZeroButtonVM;
-                yield return CommaButtonVM;
-                yield return EqualityButtonVM;
+                _disposables?.Dispose();
             }
         }
 
-        #endregion
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
         #endregion
     }

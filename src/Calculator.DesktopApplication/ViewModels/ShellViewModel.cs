@@ -12,9 +12,10 @@ namespace Calculator.DesktopApplication.ViewModels
 
         #region Ctor
 
-        public ShellViewModel(IMessageBus messageBus, CalculatorViewModel calculatorVM)
+        public ShellViewModel(IMessageBus messageBus, StandardCalculatorViewModel standardCalculatorVM, NarrowCalculatorViewModel narrowCalculatorVM)
         {
-            CalculatorVM = calculatorVM;
+            StandardCalculatorVM = standardCalculatorVM;
+            NarrowCalculatorVM = narrowCalculatorVM;
             _messageBus = messageBus;
         }
 
@@ -22,9 +23,15 @@ namespace Calculator.DesktopApplication.ViewModels
 
         #region Properties
 
-        #region CalculatorVM
+        #region StandardCalculatorVM
 
-        public CalculatorViewModel CalculatorVM { get; }
+        public StandardCalculatorViewModel StandardCalculatorVM { get; }
+
+        #endregion
+
+        #region StandardCalculatorVM
+
+        public NarrowCalculatorViewModel NarrowCalculatorVM { get; }
 
         #endregion
 

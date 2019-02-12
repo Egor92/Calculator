@@ -5,7 +5,7 @@ using System.Windows.Markup;
 namespace Calculator.DesktopApplication.Behaviors
 {
     [ContentProperty(nameof(Result))]
-    public class ContentBySizeCase : ICase<Size, UIElement>
+    public class DataTemplateBySizeCase : ICase<Size, DataTemplate>
     {
         public bool IsMatched(Size size)
         {
@@ -31,7 +31,7 @@ namespace Calculator.DesktopApplication.Behaviors
             return true;
         }
 
-        public UIElement Result { get; set; }
+        public DataTemplate Result { get; set; }
 
         public double? HeightMin { get; set; }
 

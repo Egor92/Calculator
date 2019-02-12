@@ -12,9 +12,10 @@ namespace Calculator.DesktopApplication
         protected override void OnStartup(StartupEventArgs e)
         {
             var calculator = new BusinessLogic.Calculator();
-            var calculatorVM = new CalculatorViewModel(calculator);
+            var standardCalculatorVM = new StandardCalculatorViewModel(calculator);
+            var narrowCalculatorVM = new NarrowCalculatorViewModel(calculator);
             var messageBus = new MessageBus();
-            var shellVM = new ShellViewModel(messageBus, calculatorVM);
+            var shellVM = new ShellViewModel(messageBus, standardCalculatorVM, narrowCalculatorVM);
 
             var shell = new Shell
             {
@@ -30,9 +31,11 @@ namespace Calculator.DesktopApplication
             };
 
             var windowSizeManager = new WindowSizeManager(shell, messageBus);
-            windowSizeManager.StartManaging();
+            var windowSizeManaging = windowSizeManager.StartManaging();
 
-            shell.Show();
+            shell.ShowDialog();
+
+            windowSizeManaging.Dispose();
         }
     }
 }

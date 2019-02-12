@@ -7,55 +7,61 @@ using Microsoft.Xaml.Behaviors;
 
 namespace Calculator.DesktopApplication.Behaviors
 {
-    [ContentProperty(nameof(ControlCases))]
+    [ContentProperty(nameof(ContentTemplateCases))]
     public class ManageContentBehavior : Behavior<ContentControl>
     {
+        #region Fields
+
+        private DataTemplate _currentContentTemplate;
+
+        #endregion
+
         #region Properties
 
-        #region ControlCases
+        #region ContentTemplateCases
 
-        public static readonly DependencyProperty ControlCasesProperty = DependencyProperty.Register("ControlCases", typeof(List<ICase<Size, UIElement>>),
-                                                                                                     typeof(ManageContentBehavior),
-                                                                                                     new PropertyMetadata(new List<ICase<Size, UIElement>>(),
-                                                                                                                          OnControlCasesChanged));
+        public static readonly DependencyProperty ContentTemplateCasesProperty =
+            DependencyProperty.Register("ContentTemplateCases", typeof(List<ICase<Size, DataTemplate>>), typeof(ManageContentBehavior),
+                                        new PropertyMetadata(new List<ICase<Size, DataTemplate>>(), OnContentTemplateCasesChanged));
 
-        public List<ICase<Size, UIElement>> ControlCases
+        public List<ICase<Size, DataTemplate>> ContentTemplateCases
         {
-            get { return (List<ICase<Size, UIElement>>) GetValue(ControlCasesProperty); }
-            set { SetValue(ControlCasesProperty, value); }
+            get { return (List<ICase<Size, DataTemplate>>) GetValue(ContentTemplateCasesProperty); }
+            set { SetValue(ContentTemplateCasesProperty, value); }
         }
 
-        private static void OnControlCasesChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        private static void OnContentTemplateCasesChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             var manageContentBehavior = (ManageContentBehavior) sender;
-            manageContentBehavior.OnControlCasesChanged();
+            manageContentBehavior.OnContentTemplateCasesChanged();
         }
 
-        private void OnControlCasesChanged()
+        private void OnContentTemplateCasesChanged()
         {
             UpdateContent();
         }
 
         #endregion
 
-        #region DefaultContent
+        #region DefaultContentTemplate
 
-        public static readonly DependencyProperty DefaultContentProperty =
-            DependencyProperty.Register("DefaultContent", typeof(ContentControl), typeof(ManageContentBehavior), new PropertyMetadata(OnDefaultContentChanged));
+        public static readonly DependencyProperty DefaultContentTemplateProperty =
+            DependencyProperty.Register("DefaultContentTemplate", typeof(DataTemplate), typeof(ManageContentBehavior),
+                                        new PropertyMetadata(OnDefaultContentTemplateChanged));
 
-        public ContentControl DefaultContent
+        public DataTemplate DefaultContentTemplate
         {
-            get { return (ContentControl) GetValue(DefaultContentProperty); }
-            set { SetValue(DefaultContentProperty, value); }
+            get { return (DataTemplate) GetValue(DefaultContentTemplateProperty); }
+            set { SetValue(DefaultContentTemplateProperty, value); }
         }
 
-        private static void OnDefaultContentChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        private static void OnDefaultContentTemplateChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             var manageContentBehavior = (ManageContentBehavior) sender;
-            manageContentBehavior.OnDefaultContentChanged();
+            manageContentBehavior.OnDefaultContentTemplateChanged();
         }
 
-        private void OnDefaultContentChanged()
+        private void OnDefaultContentTemplateChanged()
         {
             UpdateContent();
         }
@@ -81,19 +87,24 @@ namespace Calculator.DesktopApplication.Behaviors
 
         private void UpdateContent()
         {
-            if (AssociatedObject != null)
-            {
-                AssociatedObject.Content = GetSuitableContent();
-            }
+            if (AssociatedObject == null)
+                return;
+
+            var suitableContentTemplate = GetSuitableContentTemplate();
+            if (ReferenceEquals(suitableContentTemplate, _currentContentTemplate))
+                return;
+
+            _currentContentTemplate = suitableContentTemplate;
+            AssociatedObject.Content = suitableContentTemplate.LoadContent();
         }
 
-        private UIElement GetSuitableContent()
+        private DataTemplate GetSuitableContentTemplate()
         {
             var renderSize = AssociatedObject.RenderSize;
-            var matchedCase = ControlCases?.FirstOrDefault(x => x.IsMatched(renderSize));
+            var matchedCase = ContentTemplateCases?.FirstOrDefault(x => x.IsMatched(renderSize));
             if (matchedCase == null)
             {
-                return DefaultContent;
+                return DefaultContentTemplate;
             }
 
             return matchedCase.Result;

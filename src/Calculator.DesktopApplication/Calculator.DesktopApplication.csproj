@@ -104,15 +104,17 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AppBehaviors\WindowSizeManager.cs" />
-    <Compile Include="Behaviors\ContentBySizeCase.cs" />
+    <Compile Include="Behaviors\DataTemplateBySizeCase.cs" />
     <Compile Include="Behaviors\ICase.cs" />
     <Compile Include="Behaviors\ManageContentBehavior.cs" />
     <Compile Include="Constants\AppEvents.cs" />
     <Compile Include="ViewModels\ButtonViewModel.cs" />
     <Compile Include="ViewModels\CalculatorViewModel.cs" />
+    <Compile Include="ViewModels\NarrowCalculatorViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
-    <Compile Include="Views\CalculatorView.xaml.cs">
-      <DependentUpon>CalculatorView.xaml</DependentUpon>
+    <Compile Include="ViewModels\StandardCalculatorViewModel.cs" />
+    <Compile Include="Views\NarrowCalculatorView.xaml.cs">
+      <DependentUpon>NarrowCalculatorView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
@@ -156,7 +158,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\CalculatorView.xaml">
+    <Page Include="Views\NarrowCalculatorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

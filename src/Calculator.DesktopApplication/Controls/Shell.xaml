@@ -59,99 +59,102 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:Shell}">
 
-                    <Border x:Name="LayoutRoot"
-                            Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="1">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="31" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
+                    <AdornerDecorator>
+                        <Border x:Name="LayoutRoot"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="1">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="31" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
 
-                            <!--  TitleBar  -->
-                            <Grid x:Name="PART_HeaderBar">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="36" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-
-                                <TextBlock Grid.Column="0"
-                                           Grid.ColumnSpan="3"
-                                           Width="Auto"
-                                           Padding="12,0"
-                                           HorizontalAlignment="Stretch"
-                                           VerticalAlignment="Center"
-                                           Panel.ZIndex="0"
-                                           FontSize="12"
-                                           Foreground="Black"
-                                           IsEnabled="{TemplateBinding IsActive}"
-                                           Text="{TemplateBinding Title}"
-                                           TextAlignment="Left"
-                                           TextTrimming="CharacterEllipsis" />
-
-                                <Grid x:Name="WindowControlsGrid"
-                                      Grid.Column="2"
-                                      Width="137"
-                                      Background="White">
+                                <!--  TitleBar  -->
+                                <Grid x:Name="PART_HeaderBar">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition />
-                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="36" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
 
-                                    <Button x:Name="MinimizeButton"
-                                            Grid.Column="0"
-                                            fa:Awesome.Content="WindowMinimize"
-                                            helpers:ShellTitleBarButtonProperties.MouseOverBackground="LightGray"
-                                            helpers:ShellTitleBarButtonProperties.MouseOverForeground="Black"
-                                            helpers:ShellTitleBarButtonProperties.MousePressedBackground="DarkGray"
-                                            helpers:ShellTitleBarButtonProperties.MousePressedForeground="Black"
-                                            Foreground="Black"
-                                            Style="{StaticResource WindowButtonStyle}" />
+                                    <TextBlock Grid.Column="0"
+                                               Grid.ColumnSpan="3"
+                                               Width="Auto"
+                                               Padding="12,0"
+                                               HorizontalAlignment="Stretch"
+                                               VerticalAlignment="Center"
+                                               Panel.ZIndex="0"
+                                               FontSize="12"
+                                               Foreground="Black"
+                                               IsEnabled="{TemplateBinding IsActive}"
+                                               Text="{TemplateBinding Title}"
+                                               TextAlignment="Left"
+                                               TextTrimming="CharacterEllipsis" />
 
-                                    <Button x:Name="MaximizeButton"
-                                            Grid.Column="1"
-                                            fa:Awesome.Content="WindowMaximize"
-                                            helpers:ShellTitleBarButtonProperties.MouseOverBackground="LightGray"
-                                            helpers:ShellTitleBarButtonProperties.MouseOverForeground="Black"
-                                            helpers:ShellTitleBarButtonProperties.MousePressedBackground="DarkGray"
-                                            helpers:ShellTitleBarButtonProperties.MousePressedForeground="Black"
-                                            Foreground="Black"
-                                            Style="{StaticResource WindowButtonStyle}" />
+                                    <Grid x:Name="WindowControlsGrid"
+                                          Grid.Column="2"
+                                          Width="137"
+                                          Background="White">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
 
-                                    <Button x:Name="RestoreButton"
-                                            Grid.Column="1"
-                                            fa:Awesome.Content="WindowRestore"
-                                            helpers:ShellTitleBarButtonProperties.MouseOverBackground="LightGray"
-                                            helpers:ShellTitleBarButtonProperties.MouseOverForeground="Black"
-                                            helpers:ShellTitleBarButtonProperties.MousePressedBackground="DarkGray"
-                                            helpers:ShellTitleBarButtonProperties.MousePressedForeground="Black"
-                                            Foreground="Black"
-                                            Style="{StaticResource WindowButtonStyle}"
-                                            Visibility="Collapsed" />
+                                        <Button x:Name="MinimizeButton"
+                                                Grid.Column="0"
+                                                fa:Awesome.Content="WindowMinimize"
+                                                helpers:ShellTitleBarButtonProperties.MouseOverBackground="LightGray"
+                                                helpers:ShellTitleBarButtonProperties.MouseOverForeground="Black"
+                                                helpers:ShellTitleBarButtonProperties.MousePressedBackground="DarkGray"
+                                                helpers:ShellTitleBarButtonProperties.MousePressedForeground="Black"
+                                                Foreground="Black"
+                                                Style="{StaticResource WindowButtonStyle}" />
 
-                                    <Button x:Name="CloseButton"
-                                            Grid.Column="2"
-                                            fa:Awesome.Content="Times"
-                                            helpers:ShellTitleBarButtonProperties.MouseOverBackground="Red"
-                                            helpers:ShellTitleBarButtonProperties.MouseOverForeground="White"
-                                            helpers:ShellTitleBarButtonProperties.MousePressedBackground="#FF7878"
-                                            helpers:ShellTitleBarButtonProperties.MousePressedForeground="Black"
-                                            FontSize="20"
-                                            Foreground="Black"
-                                            Style="{StaticResource WindowButtonStyle}" />
+                                        <Button x:Name="MaximizeButton"
+                                                Grid.Column="1"
+                                                fa:Awesome.Content="WindowMaximize"
+                                                helpers:ShellTitleBarButtonProperties.MouseOverBackground="LightGray"
+                                                helpers:ShellTitleBarButtonProperties.MouseOverForeground="Black"
+                                                helpers:ShellTitleBarButtonProperties.MousePressedBackground="DarkGray"
+                                                helpers:ShellTitleBarButtonProperties.MousePressedForeground="Black"
+                                                Foreground="Black"
+                                                Style="{StaticResource WindowButtonStyle}" />
+
+                                        <Button x:Name="RestoreButton"
+                                                Grid.Column="1"
+                                                fa:Awesome.Content="WindowRestore"
+                                                helpers:ShellTitleBarButtonProperties.MouseOverBackground="LightGray"
+                                                helpers:ShellTitleBarButtonProperties.MouseOverForeground="Black"
+                                                helpers:ShellTitleBarButtonProperties.MousePressedBackground="DarkGray"
+                                                helpers:ShellTitleBarButtonProperties.MousePressedForeground="Black"
+                                                Foreground="Black"
+                                                Style="{StaticResource WindowButtonStyle}"
+                                                Visibility="Collapsed" />
+
+                                        <Button x:Name="CloseButton"
+                                                Grid.Column="2"
+                                                fa:Awesome.Content="Times"
+                                                helpers:ShellTitleBarButtonProperties.MouseOverBackground="Red"
+                                                helpers:ShellTitleBarButtonProperties.MouseOverForeground="White"
+                                                helpers:ShellTitleBarButtonProperties.MousePressedBackground="#FF7878"
+                                                helpers:ShellTitleBarButtonProperties.MousePressedForeground="Black"
+                                                FontSize="20"
+                                                Foreground="Black"
+                                                Style="{StaticResource WindowButtonStyle}" />
+                                    </Grid>
+                                </Grid>
+
+                                <Grid x:Name="PART_MainContentGrid"
+                                      Grid.Row="1"
+                                      Panel.ZIndex="10">
+                                    <ContentPresenter x:Name="PART_MainContentPresenter" />
                                 </Grid>
                             </Grid>
+                        </Border>
 
-                            <Grid x:Name="PART_MainContentGrid"
-                                  Grid.Row="1"
-                                  Panel.ZIndex="10">
-                                <ContentPresenter x:Name="PART_MainContentPresenter" />
-                            </Grid>
-                        </Grid>
-                    </Border>
+                    </AdornerDecorator>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
