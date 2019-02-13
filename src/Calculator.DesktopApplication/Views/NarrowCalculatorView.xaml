@@ -32,9 +32,7 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type vm:ButtonViewModel}">
-                    <Button Command="{Binding Command, Mode=OneWay}"
-                            Content="{Binding Content, Mode=OneWay}"
-                            FontSize="26" />
+                    <Button Style="{StaticResource CalculatorButtonStyle}" />
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

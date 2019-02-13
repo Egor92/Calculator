@@ -3,10 +3,10 @@ using System.Linq;
 using System.Windows;
 using Calculator.BusinessLogic;
 using Calculator.DesktopApplication.AppBehaviors;
+using Calculator.DesktopApplication.Controls;
 using Calculator.DesktopApplication.ViewModels;
 using Calculator.DesktopApplication.Views;
 using Calculator.Wpf.Common.AppBehaviors;
-using Calculator.Wpf.Common.Controls;
 using Prism.Ioc;
 using ReactiveUI;
 
@@ -51,11 +51,7 @@ namespace Calculator.DesktopApplication
         {
             return new Shell
             {
-                Title = "Calculator",
-                MinHeight = 100,
-                MinWidth = 100,
-                Height = 508,
-                Width = 322,
+                WindowStartupLocation = WindowStartupLocation.CenterScreen,
                 Content = new ShellView
                 {
                     DataContext = Container.Resolve<ShellViewModel>(),

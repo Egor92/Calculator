@@ -3,11 +3,11 @@ using Calculator.BusinessLogic;
 
 namespace Calculator.DesktopApplication.ViewModels
 {
-    public class NarrowCalculatorViewModel : CalculatorViewModel
+    public class TelephoneCalculatorViewModel : CalculatorViewModel
     {
         #region Ctor
 
-        public NarrowCalculatorViewModel(ICalculator calculator)
+        public TelephoneCalculatorViewModel(ICalculator calculator)
             : base(calculator)
         {
         }
@@ -16,9 +16,9 @@ namespace Calculator.DesktopApplication.ViewModels
 
         #region Properties
 
-        #region ButtonVMs
+        #region NumberButtonVMs
 
-        public IEnumerable<ButtonViewModel> ButtonVMs
+        public IEnumerable<ButtonViewModel> NumberButtonVMs
         {
             get
             {
@@ -32,21 +32,10 @@ namespace Calculator.DesktopApplication.ViewModels
                 yield return NumberEightButtonVM;
                 yield return NumberNineButtonVM;
                 yield return NumberZeroButtonVM;
-
-                yield return NegationButtonVM;
-                yield return CommaButtonVM;
-                yield return AdditionButtonVM;
-                yield return SubtractionButtonVM;
-                yield return MultiplicationButtonVM;
-                yield return DivisionButtonVM;
-                yield return EqualityButtonVM;
-                yield return ClearButtonVM;
-                yield return ClearLastSymbolButtonVM;
-                yield return CancelButtonVM;
             }
         }
 
-#endregion
+        #endregion
 
         #endregion
     }

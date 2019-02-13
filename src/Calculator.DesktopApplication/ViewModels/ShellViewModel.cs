@@ -1,7 +1,9 @@
-﻿using ReactiveUI;
+﻿using System.Diagnostics.CodeAnalysis;
+using ReactiveUI;
 
 namespace Calculator.DesktopApplication.ViewModels
 {
+    [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
     public class ShellViewModel : ReactiveObject
     {
         #region Fields
@@ -12,10 +14,14 @@ namespace Calculator.DesktopApplication.ViewModels
 
         #region Ctor
 
-        public ShellViewModel(IMessageBus messageBus, StandardCalculatorViewModel standardCalculatorVM, NarrowCalculatorViewModel narrowCalculatorVM)
+        public ShellViewModel(IMessageBus messageBus,
+                              StandardCalculatorViewModel standardCalculatorVM,
+                              NarrowCalculatorViewModel narrowCalculatorVM,
+                              TelephoneCalculatorViewModel telephoneCalculatorVM)
         {
             StandardCalculatorVM = standardCalculatorVM;
             NarrowCalculatorVM = narrowCalculatorVM;
+            TelephoneCalculatorVM = telephoneCalculatorVM;
             _messageBus = messageBus;
         }
 
@@ -29,9 +35,15 @@ namespace Calculator.DesktopApplication.ViewModels
 
         #endregion
 
-        #region StandardCalculatorVM
+        #region NarrowCalculatorViewModel
 
         public NarrowCalculatorViewModel NarrowCalculatorVM { get; }
+
+        #endregion
+
+        #region TelephoneCalculatorView
+
+        public TelephoneCalculatorViewModel TelephoneCalculatorVM { get; }
 
         #endregion
 

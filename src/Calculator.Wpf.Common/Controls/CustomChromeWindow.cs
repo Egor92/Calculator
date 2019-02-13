@@ -9,7 +9,7 @@ namespace Calculator.Wpf.Common.Controls
 {
     //https://www.source-weave.com/blog/custom-wpf-window
     //https://habr.com/ru/post/158561/
-    public class Shell : Window
+    public class CustomChromeWindow : Window
     {
         private Grid _windowRoot;
         private FrameworkElement _layoutRoot;
@@ -18,6 +18,11 @@ namespace Calculator.Wpf.Common.Controls
         private Button _restoreButton;
         private Button _closeButton;
         private Grid _headerBar;
+
+        static CustomChromeWindow()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(CustomChromeWindow), new FrameworkPropertyMetadata(typeof(CustomChromeWindow)));
+        }
 
         private T GetRequiredTemplateChild<T>(string childName)
             where T : DependencyObject
@@ -130,24 +135,24 @@ namespace Calculator.Wpf.Common.Controls
             if (position.Y < num)
             {
                 IntPtr handle = (new WindowInteropHelper(this)).Handle;
-                IntPtr systemMenu = NativeUtils.GetSystemMenu(handle, false);
+                IntPtr systemMenu = SystemMenuUtils.GetSystemMenu(handle, false);
                 if (WindowState != WindowState.Maximized)
                 {
-                    NativeUtils.EnableMenuItem(systemMenu, 61488, 0);
+                    SystemMenuUtils.EnableMenuItem(systemMenu, 61488, 0);
                 }
                 else
                 {
-                    NativeUtils.EnableMenuItem(systemMenu, 61488, 1);
+                    SystemMenuUtils.EnableMenuItem(systemMenu, 61488, 1);
                 }
 
-                int num1 = NativeUtils.TrackPopupMenuEx(systemMenu, NativeUtils.TPM_LEFTALIGN | NativeUtils.TPM_RETURNCMD, Convert.ToInt32(screen.X + 2),
+                int num1 = SystemMenuUtils.TrackPopupMenuEx(systemMenu, SystemMenuUtils.TPM_LEFTALIGN | SystemMenuUtils.TPM_RETURNCMD, Convert.ToInt32(screen.X + 2),
                                                         Convert.ToInt32(screen.Y + 2), handle, IntPtr.Zero);
                 if (num1 == 0)
                 {
                     return;
                 }
 
-                NativeUtils.PostMessage(handle, 274, new IntPtr(num1), IntPtr.Zero);
+                SystemMenuUtils.PostMessage(handle, 274, new IntPtr(num1), IntPtr.Zero);
             }
         }
     }

@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Media;
 
-namespace Calculator.Wpf.Common.Helpers
+namespace Calculator.Wpf.Common.AttachedProperties
 {
     public static class ShellTitleBarButtonProperties
     {

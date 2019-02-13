@@ -3,13 +3,13 @@ using System.Runtime.InteropServices;
 
 namespace Calculator.Wpf.Common.Helpers
 {
-    internal static class NativeUtils
+    internal static class SystemMenuUtils
     {
         internal static uint TPM_LEFTALIGN;
 
         internal static uint TPM_RETURNCMD;
 
-        static NativeUtils()
+        static SystemMenuUtils()
         {
             TPM_LEFTALIGN = 0;
             TPM_RETURNCMD = 256;

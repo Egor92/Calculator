@@ -126,12 +126,15 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AppBehaviors\WindowSizeManager.cs" />
+    <Compile Include="AttachedProperties\ButtonProperties.cs" />
     <Compile Include="Constants\AppEvents.cs" />
+    <Compile Include="Controls\Shell.cs" />
     <Compile Include="ViewModels\ButtonViewModel.cs" />
     <Compile Include="ViewModels\CalculatorViewModel.cs" />
     <Compile Include="ViewModels\NarrowCalculatorViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\StandardCalculatorViewModel.cs" />
+    <Compile Include="ViewModels\TelephoneCalculatorViewModel.cs" />
     <Compile Include="Views\NarrowCalculatorView.xaml.cs">
       <DependentUpon>NarrowCalculatorView.xaml</DependentUpon>
     </Compile>
@@ -140,6 +143,9 @@
     </Compile>
     <Compile Include="Views\StandardCalculatorView.xaml.cs">
       <DependentUpon>StandardCalculatorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TelephoneCalculatorView.xaml.cs">
+      <DependentUpon>TelephoneCalculatorView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -170,6 +176,18 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Controls\Shell.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Brushes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Styles.Button.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\NarrowCalculatorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -179,6 +197,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\StandardCalculatorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TelephoneCalculatorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
