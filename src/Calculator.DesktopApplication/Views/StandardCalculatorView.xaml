@@ -11,19 +11,21 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="100" />
             <RowDefinition />
         </Grid.RowDefinitions>
 
         <TextBlock Grid.ColumnSpan="4"
                    Margin="5,2"
+                   VerticalAlignment="Center"
                    Background="Transparent"
-                   FontSize="50"
+                   FontSize="46"
                    FontWeight="Bold"
                    Text="{Binding DisplayValue, Mode=OneWay}"
                    TextAlignment="Right" />
 
         <ItemsControl Grid.Row="1"
+                      Margin="1"
                       ItemsSource="{Binding ButtonVMs, Mode=OneWay}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>

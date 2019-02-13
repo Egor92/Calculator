@@ -48,8 +48,7 @@
                                 <views:TelephoneCalculatorView DataContext="{Binding TelephoneCalculatorVM, Mode=OneWay}" />
                             </DataTemplate>
                         </b:DataTemplateBySizeCase>
-                        <b:DataTemplateBySizeCase HeightMax="400"
-                                                  HeightToWidthRatioMax="-0.5">
+                        <b:DataTemplateBySizeCase HeightMax="350">
                             <DataTemplate>
                                 <views:NarrowCalculatorView DataContext="{Binding NarrowCalculatorVM, Mode=OneWay}" />
                             </DataTemplate>

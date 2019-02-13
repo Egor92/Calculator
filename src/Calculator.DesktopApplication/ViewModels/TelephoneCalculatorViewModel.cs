@@ -23,15 +23,18 @@ namespace Calculator.DesktopApplication.ViewModels
             get
             {
                 yield return NumberOneButtonVM;
-                yield return NumberTwoButtonVM;
-                yield return NumberThreeButtonVM;
-                yield return NumberFourButtonVM;
-                yield return NumberFiveButtonVM;
-                yield return NumberSixButtonVM;
-                yield return NumberSevenButtonVM;
-                yield return NumberEightButtonVM;
-                yield return NumberNineButtonVM;
+                yield return null;
+                yield return null;
+                yield return null;
                 yield return NumberZeroButtonVM;
+                yield return NumberNineButtonVM;
+                yield return NumberEightButtonVM;
+                yield return NumberSevenButtonVM;
+                yield return NumberSixButtonVM;
+                yield return NumberFiveButtonVM;
+                yield return NumberFourButtonVM;
+                yield return NumberThreeButtonVM;
+                yield return NumberTwoButtonVM;
             }
         }
 

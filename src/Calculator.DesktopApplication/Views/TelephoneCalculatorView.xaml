@@ -4,7 +4,9 @@
              xmlns:controls="clr-namespace:Calculator.Wpf.Common.Controls;assembly=Calculator.Wpf.Common"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:p="clr-namespace:Calculator.DesktopApplication.AttachedProperties"
              xmlns:vm="clr-namespace:Calculator.DesktopApplication.ViewModels"
+             xmlns:xaml="clr-namespace:Calculator.Wpf.Common.Xaml;assembly=Calculator.Wpf.Common"
              d:DataContext="{d:DesignInstance vm:TelephoneCalculatorViewModel}"
              d:DesignHeight="600"
              d:DesignWidth="600"
@@ -19,11 +21,23 @@
                         <controls:RingPanel />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate DataType="{x:Type vm:ButtonViewModel}">
-                        <Button Style="{StaticResource CalculatorButtonStyle}" />
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemTemplateSelector>
+                    <xaml:CustomDataTemplateSelector>
+                        <xaml:CustomDataTemplateSelector.DefaultTemplate>
+                            <DataTemplate />
+                        </xaml:CustomDataTemplateSelector.DefaultTemplate>
+                        <xaml:CustomDataTemplateSelector.TemplatesByType>
+                            <DataTemplate x:Key="{x:Type vm:ButtonViewModel}"
+                                          DataType="{x:Type vm:ButtonViewModel}">
+                                <Button Width="100"
+                                        Height="100"
+                                        Padding="10"
+                                        p:ButtonProperties.CornerRadius="50"
+                                        Style="{StaticResource CalculatorButtonStyle}" />
+                            </DataTemplate>
+                        </xaml:CustomDataTemplateSelector.TemplatesByType>
+                    </xaml:CustomDataTemplateSelector>
+                </ItemsControl.ItemTemplateSelector>
             </ItemsControl>
 
             <Grid Margin="120">

@@ -3,7 +3,7 @@ using System.Linq;
 using System.Windows;
 using Microsoft.Xaml.Behaviors;
 
-namespace Calculator.Wpf.Common.Helpers
+namespace Calculator.Wpf.Common.Xaml
 {
     public class BehaviorCollection : List<Behavior>
     {

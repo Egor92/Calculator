@@ -67,13 +67,16 @@
   <ItemGroup>
     <Compile Include="AppBehaviors\IAppBehavior.cs" />
     <Compile Include="Behaviors\DataTemplateBySizeCase.cs" />
+    <Compile Include="Behaviors\EnableGlassEffectBehavior.cs" />
     <Compile Include="Behaviors\ICase.cs" />
     <Compile Include="Behaviors\ManageContentBehavior.cs" />
     <Compile Include="Controls\RingPanel.cs" />
     <Compile Include="Controls\CustomChromeWindow.cs" />
     <Compile Include="Helpers\SystemMenuUtils.cs" />
     <Compile Include="AttachedProperties\ShellTitleBarButtonProperties.cs" />
-    <Compile Include="Helpers\StyleInteraction.cs" />
+    <Compile Include="Xaml\CustomDataTemplateSelector.cs" />
+    <Compile Include="Xaml\StyleInteraction.cs" />
+    <Compile Include="Helpers\WindowUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
