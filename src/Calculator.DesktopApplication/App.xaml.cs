@@ -40,6 +40,7 @@ namespace Calculator.DesktopApplication
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterInstance(typeof(Shell), new Shell());
             containerRegistry.RegisterSingleton<ICalculator, BusinessLogic.Calculator>();
             containerRegistry.RegisterInstance(typeof(IMessageBus), new MessageBus());
             containerRegistry.RegisterSingleton<ShellViewModel>();
@@ -49,14 +50,13 @@ namespace Calculator.DesktopApplication
 
         protected override Window CreateShell()
         {
-            return new Shell
+            var shell = Container.Resolve<Shell>();
+            shell.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            shell.Content = new ShellView
             {
-                WindowStartupLocation = WindowStartupLocation.CenterScreen,
-                Content = new ShellView
-                {
-                    DataContext = Container.Resolve<ShellViewModel>(),
-                },
+                DataContext = Container.Resolve<ShellViewModel>(),
             };
+            return shell;
         }
     }
 }

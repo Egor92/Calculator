@@ -3,10 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:b="clr-namespace:Calculator.Wpf.Common.Behaviors;assembly=Calculator.Wpf.Common"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:Calculator.DesktopApplication.ViewModels"
              xmlns:views="clr-namespace:Calculator.DesktopApplication.Views"
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              d:DataContext="{d:DesignInstance viewModels:ShellViewModel}"
              d:DesignHeight="550"
              d:DesignWidth="350"
@@ -28,9 +28,12 @@
 
         <StackPanel Margin="2"
                     Orientation="Horizontal">
-            <Button Content="View 508x322" />
-            <Button Content="View 300x500" />
-            <Button Content="View 600x600" />
+            <Button Command="{Binding ChooseView1Command, Mode=OneWay}"
+                    Content="View 508x322" />
+            <Button Command="{Binding ChooseView2Command, Mode=OneWay}"
+                    Content="View 300x500" />
+            <Button Command="{Binding ChooseView3Command, Mode=OneWay}"
+                    Content="View 600x600" />
         </StackPanel>
 
         <ContentControl Grid.Row="1">
