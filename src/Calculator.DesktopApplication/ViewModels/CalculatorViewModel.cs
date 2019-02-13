@@ -62,8 +62,14 @@ namespace Calculator.DesktopApplication.ViewModels
 
             void ApplyZero()
             {
+                OnApplyZero();
                 _calculator.ApplyZero();
             }
+        }
+
+        protected virtual void OnApplyZero()
+        {
+
         }
 
         #endregion
@@ -88,8 +94,14 @@ namespace Calculator.DesktopApplication.ViewModels
 
             void ApplyOne()
             {
+                OnApplyOne();
                 _calculator.ApplyOne();
             }
+        }
+
+        protected virtual void OnApplyOne()
+        {
+
         }
 
         #endregion
@@ -114,8 +126,14 @@ namespace Calculator.DesktopApplication.ViewModels
 
             void ApplyTwo()
             {
+                OnApplyTwo();
                 _calculator.ApplyTwo();
             }
+        }
+
+        protected virtual void OnApplyTwo()
+        {
+
         }
 
         #endregion
@@ -140,8 +158,14 @@ namespace Calculator.DesktopApplication.ViewModels
 
             void ApplyThree()
             {
+                OnApplyThree();
                 _calculator.ApplyThree();
             }
+        }
+
+        protected virtual void OnApplyThree()
+        {
+
         }
 
         #endregion
@@ -166,8 +190,14 @@ namespace Calculator.DesktopApplication.ViewModels
 
             void ApplyFour()
             {
+                OnApplyFour();
                 _calculator.ApplyFour();
             }
+        }
+
+        protected virtual void OnApplyFour()
+        {
+
         }
 
         #endregion
@@ -192,8 +222,14 @@ namespace Calculator.DesktopApplication.ViewModels
 
             void ApplyFive()
             {
+                OnApplyFive();
                 _calculator.ApplyFive();
             }
+        }
+
+        protected virtual void OnApplyFive()
+        {
+
         }
 
         #endregion
@@ -218,8 +254,13 @@ namespace Calculator.DesktopApplication.ViewModels
 
             void ApplySix()
             {
+                OnApplySix();
                 _calculator.ApplySix();
             }
+        }
+
+        protected virtual void OnApplySix()
+        {
         }
 
         #endregion
@@ -244,8 +285,13 @@ namespace Calculator.DesktopApplication.ViewModels
 
             void ApplySeven()
             {
+                OnApplySeven();
                 _calculator.ApplySeven();
             }
+        }
+
+        protected virtual void OnApplySeven()
+        {
         }
 
         #endregion
@@ -270,8 +316,13 @@ namespace Calculator.DesktopApplication.ViewModels
 
             void ApplyEight()
             {
+                OnApplyEight();
                 _calculator.ApplyEight();
             }
+        }
+
+        protected virtual void OnApplyEight()
+        {
         }
 
         #endregion
@@ -296,8 +347,13 @@ namespace Calculator.DesktopApplication.ViewModels
 
             void ApplyNine()
             {
+                OnApplyNine();
                 _calculator.ApplyNine();
             }
+        }
+
+        protected virtual void OnApplyNine()
+        {
         }
 
         #endregion

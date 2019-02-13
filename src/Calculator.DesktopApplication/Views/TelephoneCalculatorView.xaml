@@ -1,9 +1,12 @@
 ﻿<UserControl x:Class="Calculator.DesktopApplication.Views.TelephoneCalculatorView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:actions="clr-namespace:Calculator.DesktopApplication.Interactions.Actions"
              xmlns:controls="clr-namespace:Calculator.Wpf.Common.Controls;assembly=Calculator.Wpf.Common"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:design="clr-namespace:Calculator.DesktopApplication.Views.Design"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:interactionRequest="http://prismlibrary.com/"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:p="clr-namespace:Calculator.DesktopApplication.AttachedProperties"
              xmlns:vm="clr-namespace:Calculator.DesktopApplication.ViewModels"
@@ -19,7 +22,15 @@
             <ItemsControl ItemsSource="{Binding NumberButtonVMs, Mode=OneWay}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <controls:RingPanel />
+                        <controls:RingPanel>
+
+                            <i:Interaction.Triggers>
+                                <interactionRequest:InteractionRequestTrigger SourceObject="{Binding TurnTelephoneRequest}">
+                                    <actions:TurnTelephoneTriggerAction />
+                                </interactionRequest:InteractionRequestTrigger>
+                            </i:Interaction.Triggers>
+
+                        </controls:RingPanel>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplateSelector>

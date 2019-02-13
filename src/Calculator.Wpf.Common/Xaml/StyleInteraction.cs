@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using Microsoft.Xaml.Behaviors;
+using System.Windows.Interactivity;
 
 namespace Calculator.Wpf.Common.Xaml
 {

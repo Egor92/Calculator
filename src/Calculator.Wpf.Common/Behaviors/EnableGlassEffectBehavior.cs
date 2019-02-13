@@ -1,6 +1,6 @@
 ﻿using System.Windows;
+using System.Windows.Interactivity;
 using Calculator.Wpf.Common.Utils;
-using Microsoft.Xaml.Behaviors;
 
 namespace Calculator.Wpf.Common.Behaviors
 {

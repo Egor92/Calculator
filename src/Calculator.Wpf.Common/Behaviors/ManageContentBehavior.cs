@@ -2,8 +2,8 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Interactivity;
 using System.Windows.Markup;
-using Microsoft.Xaml.Behaviors;
 
 namespace Calculator.Wpf.Common.Behaviors
 {
