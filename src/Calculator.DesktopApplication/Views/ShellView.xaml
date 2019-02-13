@@ -1,12 +1,12 @@
 ﻿<UserControl x:Class="Calculator.DesktopApplication.Views.ShellView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:b="clr-namespace:Calculator.Wpf.Common.Behaviors;assembly=Calculator.Wpf.Common"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:Calculator.DesktopApplication.ViewModels"
              xmlns:views="clr-namespace:Calculator.DesktopApplication.Views"
-             xmlns:b="clr-namespace:Calculator.Wpf.Common.Behaviors;assembly=Calculator.Wpf.Common"
              d:DataContext="{d:DesignInstance viewModels:ShellViewModel}"
              d:DesignHeight="550"
              d:DesignWidth="350"
@@ -42,7 +42,7 @@
                         </DataTemplate>
                     </b:ManageContentBehavior.DefaultContentTemplate>
                     <b:ManageContentBehavior.ContentTemplateCases>
-                        <b:DataTemplateBySizeCase HeightToWidthRatioMax="-1">
+                        <b:DataTemplateBySizeCase HeightToWidthRatioMax="-0.5">
                             <DataTemplate>
                                 <views:NarrowCalculatorView DataContext="{Binding NarrowCalculatorVM, Mode=OneWay}" />
                             </DataTemplate>

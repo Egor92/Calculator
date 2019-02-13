@@ -51,6 +51,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppBehaviors\IAppBehavior.cs" />
     <Compile Include="Behaviors\DataTemplateBySizeCase.cs" />
     <Compile Include="Behaviors\ICase.cs" />
     <Compile Include="Behaviors\ManageContentBehavior.cs" />

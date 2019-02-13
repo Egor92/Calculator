@@ -1,23 +1,55 @@
-﻿using System.Windows;
+﻿using System;
+using System.Linq;
+using System.Windows;
+using Calculator.BusinessLogic;
 using Calculator.DesktopApplication.AppBehaviors;
 using Calculator.DesktopApplication.ViewModels;
 using Calculator.DesktopApplication.Views;
+using Calculator.Wpf.Common.AppBehaviors;
 using Calculator.Wpf.Common.Controls;
+using Prism.Ioc;
 using ReactiveUI;
 
 namespace Calculator.DesktopApplication
 {
     public partial class App
     {
+        private IDisposable[] _appBehaviorAttachings;
+
+        private readonly Func<IContainerProvider, IAppBehavior>[] _appBehaviorFuncs =
+        {
+            container => container.Resolve<WindowSizeManager>(),
+        };
+
         protected override void OnStartup(StartupEventArgs e)
         {
-            var calculator = new BusinessLogic.Calculator();
-            var standardCalculatorVM = new StandardCalculatorViewModel(calculator);
-            var narrowCalculatorVM = new NarrowCalculatorViewModel(calculator);
-            var messageBus = new MessageBus();
-            var shellVM = new ShellViewModel(messageBus, standardCalculatorVM, narrowCalculatorVM);
+            base.OnStartup(e);
+            _appBehaviorAttachings = _appBehaviorFuncs.Select(x => x(Container))
+                                                      .Select(x => x.Attach())
+                                                      .ToArray();
+        }
 
-            var shell = new Shell
+        protected override void OnExit(ExitEventArgs e)
+        {
+            base.OnExit(e);
+            foreach (var appBehaviorAttaching in _appBehaviorAttachings)
+            {
+                appBehaviorAttaching.Dispose();
+            }
+        }
+
+        protected override void RegisterTypes(IContainerRegistry containerRegistry)
+        {
+            containerRegistry.RegisterSingleton<ICalculator, BusinessLogic.Calculator>();
+            containerRegistry.RegisterInstance(typeof(IMessageBus), new MessageBus());
+            containerRegistry.RegisterSingleton<ShellViewModel>();
+            containerRegistry.RegisterSingleton<StandardCalculatorViewModel>();
+            containerRegistry.RegisterSingleton<NarrowCalculatorViewModel>();
+        }
+
+        protected override Window CreateShell()
+        {
+            return new Shell
             {
                 Title = "Calculator",
                 MinHeight = 100,
@@ -26,14 +58,9 @@ namespace Calculator.DesktopApplication
                 Width = 322,
                 Content = new ShellView
                 {
-                    DataContext = shellVM,
+                    DataContext = Container.Resolve<ShellViewModel>(),
                 },
             };
-
-            var windowSizeManager = new WindowSizeManager(shell, messageBus);
-            windowSizeManager.StartManaging();
-
-            shell.Show();
         }
     }
 }
