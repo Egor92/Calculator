@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
 
-namespace Calculator.Wpf.Common.Helpers
+namespace Calculator.Wpf.Common.Utils
 {
     //https://github.com/riverar/sample-win32-acrylicblur/blob/master/MainWindow.xaml.cs
     public static class WindowUtils

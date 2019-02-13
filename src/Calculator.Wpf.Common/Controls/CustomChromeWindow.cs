@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
-using Calculator.Wpf.Common.Helpers;
+using Calculator.Wpf.Common.Utils;
 
 namespace Calculator.Wpf.Common.Controls
 {

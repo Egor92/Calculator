@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using Calculator.Wpf.Common.Helpers;
+using Calculator.Wpf.Common.Utils;
 using Microsoft.Xaml.Behaviors;
 
 namespace Calculator.Wpf.Common.Behaviors

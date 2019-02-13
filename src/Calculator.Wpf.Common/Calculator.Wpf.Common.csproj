@@ -72,12 +72,14 @@
     <Compile Include="Behaviors\ManageContentBehavior.cs" />
     <Compile Include="Controls\RingPanel.cs" />
     <Compile Include="Controls\CustomChromeWindow.cs" />
-    <Compile Include="Helpers\SystemMenuUtils.cs" />
+    <Compile Include="Utils\SystemMenuUtils.cs" />
     <Compile Include="AttachedProperties\ShellTitleBarButtonProperties.cs" />
+    <Compile Include="Xaml\BehaviorHelper.cs" />
     <Compile Include="Xaml\CustomDataTemplateSelector.cs" />
     <Compile Include="Xaml\StyleInteraction.cs" />
-    <Compile Include="Helpers\WindowUtils.cs" />
+    <Compile Include="Utils\WindowUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Xaml\VisualTreeHelperExtended.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Controls\CustomChromeWindow.xaml">

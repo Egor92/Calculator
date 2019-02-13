@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace Calculator.Wpf.Common.Helpers
+namespace Calculator.Wpf.Common.Utils
 {
     internal static class SystemMenuUtils
     {

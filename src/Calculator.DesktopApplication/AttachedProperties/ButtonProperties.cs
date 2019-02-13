@@ -4,6 +4,8 @@ namespace Calculator.DesktopApplication.AttachedProperties
 {
     public static class ButtonProperties
     {
+        #region CornerRadius
+
         public static readonly DependencyProperty CornerRadiusProperty =
             DependencyProperty.RegisterAttached("CornerRadius", typeof(CornerRadius), typeof(ButtonProperties));
 
@@ -16,5 +18,7 @@ namespace Calculator.DesktopApplication.AttachedProperties
         {
             return (CornerRadius) element.GetValue(CornerRadiusProperty);
         }
+
+        #endregion
     }
 }
