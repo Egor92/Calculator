@@ -19,5 +19,12 @@ namespace Calculator.DesktopApplication.ViewModels
         public ICommand Command { get; set; }
 
         #endregion
+
+        #region Command
+
+        [Reactive]
+        public bool IsNumber { get; set; }
+
+        #endregion
     }
 }

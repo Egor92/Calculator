@@ -56,6 +56,7 @@ namespace Calculator.DesktopApplication.ViewModels
             return new ButtonViewModel
             {
                 Content = "0",
+                IsNumber = true,
                 Command = ReactiveCommand.Create(ApplyZero),
             };
 
@@ -81,6 +82,7 @@ namespace Calculator.DesktopApplication.ViewModels
             return new ButtonViewModel
             {
                 Content = "1",
+                IsNumber = true,
                 Command = ReactiveCommand.Create(ApplyOne),
             };
 
@@ -106,6 +108,7 @@ namespace Calculator.DesktopApplication.ViewModels
             return new ButtonViewModel
             {
                 Content = "2",
+                IsNumber = true,
                 Command = ReactiveCommand.Create(ApplyTwo),
             };
 
@@ -131,6 +134,7 @@ namespace Calculator.DesktopApplication.ViewModels
             return new ButtonViewModel
             {
                 Content = "3",
+                IsNumber = true,
                 Command = ReactiveCommand.Create(ApplyThree),
             };
 
@@ -156,6 +160,7 @@ namespace Calculator.DesktopApplication.ViewModels
             return new ButtonViewModel
             {
                 Content = "4",
+                IsNumber = true,
                 Command = ReactiveCommand.Create(ApplyFour),
             };
 
@@ -181,6 +186,7 @@ namespace Calculator.DesktopApplication.ViewModels
             return new ButtonViewModel
             {
                 Content = "5",
+                IsNumber = true,
                 Command = ReactiveCommand.Create(ApplyFive),
             };
 
@@ -206,6 +212,7 @@ namespace Calculator.DesktopApplication.ViewModels
             return new ButtonViewModel
             {
                 Content = "6",
+                IsNumber = true,
                 Command = ReactiveCommand.Create(ApplySix),
             };
 
@@ -231,6 +238,7 @@ namespace Calculator.DesktopApplication.ViewModels
             return new ButtonViewModel
             {
                 Content = "7",
+                IsNumber = true,
                 Command = ReactiveCommand.Create(ApplySeven),
             };
 
@@ -256,6 +264,7 @@ namespace Calculator.DesktopApplication.ViewModels
             return new ButtonViewModel
             {
                 Content = "8",
+                IsNumber = true,
                 Command = ReactiveCommand.Create(ApplyEight),
             };
 
@@ -281,6 +290,7 @@ namespace Calculator.DesktopApplication.ViewModels
             return new ButtonViewModel
             {
                 Content = "9",
+                IsNumber = true,
                 Command = ReactiveCommand.Create(ApplyNine),
             };
 

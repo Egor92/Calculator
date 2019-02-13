@@ -32,6 +32,7 @@
                                 <Button Width="100"
                                         Height="100"
                                         Padding="10"
+                                        FontSize="40"
                                         p:ButtonProperties.CornerRadius="50"
                                         Style="{StaticResource CalculatorButtonStyle}" />
                             </DataTemplate>

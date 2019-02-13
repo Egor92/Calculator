@@ -20,12 +20,17 @@
                             CornerRadius="{TemplateBinding p:ButtonProperties.CornerRadius}">
                         <ContentPresenter Margin="{TemplateBinding Padding}"
                                           HorizontalAlignment="Center"
-                                          VerticalAlignment="Center" />
+                                          VerticalAlignment="Center"
+                                          TextElement.FontSize="{TemplateBinding FontSize}" />
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
         <Style.Triggers>
+            <DataTrigger Binding="{Binding IsNumber, Mode=OneWay}"
+                         Value="True">
+                <Setter Property="Background" Value="#F7F7F7" />
+            </DataTrigger>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="#D4D4D4" />
             </Trigger>
