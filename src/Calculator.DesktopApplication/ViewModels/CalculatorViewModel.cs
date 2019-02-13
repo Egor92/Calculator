@@ -17,7 +17,7 @@ namespace Calculator.DesktopApplication.ViewModels
 
         #region Ctor
 
-        public CalculatorViewModel(ICalculator calculator)
+        protected CalculatorViewModel(ICalculator calculator)
         {
             _calculator = calculator;
             _disposables.Add(SubscribeToDisplayValueUpdating());

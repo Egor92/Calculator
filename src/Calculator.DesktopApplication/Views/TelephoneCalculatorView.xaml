@@ -3,11 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:controls="clr-namespace:Calculator.Wpf.Common.Controls;assembly=Calculator.Wpf.Common"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:design="clr-namespace:Calculator.DesktopApplication.Views.Design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:p="clr-namespace:Calculator.DesktopApplication.AttachedProperties"
              xmlns:vm="clr-namespace:Calculator.DesktopApplication.ViewModels"
              xmlns:xaml="clr-namespace:Calculator.Wpf.Common.Xaml;assembly=Calculator.Wpf.Common"
-             d:DataContext="{d:DesignInstance vm:TelephoneCalculatorViewModel}"
+             d:DataContext="{x:Static design:DesignViewModels.TelephoneCalculatorVM}"
              d:DesignHeight="600"
              d:DesignWidth="600"
              mc:Ignorable="d">
@@ -32,8 +33,8 @@
                                 <Button Width="100"
                                         Height="100"
                                         Padding="10"
-                                        FontSize="40"
                                         p:ButtonProperties.CornerRadius="50"
+                                        FontSize="40"
                                         Style="{StaticResource CalculatorButtonStyle}" />
                             </DataTemplate>
                         </xaml:CustomDataTemplateSelector.TemplatesByType>
@@ -41,10 +42,11 @@
                 </ItemsControl.ItemTemplateSelector>
             </ItemsControl>
 
-            <Grid Margin="120">
+            <Grid Width="360"
+                  Height="240">
                 <Grid.RowDefinitions>
                     <RowDefinition />
-                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
@@ -54,8 +56,44 @@
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
+                <Button Grid.Row="0"
+                        Grid.Column="0"
+                        Margin="5"
+                        Padding="10"
+                        p:ButtonProperties.CornerRadius="40,0,0,0"
+                        DataContext="{Binding AdditionButtonVM, Mode=OneWay}"
+                        FontSize="30"
+                        Style="{StaticResource CalculatorButtonStyle}" />
+
+                <Button Grid.Row="0"
+                        Grid.Column="1"
+                        Margin="5"
+                        Padding="10"
+                        DataContext="{Binding SubtractionButtonVM, Mode=OneWay}"
+                        FontSize="30"
+                        Style="{StaticResource CalculatorButtonStyle}" />
+
+                <Button Grid.Row="0"
+                        Grid.Column="2"
+                        Margin="5"
+                        Padding="10"
+                        DataContext="{Binding MultiplicationButtonVM, Mode=OneWay}"
+                        FontSize="30"
+                        Style="{StaticResource CalculatorButtonStyle}" />
+
+                <Button Grid.Row="0"
+                        Grid.Column="3"
+                        Margin="5"
+                        Padding="10"
+                        p:ButtonProperties.CornerRadius="0,40,0,0"
+                        DataContext="{Binding DivisionButtonVM, Mode=OneWay}"
+                        FontSize="30"
+                        Style="{StaticResource CalculatorButtonStyle}" />
+
                 <TextBlock Grid.Row="1"
+                           Grid.Column="0"
                            Grid.ColumnSpan="4"
+                           Margin="5"
                            Padding="15,5"
                            HorizontalAlignment="Stretch"
                            VerticalAlignment="Center"
@@ -64,6 +102,40 @@
                            FontWeight="Bold"
                            Text="{Binding DisplayValue, Mode=OneWay}"
                            TextAlignment="Center" />
+
+                <Button Grid.Row="2"
+                        Grid.Column="0"
+                        Margin="5"
+                        Padding="10"
+                        p:ButtonProperties.CornerRadius="0,0,0,40"
+                        DataContext="{Binding NegationButtonVM, Mode=OneWay}"
+                        FontSize="30"
+                        Style="{StaticResource CalculatorButtonStyle}" />
+
+                <Button Grid.Row="2"
+                        Grid.Column="1"
+                        Margin="5"
+                        Padding="10"
+                        DataContext="{Binding CommaButtonVM, Mode=OneWay}"
+                        FontSize="30"
+                        Style="{StaticResource CalculatorButtonStyle}" />
+
+                <Button Grid.Row="2"
+                        Grid.Column="2"
+                        Margin="5"
+                        Padding="10"
+                        DataContext="{Binding EqualityButtonVM, Mode=OneWay}"
+                        FontSize="30"
+                        Style="{StaticResource CalculatorButtonStyle}" />
+
+                <Button Grid.Row="2"
+                        Grid.Column="3"
+                        Margin="5"
+                        Padding="10"
+                        p:ButtonProperties.CornerRadius="0,0,40,0"
+                        DataContext="{Binding CancelButtonVM, Mode=OneWay}"
+                        FontSize="30"
+                        Style="{StaticResource CalculatorButtonStyle}" />
 
             </Grid>
         </Grid>
