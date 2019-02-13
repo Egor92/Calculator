@@ -4,7 +4,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Controls/Shell.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Calculator.Wpf.Common;component/Controls/Shell.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

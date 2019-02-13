@@ -3,9 +3,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
-using Calculator.DesktopApplication.Helpers;
+using Calculator.Wpf.Common.Helpers;
 
-namespace Calculator.DesktopApplication.Controls
+namespace Calculator.Wpf.Common.Controls
 {
     //https://www.source-weave.com/blog/custom-wpf-window
     //https://habr.com/ru/post/158561/

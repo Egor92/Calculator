@@ -1,4 +1,4 @@
-﻿namespace Calculator.DesktopApplication.Behaviors
+﻿namespace Calculator.Wpf.Common.Behaviors
 {
     public interface ICase<in TArg, out TResult>
     {

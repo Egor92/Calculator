@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace Calculator.DesktopApplication.Helpers
+namespace Calculator.Wpf.Common.Helpers
 {
     internal static class NativeUtils
     {

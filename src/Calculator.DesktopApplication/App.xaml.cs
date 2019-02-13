@@ -1,8 +1,8 @@
 ﻿using System.Windows;
 using Calculator.DesktopApplication.AppBehaviors;
-using Calculator.DesktopApplication.Controls;
 using Calculator.DesktopApplication.ViewModels;
 using Calculator.DesktopApplication.Views;
+using Calculator.Wpf.Common.Controls;
 using ReactiveUI;
 
 namespace Calculator.DesktopApplication
@@ -31,11 +31,9 @@ namespace Calculator.DesktopApplication
             };
 
             var windowSizeManager = new WindowSizeManager(shell, messageBus);
-            var windowSizeManaging = windowSizeManager.StartManaging();
+            windowSizeManager.StartManaging();
 
-            shell.ShowDialog();
-
-            windowSizeManaging.Dispose();
+            shell.Show();
         }
     }
 }

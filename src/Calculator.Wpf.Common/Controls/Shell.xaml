@@ -1,8 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:fa="http://schemas.fontawesome.io/icons/"
-                    xmlns:helpers="clr-namespace:Calculator.DesktopApplication.Helpers"
-                    xmlns:local="clr-namespace:Calculator.DesktopApplication.Controls">
+                    xmlns:helpers="clr-namespace:Calculator.Wpf.Common.Helpers"
+                    xmlns:local="clr-namespace:Calculator.Wpf.Common.Controls">
 
     <Style x:Key="WindowButtonStyle"
            TargetType="{x:Type Button}">

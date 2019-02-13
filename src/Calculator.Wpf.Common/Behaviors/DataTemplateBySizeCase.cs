@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Markup;
 
-namespace Calculator.DesktopApplication.Behaviors
+namespace Calculator.Wpf.Common.Behaviors
 {
     [ContentProperty(nameof(Result))]
     public class DataTemplateBySizeCase : ICase<Size, DataTemplate>

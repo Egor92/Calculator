@@ -5,7 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Markup;
 using Microsoft.Xaml.Behaviors;
 
-namespace Calculator.DesktopApplication.Behaviors
+namespace Calculator.Wpf.Common.Behaviors
 {
     [ContentProperty(nameof(ContentTemplateCases))]
     public class ManageContentBehavior : Behavior<ContentControl>
