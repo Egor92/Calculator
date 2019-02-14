@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows;
 using Calculator.DesktopApplication.Constants;
-using Calculator.DesktopApplication.Controls;
 using Calculator.Wpf.Common.AppBehaviors;
 using ReactiveUI;
 
@@ -9,12 +8,12 @@ namespace Calculator.DesktopApplication.AppBehaviors
 {
     public sealed class WindowSizeManager : IAppBehavior
     {
-        private readonly Shell _shell;
+        private readonly Window _window;
         private readonly IMessageBus _messageBus;
 
-        public WindowSizeManager(Shell shell, IMessageBus messageBus)
+        public WindowSizeManager(Window window, IMessageBus messageBus)
         {
-            _shell = shell;
+            _window = window;
             _messageBus = messageBus;
         }
 
@@ -25,8 +24,8 @@ namespace Calculator.DesktopApplication.AppBehaviors
 
             void OnSizeChangingRequested(Size size)
             {
-                _shell.Height = size.Height;
-                _shell.Width = size.Width;
+                _window.Height = size.Height;
+                _window.Width = size.Width;
             }
         }
     }

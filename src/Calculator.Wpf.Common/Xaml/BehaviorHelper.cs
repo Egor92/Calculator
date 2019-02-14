@@ -6,7 +6,7 @@ namespace Calculator.Wpf.Common.Xaml
 {
     public static class BehaviorHelper
     {
-        public static IDisposable InvokeWhenIsLoaded(FrameworkElement element, Action action)
+        public static IDisposable InvokeWhenWillBeLoaded(FrameworkElement element, Action action)
         {
             if (element == null)
                 throw new ArgumentNullException(nameof(element));

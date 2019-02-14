@@ -1,7 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:behaviors="clr-namespace:Calculator.Wpf.Common.Behaviors;assembly=Calculator.Wpf.Common"
-                    xmlns:behaviors1="clr-namespace:Calculator.DesktopApplication.Behaviors"
                     xmlns:controls="clr-namespace:Calculator.Wpf.Common.Controls;assembly=Calculator.Wpf.Common"
                     xmlns:local="clr-namespace:Calculator.DesktopApplication.Controls"
                     xmlns:xaml="clr-namespace:Calculator.Wpf.Common.Xaml;assembly=Calculator.Wpf.Common">
@@ -9,7 +8,6 @@
     <Style x:Key="{x:Type local:Shell}"
            BasedOn="{StaticResource {x:Type controls:CustomChromeWindow}}"
            TargetType="{x:Type local:Shell}">
-        <Setter Property="Background" Value="#E1E1E1" />
         <Setter Property="BorderBrush" Value="DarkGray" />
         <Setter Property="Title" Value="Calculator" />
         <Setter Property="MinHeight" Value="250" />
@@ -19,7 +17,7 @@
         <Setter Property="xaml:StyleInteraction.Behaviors">
             <Setter.Value>
                 <xaml:BehaviorCollection>
-                    <behaviors:EnableGlassEffectBehavior />
+                    <behaviors:EnableGlassEffectBehavior Background="#E1E1E1" />
                 </xaml:BehaviorCollection>
             </Setter.Value>
         </Setter>

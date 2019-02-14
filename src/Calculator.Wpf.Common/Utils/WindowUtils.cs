@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using System.Windows;
 using System.Windows.Interop;
 
 namespace Calculator.Wpf.Common.Utils
@@ -43,25 +42,54 @@ namespace Calculator.Wpf.Common.Utils
         }
 
         [DllImport("user32.dll")]
-        internal static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
+        private static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
 
-        public static void EnableBlur(Window window)
+        public static void EnableBlur(WindowInteropHelper windowHelper, byte a, byte r, byte g, byte b)
         {
-            var windowHelper = new WindowInteropHelper(window);
-
-            var accent = new AccentPolicy();
-            accent.AccentState = AccentState.ACCENT_ENABLE_ACRYLICBLURBEHIND;
-            accent.GradientColor = (50 << 24) | (0x990000 & 0xFFFFFF);
+            uint color = (uint) (r + g * 256 + b * 256 * 256);
+            var accent = new AccentPolicy
+            {
+                AccentState = AccentState.ACCENT_ENABLE_ACRYLICBLURBEHIND,
+                GradientColor = ((uint)a << 24) | (color & 0xFFFFFF)
+            };
 
             var accentStructSize = Marshal.SizeOf(accent);
 
             var accentPtr = Marshal.AllocHGlobal(accentStructSize);
             Marshal.StructureToPtr(accent, accentPtr, false);
 
-            var data = new WindowCompositionAttributeData();
-            data.Attribute = WindowCompositionAttribute.WCA_ACCENT_POLICY;
-            data.SizeOfData = accentStructSize;
-            data.Data = accentPtr;
+            var data = new WindowCompositionAttributeData
+            {
+                Attribute = WindowCompositionAttribute.WCA_ACCENT_POLICY,
+                SizeOfData = accentStructSize,
+                Data = accentPtr
+            };
+
+            SetWindowCompositionAttribute(windowHelper.Handle, ref data);
+
+            Marshal.FreeHGlobal(accentPtr);
+        }
+
+        public static void DisableBlur(WindowInteropHelper windowHelper)
+        {
+            //uint color = (uint) (r + g * 256 + b * 256 * 256);
+            var accent = new AccentPolicy
+            {
+                AccentState = AccentState.ACCENT_DISABLED,
+                //GradientColor = ((uint)a << 24) | (color & 0xFFFFFF)
+            };
+
+            var accentStructSize = Marshal.SizeOf(accent);
+
+            var accentPtr = Marshal.AllocHGlobal(accentStructSize);
+            Marshal.StructureToPtr(accent, accentPtr, false);
+
+            var data = new WindowCompositionAttributeData
+            {
+                Attribute = WindowCompositionAttribute.WCA_ACCENT_POLICY,
+                SizeOfData = accentStructSize,
+                Data = accentPtr
+            };
 
             SetWindowCompositionAttribute(windowHelper.Handle, ref data);
 
