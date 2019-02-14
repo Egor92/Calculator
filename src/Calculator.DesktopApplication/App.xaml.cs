@@ -19,6 +19,7 @@ namespace Calculator.DesktopApplication
         private readonly Func<IContainerProvider, IAppBehavior>[] _appBehaviorFuncs =
         {
             container => container.Resolve<WindowSizeManager>(),
+            container => container.Resolve<ApplyKeyboardActionsToCalculatorAppBehavior>(),
         };
 
         protected override void OnStartup(StartupEventArgs e)

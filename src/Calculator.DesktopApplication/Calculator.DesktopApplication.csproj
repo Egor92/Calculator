@@ -118,6 +118,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="AppBehaviors\ApplyKeyboardActionsToCalculatorAppBehavior.cs" />
     <Compile Include="AppBehaviors\WindowSizeManager.cs" />
     <Compile Include="AttachedProperties\ButtonProperties.cs" />
     <Compile Include="Behaviors\SetBorderHighlightingBehavior.cs" />
