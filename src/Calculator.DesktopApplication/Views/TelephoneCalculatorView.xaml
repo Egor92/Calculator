@@ -101,18 +101,23 @@
                         FontSize="30"
                         Style="{StaticResource CalculatorButtonStyle}" />
 
-                <TextBlock Grid.Row="1"
-                           Grid.Column="0"
-                           Grid.ColumnSpan="4"
-                           Margin="5"
-                           Padding="15,5"
-                           HorizontalAlignment="Stretch"
-                           VerticalAlignment="Center"
-                           Background="White"
-                           FontSize="50"
-                           FontWeight="Bold"
-                           Text="{Binding DisplayValue, Mode=OneWay}"
-                           TextAlignment="Center" />
+                <Border Grid.Row="1"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="4"
+                        Margin="5"
+                        Padding="15,5"
+                        Background="White">
+                    <Viewbox Height="60"
+                             Margin="5,2"
+                             HorizontalAlignment="Right">
+                        <TextBlock VerticalAlignment="Center"
+                                   Background="Transparent"
+                                   FontSize="50"
+                                   FontWeight="Bold"
+                                   Text="{Binding DisplayValue, Mode=OneWay}"
+                                   TextAlignment="Right" />
+                    </Viewbox>
+                </Border>
 
                 <Button Grid.Row="2"
                         Grid.Column="0"

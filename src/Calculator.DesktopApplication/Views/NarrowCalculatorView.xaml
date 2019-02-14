@@ -15,14 +15,16 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.ColumnSpan="4"
-                   Margin="5,2"
-                   VerticalAlignment="Center"
-                   Background="Transparent"
-                   FontSize="46"
-                   FontWeight="Bold"
-                   Text="{Binding DisplayValue, Mode=OneWay}"
-                   TextAlignment="Right" />
+        <Viewbox Height="60"
+                 Margin="5,2"
+                 HorizontalAlignment="Right">
+            <TextBlock VerticalAlignment="Center"
+                       Background="Transparent"
+                       FontSize="46"
+                       FontWeight="Bold"
+                       Text="{Binding DisplayValue, Mode=OneWay}"
+                       TextAlignment="Right" />
+        </Viewbox>
 
         <ItemsControl Grid.Row="1"
                       Margin="1"
