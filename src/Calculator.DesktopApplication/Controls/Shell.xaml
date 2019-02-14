@@ -8,6 +8,7 @@
     <Style x:Key="{x:Type local:Shell}"
            BasedOn="{StaticResource {x:Type controls:CustomChromeWindow}}"
            TargetType="{x:Type local:Shell}">
+        <Setter Property="Background" Value="#E1E1E1" />
         <Setter Property="BorderBrush" Value="DarkGray" />
         <Setter Property="Title" Value="Calculator" />
         <Setter Property="MinHeight" Value="250" />
@@ -17,7 +18,7 @@
         <Setter Property="xaml:StyleInteraction.Behaviors">
             <Setter.Value>
                 <xaml:BehaviorCollection>
-                    <behaviors:EnableGlassEffectBehavior Background="#E1E1E1" />
+                    <behaviors:EnableGlassEffectBehavior Background="#B9E1E1E1" />
                 </xaml:BehaviorCollection>
             </Setter.Value>
         </Setter>

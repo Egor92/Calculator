@@ -10,6 +10,7 @@
         <Setter Property="Content" Value="{Binding Content, Mode=OneWay}" />
         <Setter Property="Background" Value="#EDEDED" />
         <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="1" />
         <Setter Property="p:ButtonProperties.CornerRadius" Value="0" />
         <Setter Property="FontSize" Value="26" />
         <Setter Property="Margin" Value="1" />

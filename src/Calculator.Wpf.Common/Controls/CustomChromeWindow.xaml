@@ -44,7 +44,7 @@
     <Style x:Key="{x:Type local:CustomChromeWindow}"
            TargetType="{x:Type local:CustomChromeWindow}">
         <Setter Property="WindowStyle" Value="None" />
-        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Background" Value="White" />
         <Setter Property="BorderBrush" Value="Black" />
         <Setter Property="AllowsTransparency" Value="True" />
         <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />

@@ -28,12 +28,21 @@
 
         <StackPanel Margin="2"
                     Orientation="Horizontal">
-            <Button Command="{Binding ChooseView1Command, Mode=OneWay}"
-                    Content="View 508x322" />
-            <Button Command="{Binding ChooseView2Command, Mode=OneWay}"
-                    Content="View 300x500" />
-            <Button Command="{Binding ChooseView3Command, Mode=OneWay}"
-                    Content="View 600x600" />
+            <Button Padding="20,5"
+                    Command="{Binding ChooseView1Command, Mode=OneWay}"
+                    Content="Standard"
+                    FontSize="14"
+                    Style="{StaticResource CalculatorButtonStyle}" />
+            <Button Padding="20,5"
+                    Command="{Binding ChooseView2Command, Mode=OneWay}"
+                    Content="Narrow"
+                    FontSize="14"
+                    Style="{StaticResource CalculatorButtonStyle}" />
+            <Button Padding="20,5"
+                    Command="{Binding ChooseView3Command, Mode=OneWay}"
+                    Content="Telephone"
+                    FontSize="14"
+                    Style="{StaticResource CalculatorButtonStyle}" />
         </StackPanel>
 
         <ContentControl Grid.Row="1">
