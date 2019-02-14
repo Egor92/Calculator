@@ -12,11 +12,12 @@ namespace Calculator.BusinessLogic
                 throw new ArgumentNullException(nameof(displayValue));
             }
 
-            var match = Regex.Match(displayValue, @"(-?)(\d+)(,?)(\d*)");
+            var match = Regex.Match(displayValue, @"(-?)(\d+)(,?)(\d*)(E\+(\d+))?");
             bool isNegative = GetValue(match, 1) == "-";
             string integerPart = GetValue(match, 2);
             bool hasComma = GetValue(match, 3) == ",";
             string fractionalPart = GetValue(match, 4);
+            string exponent = GetValue(match, 6);
 
             return new DisplayNumber
             {
@@ -24,13 +25,8 @@ namespace Calculator.BusinessLogic
                 IntegerPart = integerPart,
                 HasComma = hasComma,
                 FractionalPart = fractionalPart,
+                Exponent = exponent,
             };
-        }
-
-        internal static DisplayNumber Create(double value)
-        {
-            var displayValue = value.ToString();
-            return Create(displayValue);
         }
 
         private static string GetValue(Match match, int index)

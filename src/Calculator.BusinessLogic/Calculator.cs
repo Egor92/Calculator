@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
+using Calculator.BusinessLogic.Constants;
 using Calculator.BusinessLogic.Operations;
 using Calculator.BusinessLogic.Operations.Binary;
 using Calculator.BusinessLogic.Operations.Unary;
@@ -164,6 +165,7 @@ namespace Calculator.BusinessLogic
 
             if (_isLastActionAnBinaryOperation)
             {
+                _displayNumber.Reset();
                 _displayNumber.IntegerPart = string.Empty;
             }
 
@@ -308,6 +310,10 @@ namespace Calculator.BusinessLogic
                 }
 
                 _selectedBinaryOperation = null;
+            }
+            catch
+            {
+                DisplayValue = ErrorMessages.OperationFailed;
             }
             finally
             {

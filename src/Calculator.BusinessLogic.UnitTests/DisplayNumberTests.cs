@@ -6,15 +6,17 @@ namespace Calculator.BusinessLogic.UnitTests
     public class DisplayNumberTests
     {
         [Test]
-        [TestCase(false, "123", false, null, ExpectedResult = "123")]
-        [TestCase(false, "123", true, null, ExpectedResult = "123,")]
-        [TestCase(false, "123", false, "456", ExpectedResult = "123")]
-        [TestCase(false, "123", true, "456", ExpectedResult = "123,456")]
-        [TestCase(true, "123", false, null, ExpectedResult = "-123")]
-        [TestCase(true, "123", true, null, ExpectedResult = "-123,")]
-        [TestCase(true, "123", false, "456", ExpectedResult = "-123")]
-        [TestCase(true, "123", true, "456", ExpectedResult = "-123,456")]
-        public string TestToString(bool isNegative, string integerPart, bool hasComma, string fractionalPart)
+        [TestCase(false, "123", false, null, null, ExpectedResult = "123")]
+        [TestCase(false, "123", true, null, null, ExpectedResult = "123,")]
+        [TestCase(false, "123", false, "456", null, ExpectedResult = "123")]
+        [TestCase(false, "123", true, "456", null, ExpectedResult = "123,456")]
+        [TestCase(true, "123", false, null, null, ExpectedResult = "-123")]
+        [TestCase(true, "123", true, null, null, ExpectedResult = "-123,")]
+        [TestCase(true, "123", false, "456", null, ExpectedResult = "-123")]
+        [TestCase(true, "123", true, "456", null, ExpectedResult = "-123,456")]
+        [TestCase(true, "1", false, "", "3", ExpectedResult = "-1E+3")]
+        [TestCase(true, "1", true, "23456789", "5", ExpectedResult = "-1,23456789E+5")]
+        public string TestToString(bool isNegative, string integerPart, bool hasComma, string fractionalPart, string exponent)
         {
             //Arrange
             var displayNumber = new DisplayNumber
@@ -23,6 +25,7 @@ namespace Calculator.BusinessLogic.UnitTests
                 IntegerPart = integerPart,
                 HasComma = hasComma,
                 FractionalPart = fractionalPart,
+                Exponent = exponent,
             };
 
             //Act
@@ -33,15 +36,17 @@ namespace Calculator.BusinessLogic.UnitTests
         }
 
         [Test]
-        [TestCase(false, "123", false, null, ExpectedResult = 123)]
-        [TestCase(false, "123", true, null, ExpectedResult = 123)]
-        [TestCase(false, "123", false, "456", ExpectedResult = 123)]
-        [TestCase(false, "123", true, "456", ExpectedResult = 123.456)]
-        [TestCase(true, "123", false, null, ExpectedResult = -123)]
-        [TestCase(true, "123", true, null, ExpectedResult = -123)]
-        [TestCase(true, "123", false, "456", ExpectedResult = -123)]
-        [TestCase(true, "123", true, "456", ExpectedResult = -123.456)]
-        public double TestToDouble(bool isNegative, string integerPart, bool hasComma, string fractionalPart)
+        [TestCase(false, "123", false, null, null, ExpectedResult = 123)]
+        [TestCase(false, "123", true, null, null, ExpectedResult = 123)]
+        [TestCase(false, "123", false, "456", null, ExpectedResult = 123)]
+        [TestCase(false, "123", true, "456", null, ExpectedResult = 123.456)]
+        [TestCase(true, "123", false, null, null, ExpectedResult = -123)]
+        [TestCase(true, "123", true, null, null, ExpectedResult = -123)]
+        [TestCase(true, "123", false, "456", null, ExpectedResult = -123)]
+        [TestCase(true, "123", true, "456", null, ExpectedResult = -123.456)]
+        [TestCase(true, "1", false, "", "3", ExpectedResult = -1000)]
+        [TestCase(true, "1", true, "23456789", "5", ExpectedResult = -123456.789)]
+        public double TestToDouble(bool isNegative, string integerPart, bool hasComma, string fractionalPart, string exponent)
         {
             //Arrange
             var displayNumber = new DisplayNumber
@@ -50,6 +55,7 @@ namespace Calculator.BusinessLogic.UnitTests
                 IntegerPart = integerPart,
                 HasComma = hasComma,
                 FractionalPart = fractionalPart,
+                Exponent = exponent,
             };
 
             //Act

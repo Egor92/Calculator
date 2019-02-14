@@ -6,5 +6,6 @@
         internal const string IntegerPart = "0";
         internal const bool HasComma = false;
         internal const string FractionalPart = "";
+        internal const string Exponent = "";
     }
 }

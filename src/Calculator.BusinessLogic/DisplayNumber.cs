@@ -18,6 +18,8 @@ namespace Calculator.BusinessLogic
 
         public string FractionalPart { get; set; }
 
+        public string Exponent { get; set; }
+
         public bool IsDefault()
         {
             return IsNegative == DisplayNumberDefaults.IsNegative
@@ -41,6 +43,12 @@ namespace Calculator.BusinessLogic
                 stringBuilder.Append(FractionalPart);
             }
 
+            if (!string.IsNullOrEmpty(Exponent))
+            {
+                stringBuilder.Append("E+");
+                stringBuilder.Append(Exponent);
+            }
+
             return stringBuilder.ToString();
         }
 
@@ -56,6 +64,7 @@ namespace Calculator.BusinessLogic
             IntegerPart = DisplayNumberDefaults.IntegerPart;
             HasComma = DisplayNumberDefaults.HasComma;
             FractionalPart = DisplayNumberDefaults.FractionalPart;
+            Exponent = DisplayNumberDefaults.Exponent;
         }
     }
 

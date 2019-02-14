@@ -1007,6 +1007,8 @@ namespace Calculator.BusinessLogic.UnitTests
             Assert.That(calculator.DisplayValue, Is.EqualTo("10"));
         }
 
+        #endregion
+
         #region ApplyPercent
 
         [Test]
@@ -1300,7 +1302,23 @@ namespace Calculator.BusinessLogic.UnitTests
             Assert.That(calculator.DisplayValue, Is.EqualTo("5"));
         }
 
-        #endregion
+        [Test]
+        public void WhenApplyOperationAfterNegativeNumberAndTypeAnotherNumber_ThenTheLastNumberShouldBeTheTypedNumber()
+        {
+            //Arrange
+            var calculator = new Calculator();
+
+            //Act
+            calculator.ApplySeven();
+            calculator.ApplyNegation();
+            calculator.ApplyMultiplication();
+            calculator.ApplyThree();
+            calculator.ApplyComma();
+            calculator.ApplyFour();
+
+            //Assert
+            Assert.That(calculator.DisplayValue, Is.EqualTo("3,4"));
+        }
 
         #endregion
     }
