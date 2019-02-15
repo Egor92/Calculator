@@ -57,6 +57,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionType.cs" />
     <Compile Include="Operations\Binary\BinaryOperationInfo.cs" />
     <Compile Include="Constants\ErrorMessages.cs" />
     <Compile Include="Operations\Binary\Percent.cs" />

@@ -1320,6 +1320,29 @@ namespace Calculator.BusinessLogic.UnitTests
             Assert.That(calculator.DisplayValue, Is.EqualTo("3,4"));
         }
 
+        [Test]
+        public void WhenApplyEqualityAndStartTypingNewExpression_ThenTheNewExpressionIsCalculatedOnly()
+        {
+            //Arrange
+            var calculator = new Calculator();
+
+            //Act & Assert
+            calculator.ApplyTwo();
+            calculator.ApplyAddition();
+            calculator.ApplyThree();
+            calculator.ApplyEquality();
+
+            calculator.ApplyFour();
+            calculator.ApplyMultiplication();
+
+            Assert.That(calculator.DisplayValue, Is.EqualTo("4"));
+
+            calculator.ApplyFive();
+            calculator.ApplyEquality();
+
+            Assert.That(calculator.DisplayValue, Is.EqualTo("20"));
+        }
+
         #endregion
     }
 }
