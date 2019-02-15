@@ -24,6 +24,7 @@ namespace Calculator.DesktopApplication.AppBehaviors
 
             void OnSizeChangingRequested(Size size)
             {
+                _window.WindowState = WindowState.Normal;
                 _window.Height = size.Height;
                 _window.Width = size.Width;
             }

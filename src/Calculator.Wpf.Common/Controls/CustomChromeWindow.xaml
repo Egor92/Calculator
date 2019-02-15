@@ -2,7 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:fa="http://schemas.fontawesome.io/icons/"
                     xmlns:local="clr-namespace:Calculator.Wpf.Common.Controls"
-                    xmlns:p="clr-namespace:Calculator.Wpf.Common.AttachedProperties">
+                    xmlns:p="clr-namespace:Calculator.Wpf.Common.AttachedProperties"
+                    xmlns:xaml="clr-namespace:Calculator.Wpf.Common.Xaml"
+                    xmlns:behaviors="clr-namespace:Calculator.Wpf.Common.Behaviors">
 
     <Style x:Key="WindowButtonStyle"
            TargetType="{x:Type Button}">
@@ -55,6 +57,13 @@
                               GlassFrameThickness="0"
                               NonClientFrameEdges="None"
                               ResizeBorderThickness="5" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="xaml:StyleInteraction.Behaviors">
+            <Setter.Value>
+                <xaml:BehaviorCollection>
+                    <behaviors:DontCoverTaskbarBehavior />
+                </xaml:BehaviorCollection>
             </Setter.Value>
         </Setter>
         <Setter Property="Template">

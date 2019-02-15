@@ -19,6 +19,7 @@
             <Setter.Value>
                 <xaml:BehaviorCollection>
                     <behaviors:EnableGlassEffectBehavior Background="#B9E1E1E1" />
+                    <behaviors:DontCoverTaskbarBehavior />
                 </xaml:BehaviorCollection>
             </Setter.Value>
         </Setter>
