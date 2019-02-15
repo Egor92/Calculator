@@ -25,7 +25,8 @@ namespace Calculator.BusinessLogic
             return IsNegative == DisplayNumberDefaults.IsNegative
                 && IntegerPart == DisplayNumberDefaults.IntegerPart
                 && HasComma == DisplayNumberDefaults.HasComma
-                && FractionalPart == DisplayNumberDefaults.FractionalPart;
+                && FractionalPart == DisplayNumberDefaults.FractionalPart
+                && Exponent == DisplayNumberDefaults.Exponent;
         }
 
         public override string ToString()
@@ -45,7 +46,7 @@ namespace Calculator.BusinessLogic
 
             if (!string.IsNullOrEmpty(Exponent))
             {
-                stringBuilder.Append("E+");
+                stringBuilder.Append("E");
                 stringBuilder.Append(Exponent);
             }
 

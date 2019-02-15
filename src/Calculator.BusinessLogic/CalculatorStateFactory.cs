@@ -12,7 +12,7 @@ namespace Calculator.BusinessLogic
                 throw new ArgumentNullException(nameof(displayValue));
             }
 
-            var match = Regex.Match(displayValue, @"(-?)(\d+)(,?)(\d*)(E\+(\d+))?");
+            var match = Regex.Match(displayValue, @"(-?)(\d+)(,?)(\d*)(E([\+\-]\d+))?");
             bool isNegative = GetValue(match, 1) == "-";
             string integerPart = GetValue(match, 2);
             bool hasComma = GetValue(match, 3) == ",";
